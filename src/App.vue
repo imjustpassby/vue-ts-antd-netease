@@ -17,8 +17,10 @@ export default {
     return {
       zh_CN
     };
+  },
+  mounted() {
+    document.getElementById('app').style.display = 'block';
+    document.getElementById('appLoading').style.display = 'none';
   }
 };
 </script>
-
-<style lang="less"></style>

@@ -28,11 +28,28 @@
         </a-col>
 
         <a-col :span="8">
-          <div>
-            <button class="login-btn" @click="showLoginForm">
-              登录
-            </button>
-          </div>
+          <ul v-if="!loginSuccess" class="flex--start--center">
+            <li>
+              <button class="login-btn" @click="showLoginForm">
+                登录
+              </button>
+            </li>
+          </ul>
+          <ul v-else class="flex--start--center">
+            <li>
+              <button class="login-btn" @click="logout">登出</button>
+            </li>
+            <li>
+              <button class="login-btn" @click="goMyMusic">nickname</button>
+            </li>
+            <li>
+              <img
+                class="avatar"
+                src="https://qn.antdv.com/vue.png"
+                alt="avatar"
+              />
+            </li>
+          </ul>
         </a-col>
       </a-row>
 
@@ -53,7 +70,11 @@
         </a-col>
       </a-row>
 
-      <login-form v-if="loginShow" @cancelLogin="cancelLogin"></login-form>
+      <login-form
+        v-if="loginShow"
+        @cancelLogin="cancelLogin"
+        @loginSucceed="loginSucceed"
+      ></login-form>
     </a-row>
   </div>
 </template>
@@ -112,6 +133,7 @@ export default class Layout extends Vue {
     }
   ];
   loginShow = false;
+  loginSuccess = false;
   checkedTopLink = '0';
   checkedSubLink = '0';
 
@@ -177,6 +199,11 @@ export default class Layout extends Vue {
   }
 
   cancelLogin() {
+    this.loginShow = false;
+  }
+
+  loginSucceed() {
+    this.loginSuccess = true;
     this.loginShow = false;
   }
 }
@@ -281,6 +308,20 @@ export default class Layout extends Vue {
       #ff7e5f
     ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     border-radius: 20px;
+  }
+}
+.flex--start--center {
+  .avatar {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+  }
+  ul {
+    li {
+      font-size: 14px;
+      line-height: 70px;
+    }
   }
 }
 </style>

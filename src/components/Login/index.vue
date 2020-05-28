@@ -65,6 +65,10 @@
 
 <script lang="ts">
 import { Component, Emit, Vue } from 'vue-property-decorator';
+interface IUserInfo {
+  phone: string;
+  password: string;
+}
 @Component({
   components: {}
 })
@@ -108,7 +112,20 @@ export default class extends Vue {
     this.modalShow = false;
   }
 
-  private login() {}
+  @Emit('loginSucceed')
+  private login() {
+    const userInfo: IUserInfo = {
+      phone: this.form
+        .getFieldValue('phone')
+        .toString()
+        .trim(),
+      password: this.form
+        .getFieldValue('password')
+        .toString()
+        .trim()
+    };
+    console.log(userInfo.phone, userInfo.password);
+  }
 }
 </script>
 <style lang="scss" scoped></style>
