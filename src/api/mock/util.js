@@ -24,13 +24,13 @@ export default class Util {
   static request({
     uri,
     method = 'get',
-    response = data => this.responseOk(data),
+    response = data => this.responseOk(data)
   } = {}) {
     if (uri) {
       return {
         uri,
         method,
-        response,
+        response
       };
     }
     return undefined;
@@ -74,7 +74,7 @@ export default class Util {
     return {
       statusCode,
       message,
-      data,
+      data
     };
   }
 
@@ -104,7 +104,7 @@ export default class Util {
       pageNo: pageNo,
       pageSize: pageSize,
       size: listSize,
-      [`list|${listSize}`]: [listItem],
+      [`list|${listSize}`]: [listItem]
     });
   }
 
@@ -118,7 +118,7 @@ export default class Util {
     return this.response({
       statusCode: 500,
       message,
-      data,
+      data
     });
   }
 }

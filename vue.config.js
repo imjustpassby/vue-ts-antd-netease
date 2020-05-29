@@ -35,7 +35,7 @@ const mockServerContext = process.env.VUE_APP_MOCK_CONTEXT;
 const mockProxy = {
   /**
    * dev-api/login => mock/login
-   * 本对象是express的代理插件http-proxy-middlewaredre
+   * 本对象是express的代理插件http-proxy-middleware
    * (https://github.com/chimurai/http-proxy-middleware)
    * 当方法是POST时，数据无法从原始请求传到代理请求，见下帖
    * https://github.com/chimurai/http-proxy-middleware/issues/40
@@ -66,10 +66,9 @@ const mockProxy = {
  * 普通代理模式
  */
 const devProxy = {
-  [process.env.VUE_APP_BASE_API]: {
+  '/api': {
     target: process.env.VUE_APP_PROXY_TARGET, // 代理的 API 地址
     changeOrigin: true, // 将主机标头的原点更改为目标URL
-    pathRewrite: { [`^${process.env.VUE_APP_BASE_API}`]: '' },
     secure: false
   }
 };
@@ -84,10 +83,12 @@ module.exports = {
   //代理
   devServer: {
     port: port,
-    proxy: enableMockServer ? mockProxy : devProxy,
-    before: enableMockServer
-      ? require('./src/api/mock/mock-server.js')
-      : undefined
+    proxy: {
+      '/api': {
+        target: 'https://ipassby.cloud',
+        changeOrigin: true
+      }
+    }
   },
 
   css: {
@@ -139,13 +140,8 @@ module.exports = {
           }
         ]
       },
-      resolve: {
-        alias: {
-          '@ant-design/icons/lib/dist$': path.resolve(
-            __dirname,
-            './src/plugins/antd-icon.ts'
-          )
-        }
+      externals: {
+        'ant-design-vue': 'antd'
       },
       devtool: !isProduction ? 'cheap-source-map' : false,
       performance: {

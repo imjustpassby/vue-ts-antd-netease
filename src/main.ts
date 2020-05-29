@@ -1,12 +1,15 @@
 import './assets/less/ant-theme.less'; // ant design 全局样式
 import './assets/less/global.less'; // 自定义的全局样式
-import './plugins/antd'; // 全局注册 ant design 的组件
+// import './plugins/antd'; // 全局注册 ant design 的组件
+import 'ant-design-vue/dist/antd.less';
+import 'ant-design-vue/dist/antd.less';
+import Antd from 'ant-design-vue/es';
+Vue.use(Antd);
 import App from './App.vue';
 import router from './router';
+import Rules from '@/utils/Rules';
 import store from './store';
 import Vue from 'vue';
-
-import Rules from '@/utils/Rules';
 Vue.prototype.$rules = Rules; // 全局注册验证规则
 
 Vue.config.productionTip = false;

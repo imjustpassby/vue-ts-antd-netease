@@ -27,7 +27,7 @@
           </div>
         </a-col>
 
-        <a-col :span="8">
+        <a-col :span="6" :offset="2">
           <ul v-if="!loginSuccess" class="flex--start--center">
             <li>
               <button class="login-btn" @click="showLoginForm">
@@ -76,6 +76,11 @@
         @loginSucceed="loginSucceed"
       ></login-form>
     </a-row>
+    <transition name="fade-transform" mode="out-in">
+      <keep-alive include="search,artist-detail">
+        <router-view />
+      </keep-alive>
+    </transition>
   </div>
 </template>
 

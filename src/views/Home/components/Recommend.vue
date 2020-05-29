@@ -27,10 +27,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
-import RecommendDj from './RecommendDj.vue'
-import RecommendMv from './RecommendMv.vue'
-import RecommendNewSong from './RecommendNewSong.vue'
+import { Component, Vue } from 'vue-property-decorator';
+import RecommendDj from './RecommendDj.vue';
+import RecommendMv from './RecommendMv.vue';
+import RecommendNewSong from './RecommendNewSong.vue';
 @Component({
   components: {
     RecommendDj,
@@ -40,7 +40,7 @@ import RecommendNewSong from './RecommendNewSong.vue'
 })
 export default class Recommend extends Vue {
   private mounted() {
-    console.log('mounted')
+    console.log('mounted');
   }
 }
 </script>

@@ -10,7 +10,7 @@ import Axios, {
   AxiosRequestConfig,
   AxiosTransformer,
   Method,
-  ResponseType,
+  ResponseType
 } from 'axios';
 import CommonMethod from '@/utils/CommonMethod';
 import Response, { ResponseData } from '@/api/Response';
@@ -87,7 +87,7 @@ export default class AxiosInterceptor<T, D = any, R = ResponseData<T>> {
       params,
       responseType = 'json',
       contentType = 'json',
-      config,
+      config
     } = options;
 
     const axiosConfig: AxiosRequestConfig = config ? { ...config } : {};
@@ -144,7 +144,7 @@ export default class AxiosInterceptor<T, D = any, R = ResponseData<T>> {
     return this.request({
       uri,
       method: 'get',
-      ...options,
+      ...options
     });
   }
 
@@ -169,7 +169,7 @@ export default class AxiosInterceptor<T, D = any, R = ResponseData<T>> {
       uri,
       method: 'post',
       data,
-      ...options,
+      ...options
     });
   }
 
@@ -194,7 +194,7 @@ export default class AxiosInterceptor<T, D = any, R = ResponseData<T>> {
       uri,
       method: 'put',
       data,
-      ...options,
+      ...options
     });
   }
 
@@ -216,7 +216,7 @@ export default class AxiosInterceptor<T, D = any, R = ResponseData<T>> {
     return this.request({
       uri,
       method: 'delete',
-      ...options,
+      ...options
     });
   }
 

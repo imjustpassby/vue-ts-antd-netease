@@ -37,7 +37,7 @@
 export { default as CheckCircleFill } from '@ant-design/icons/lib/fill/CheckCircleFill';
 // export { default as ChromeFill } from '@ant-design/icons/lib/fill/ChromeFill';
 // export { default as ClockCircleFill } from '@ant-design/icons/lib/fill/ClockCircleFill';
-// export { default as CiCircleFill } from '@ant-design/icons/lib/fill/CiCircleFill';
+export { default as CiCircleFill } from '@ant-design/icons/lib/fill/CiCircleFill';
 // export { default as CloseSquareFill } from '@ant-design/icons/lib/fill/CloseSquareFill';
 export { default as CloseCircleFill } from '@ant-design/icons/lib/fill/CloseCircleFill';
 // export { default as CloudFill } from '@ant-design/icons/lib/fill/CloudFill';
@@ -402,9 +402,9 @@ export { default as WechatOutline } from '@ant-design/icons/lib/outline/WechatOu
 // export { default as ApartmentOutline } from '@ant-design/icons/lib/outline/ApartmentOutline';
 // export { default as AreaChartOutline } from '@ant-design/icons/lib/outline/AreaChartOutline';
 // export { default as ArrowDownOutline } from '@ant-design/icons/lib/outline/ArrowDownOutline';
-// export { default as ArrowLeftOutline } from '@ant-design/icons/lib/outline/ArrowLeftOutline';
+export { default as ArrowLeftOutline } from '@ant-design/icons/lib/outline/ArrowLeftOutline';
 // export { default as ArrowUpOutline } from '@ant-design/icons/lib/outline/ArrowUpOutline';
-// export { default as ArrowRightOutline } from '@ant-design/icons/lib/outline/ArrowRightOutline';
+export { default as ArrowRightOutline } from '@ant-design/icons/lib/outline/ArrowRightOutline';
 // export { default as AntDesignOutline } from '@ant-design/icons/lib/outline/AntDesignOutline';
 // export { default as AuditOutline } from '@ant-design/icons/lib/outline/AuditOutline';
 // export { default as BarChartOutline } from '@ant-design/icons/lib/outline/BarChartOutline';
@@ -667,7 +667,7 @@ export { default as InfoCircleTwoTone } from '@ant-design/icons/lib/twotone/Info
 // export { default as LockTwoTone } from '@ant-design/icons/lib/twotone/LockTwoTone';
 // export { default as MehTwoTone } from '@ant-design/icons/lib/twotone/MehTwoTone';
 // export { default as MessageTwoTone } from '@ant-design/icons/lib/twotone/MessageTwoTone';
-// export { default as LeftCircleTwoTone } from '@ant-design/icons/lib/twotone/LeftCircleTwoTone';
+export { default as LeftCircleTwoTone } from '@ant-design/icons/lib/twotone/LeftCircleTwoTone';
 // export { default as MedicineBoxTwoTone } from '@ant-design/icons/lib/twotone/MedicineBoxTwoTone';
 // export { default as MinusSquareTwoTone } from '@ant-design/icons/lib/twotone/MinusSquareTwoTone';
 // export { default as MinusCircleTwoTone } from '@ant-design/icons/lib/twotone/MinusCircleTwoTone';
@@ -694,7 +694,7 @@ export { default as InfoCircleTwoTone } from '@ant-design/icons/lib/twotone/Info
 // export { default as QuestionCircleTwoTone } from '@ant-design/icons/lib/twotone/QuestionCircleTwoTone';
 // export { default as RedEnvelopeTwoTone } from '@ant-design/icons/lib/twotone/RedEnvelopeTwoTone';
 // export { default as RestTwoTone } from '@ant-design/icons/lib/twotone/RestTwoTone';
-// export { default as RightCircleTwoTone } from '@ant-design/icons/lib/twotone/RightCircleTwoTone';
+export { default as RightCircleTwoTone } from '@ant-design/icons/lib/twotone/RightCircleTwoTone';
 // export { default as RocketTwoTone } from '@ant-design/icons/lib/twotone/RocketTwoTone';
 // export { default as SafetyCertificateTwoTone } from '@ant-design/icons/lib/twotone/SafetyCertificateTwoTone';
 // export { default as ScheduleTwoTone } from '@ant-design/icons/lib/twotone/ScheduleTwoTone';

@@ -35,5 +35,5 @@ export default new Vuex.Store<StateRoot>({
   actions: {},
   mutations: {},
   modules: modules,
-  plugins: [],
+  plugins: []
 });

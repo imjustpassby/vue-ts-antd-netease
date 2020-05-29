@@ -180,7 +180,7 @@ module.exports = {
     'prefer-const': [
       'error',
       {
-        destructuring: 'any',
+        destructuring: 'all',
         ignoreReadBeforeAssign: false
       }
     ], // 要求使用 const 声明那些声明后不再被修改的变量

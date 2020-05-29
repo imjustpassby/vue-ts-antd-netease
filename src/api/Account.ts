@@ -2,7 +2,6 @@
  * 账号类操作
  */
 import API from '@/api/API';
-
 export default class Account extends API {
   // 登录
   static async login(data: any) {
@@ -10,7 +9,7 @@ export default class Account extends API {
       uri: '/login',
       method: 'post',
       data: data,
-      contentType: 'form',
+      contentType: 'form'
     });
     return result.data;
   }
@@ -21,12 +20,12 @@ export default class Account extends API {
       uri: '/test',
       method: 'post',
       params: {
-        a: 1,
+        a: 1
       },
       data: {
-        b: 2,
+        b: 2
       },
-      contentType: 'json',
+      contentType: 'json'
     });
     return result.data;
   }
