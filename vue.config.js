@@ -61,12 +61,7 @@ module.exports = {
     // css预设器配置项
     loaderOptions: {
       less: {
-        lessOptions: {
-          modifyVars: {
-            'border-radius-base': '2px'
-          },
-          javascriptEnabled: true
-        }
+        javascriptEnabled: true
       }
     }
   },

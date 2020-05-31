@@ -48,7 +48,7 @@
               </button>
             </li>
             <li>
-              <img class="avatar" :src="StateAvatarUrl" alt="avatar" />
+              <a-avatar icon="user" :src="StateAvatarUrl" />
             </li>
           </ul>
         </a-col>
@@ -198,9 +198,11 @@ export default class Layout extends Vue {
     this.checkedTopLink = window.sessionStorage.getItem('checkedTopLink')!;
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     this.checkedSubLink = window.sessionStorage.getItem('checkedSubLink')!;
-    this.$router.push({
-      path: '/'
-    });
+    if (this.$route.path !== '/home') {
+      this.$router.push({
+        path: '/'
+      });
+    }
   }
 
   async logout() {
@@ -334,12 +336,6 @@ export default class Layout extends Vue {
 .flex--start--center--with--margin {
   li {
     margin: 0px 10px;
-  }
-  .avatar {
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
   }
 }
 </style>
