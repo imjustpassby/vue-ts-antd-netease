@@ -1606,7 +1606,7 @@ ansi-styles@^4.0.0, ansi-styles@^4.1.0:
     "@types/color-name" "^1.1.1"
     color-convert "^2.0.1"
 
-ant-design-vue@^1.6.1:
+ant-design-vue@1.6.1:
   version "1.6.1"
   resolved "https://registry.npm.taobao.org/ant-design-vue/download/ant-design-vue-1.6.1.tgz#759de873b9017c92bb31937777ed8f65bd4f559c"
   integrity sha1-dZ3oc7kBfJK7MZN3d+2PZb1PVZw=
@@ -2568,11 +2568,6 @@ combined-stream@^1.0.6, combined-stream@~1.0.6:
   integrity sha1-w9RaizT9cwYxoRCoolIGgrMdWn8=
   dependencies:
     delayed-stream "~1.0.0"
-
-commander@*:
-  version "5.1.0"
-  resolved "https://registry.npm.taobao.org/commander/download/commander-5.1.0.tgz?cache=0&sync_timestamp=1587781596778&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcommander%2Fdownload%2Fcommander-5.1.0.tgz#46abbd1652f8e059bddaef99bbdcb2ad9cf179ae"
-  integrity sha1-Rqu9FlL44Fm92u+Zu9yyrZzxea4=
 
 commander@2.17.x:
   version "2.17.1"
@@ -5322,7 +5317,7 @@ jest-worker@^25.4.0:
     merge-stream "^2.0.0"
     supports-color "^7.0.0"
 
-js-cookie@^2.2.0:
+js-cookie@^2.2.1:
   version "2.2.1"
   resolved "https://registry.npm.taobao.org/js-cookie/download/js-cookie-2.2.1.tgz#69e106dc5d5806894562902aa5baec3744e9b2b8"
   integrity sha1-aeEG3F1YBolFYpAqpbrsN0Tpsrg=
@@ -5994,13 +5989,6 @@ mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@^0.5.3, mkdirp@~0.5.1:
   integrity sha1-2Rzv1i0UNsoPQWIOJRKI1CAJne8=
   dependencies:
     minimist "^1.2.5"
-
-mockjs@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.npm.taobao.org/mockjs/download/mockjs-1.1.0.tgz#e6a0c378e91906dbaff20911cc0273b3c7d75b06"
-  integrity sha1-5qDDeOkZBtuv8gkRzAJzs8fXWwY=
-  dependencies:
-    commander "*"
 
 moment@^2.21.0:
   version "2.26.0"
@@ -8585,6 +8573,11 @@ tryer@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npm.taobao.org/tryer/download/tryer-1.0.1.tgz#f2c85406800b9b0f74c9f7465b81eaad241252f8"
   integrity sha1-8shUBoALmw90yfdGW4HqrSQSUvg=
+
+ts-axios-new@^0.1.5:
+  version "0.1.5"
+  resolved "https://registry.npm.taobao.org/ts-axios-new/download/ts-axios-new-0.1.5.tgz#a4c107e5df0440f261904534701fb7f2c21d008e"
+  integrity sha1-pMEH5d8EQPJhkEU0cB+38sIdAI4=
 
 ts-loader@^6.2.2:
   version "6.2.2"

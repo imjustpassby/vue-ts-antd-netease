@@ -65,9 +65,18 @@
 
 <script lang="ts">
 import { Component, Emit, Vue } from 'vue-property-decorator';
+import { namespace } from 'vuex-class';
+const userModule = namespace('user');
 interface IUserInfo {
   phone: string;
   password: string;
+}
+interface ResponseDataLogin {
+  loginType: number;
+  code: number;
+  account: any;
+  token: string;
+  profile: any;
 }
 @Component({
   components: {}
@@ -113,7 +122,7 @@ export default class extends Vue {
   }
 
   @Emit('loginSucceed')
-  private login() {
+  private async login() {
     const userInfo: IUserInfo = {
       phone: this.form
         .getFieldValue('phone')
@@ -124,8 +133,17 @@ export default class extends Vue {
         .toString()
         .trim()
     };
+    await this.ACTION_LOGIN(userInfo)
+      .then((result: ResponseDataLogin) => {
+        this.modalShow = false;
+      })
+      .catch((err: Error) => {});
+    await this.ACTION_LOGIN_STATUS();
     console.log(userInfo.phone, userInfo.password);
   }
+
+  @userModule.Action('LOGIN') ACTION_LOGIN!: Function;
+  @userModule.Action('LOGIN_STATUS') ACTION_LOGIN_STATUS!: Function;
 }
 </script>
 <style lang="scss" scoped></style>

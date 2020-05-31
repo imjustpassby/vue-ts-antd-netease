@@ -42,12 +42,6 @@ Vue.use(VueRouter);
  * caseSensitive?: boolean
  * pathToRegexpOptions?: PathToRegexpOptions
  *
- * 侧边栏菜单显示的数据，需要定义在 meta 中，meta 约束如下：
- * meta?: {
- *   hidden?: boolean, // 是否隐藏此菜单，default: false
- *   title?: string, // 菜单的标题，若没有，则显示 path
- *   icon?: string, // ant design icon，全部图标：https://www.antdv.com/components/icon-cn/
- * }
  */
 const routes: RouteConfig[] = [
   {

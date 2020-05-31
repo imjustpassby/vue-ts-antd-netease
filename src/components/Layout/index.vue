@@ -28,26 +28,27 @@
         </a-col>
 
         <a-col :span="6" :offset="2">
-          <ul v-if="!loginSuccess" class="flex--start--center">
+          <ul v-if="StateLoginSuccess === 'false'" class="flex--start--center">
             <li>
-              <button class="login-btn" @click="showLoginForm">
+              <button class="loginBar_btn" @click="showLoginForm">
                 登录
               </button>
             </li>
           </ul>
-          <ul v-else class="flex--start--center">
+          <ul
+            v-else
+            class="flex--start--center flex--start--center--with--margin"
+          >
             <li>
-              <button class="login-btn" @click="logout">登出</button>
+              <button class="loginBar_btn" @click="logout">登出</button>
             </li>
             <li>
-              <button class="login-btn" @click="goMyMusic">nickname</button>
+              <button class="loginBar_btn" @click="goMyMusic">
+                {{ StateNickname }}
+              </button>
             </li>
             <li>
-              <img
-                class="avatar"
-                src="https://qn.antdv.com/vue.png"
-                alt="avatar"
-              />
+              <img class="avatar" :src="StateAvatarUrl" alt="avatar" />
             </li>
           </ul>
         </a-col>
@@ -86,11 +87,15 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { namespace } from 'vuex-class';
 import LoginForm from '@/components/Login/index.vue';
-
+const userModule = namespace('user');
 interface Link {
   span: string;
   link: string;
+}
+interface ResponseDataLogout {
+  code: number;
 }
 
 @Component({
@@ -138,9 +143,12 @@ export default class Layout extends Vue {
     }
   ];
   loginShow = false;
-  loginSuccess = false;
   checkedTopLink = '0';
   checkedSubLink = '0';
+
+  @userModule.State('nickname') StateNickname!: string | null;
+  @userModule.State('avatarUrl') StateAvatarUrl!: string | null;
+  @userModule.State('loginSuccess') StateLoginSuccess!: string;
 
   mounted() {
     window.sessionStorage.setItem('checkedTopLink', '0');
@@ -195,7 +203,14 @@ export default class Layout extends Vue {
     });
   }
 
-  logout() {}
+  async logout() {
+    await this.ACTION_LOGOUT()
+      .then((res: ResponseDataLogout) => {
+        this.$message.success('已退出登录');
+        this.goHome();
+      })
+      .catch((err: Error) => {});
+  }
 
   goMyMusic() {}
 
@@ -208,9 +223,10 @@ export default class Layout extends Vue {
   }
 
   loginSucceed() {
-    this.loginSuccess = true;
     this.loginShow = false;
   }
+
+  @userModule.Action('LOGOUT') ACTION_LOGOUT!: Function;
 }
 </script>
 <style lang="less" scoped>
@@ -254,7 +270,7 @@ export default class Layout extends Vue {
     color: #fff;
   }
 }
-.login-btn {
+.loginBar_btn {
   font-size: 14px;
   line-height: 70px;
   color: #ccc;
@@ -315,18 +331,15 @@ export default class Layout extends Vue {
     border-radius: 20px;
   }
 }
-.flex--start--center {
+.flex--start--center--with--margin {
+  li {
+    margin: 0px 10px;
+  }
   .avatar {
     display: inline-block;
     width: 30px;
     height: 30px;
     border-radius: 50%;
-  }
-  ul {
-    li {
-      font-size: 14px;
-      line-height: 70px;
-    }
   }
 }
 </style>
