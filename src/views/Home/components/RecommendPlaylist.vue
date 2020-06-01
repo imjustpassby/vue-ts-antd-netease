@@ -37,10 +37,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import {
-  IPersonalizedPlaylist,
-  ResponsePersonalizedPlaylist
-} from '@/utils/types';
+import { IPersonalizedPlaylist } from '@/utils/types';
 import Home from '@/api/home.ts';
 import PageJump from '@/utils/PageJump.ts';
 @Component({

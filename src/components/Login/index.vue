@@ -139,11 +139,9 @@ export default class extends Vue {
       })
       .catch((err: Error) => {});
     await this.ACTION_LOGIN_STATUS();
-    console.log(userInfo.phone, userInfo.password);
   }
 
   @userModule.Action('LOGIN') ACTION_LOGIN!: Function;
   @userModule.Action('LOGIN_STATUS') ACTION_LOGIN_STATUS!: Function;
 }
 </script>
-<style lang="scss" scoped></style>

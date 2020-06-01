@@ -1,6 +1,5 @@
 import { ResponseLoginStatus } from '@/utils/types';
-import axios from 'ts-axios-new';
-import mem from 'mem';
+import request from '@/utils/request.ts';
 interface ILoginParams {
   phone: string;
   password: string;
@@ -8,10 +7,10 @@ interface ILoginParams {
 
 export default class User {
   static async loginCellphone(loginParams: ILoginParams) {
-    const res = await axios({
+    const res = await request({
       url: '/api/login/cellphone',
-      withCredentials: true,
       params: {
+        _t: Number(Date.now()),
         phone: loginParams.phone,
         password: loginParams.password
       }
@@ -20,17 +19,21 @@ export default class User {
   }
 
   static async loginStatus<T>() {
-    const res = await axios<ResponseLoginStatus<T>>({
+    const res = await request<ResponseLoginStatus<T>>({
       url: '/api/login/status',
-      withCredentials: true
+      params: {
+        _t: Number(Date.now())
+      }
     });
     return res;
   }
 
   static async logout() {
-    const res = await axios({
+    const res = await request({
       url: '/api/logout',
-      withCredentials: true
+      params: {
+        _t: Number(Date.now())
+      }
     });
     return res;
   }

@@ -19,12 +19,6 @@ module.exports = {
   },
   plugins: ['sort-imports-es6-autofix'],
   extends: [
-    // 'plugin:vue/essential',
-    // 'eslint:recommended',
-    // '@vue/typescript/recommended',
-    // '@vue/prettier',
-    // '@vue/prettier/@typescript-eslint',
-
     'plugin:vue/essential',
     'plugin:vue/strongly-recommended',
     '@vue/prettier',

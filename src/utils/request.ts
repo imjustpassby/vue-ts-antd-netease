@@ -9,9 +9,6 @@ const request = axios.create({
 });
 
 request.interceptors.request.use(config => {
-  config.params = {
-    _t: Number(new Date())
-  };
   config.withCredentials = true;
   if (store.state.user.loginSuccess === 'true') {
     const cookie = window.sessionStorage.getItem('cookie')!;
