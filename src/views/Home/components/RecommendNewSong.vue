@@ -66,6 +66,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import { ISongFormat, ResponsePersonalizedNewSong } from '@/utils/types';
 import { transformList } from '@/utils/TransformSongFormat.ts';
 import Home from '@/api/home.ts';
+import PageJump from '@/utils/PageJump.ts';
 @Component({
   components: {}
 })
@@ -76,6 +77,21 @@ export default class RecommendNewSong extends Vue {
     const res = await Home.getPersonalizedNewSong();
     this.personalizedNewSong = transformList(res.data.result as []);
     this.loading = false;
+  }
+  private addMusic() {}
+  private goSongDetail(item: ISongFormat) {
+    PageJump.pageJump({
+      that: this,
+      id: item.id,
+      path: '/songDetail'
+    });
+  }
+  private goArtistDetail(id: number) {
+    PageJump.pageJump({
+      that: this,
+      id: id,
+      path: '/artistDetail'
+    });
   }
 }
 </script>
