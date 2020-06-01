@@ -64,7 +64,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { ISongFormat, ResponsePersonalizedNewSong } from '@/utils/types';
-import { transformList } from '@/utils/TransformSongFormat.ts';
+import { transformPlayList } from '@/utils/TransformSongFormat.ts';
 import Home from '@/api/home.ts';
 import PageJump from '@/utils/PageJump.ts';
 @Component({
@@ -75,7 +75,7 @@ export default class RecommendNewSong extends Vue {
   personalizedNewSong: ISongFormat[] = [];
   private async mounted() {
     const res = await Home.getPersonalizedNewSong();
-    this.personalizedNewSong = transformList(res.data.result as []);
+    this.personalizedNewSong = transformPlayList(res.data.result as []);
     this.loading = false;
   }
   private addMusic() {}

@@ -30,4 +30,10 @@ export default class Home {
       url: '/api/personalized/mv'
     });
   }
+
+  static async getPersonalizedDjProgram() {
+    return request<ResponsePersonalized>({
+      url: '/api/personalized/djprogram'
+    });
+  }
 }

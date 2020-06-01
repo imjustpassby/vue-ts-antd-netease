@@ -8,6 +8,7 @@ export type ISongFormat = {
   albumName: string;
   albumId: number;
   theme: [number, number, number];
+  songType: 'dj' | 'song';
 };
 
 export type IProfile = {
