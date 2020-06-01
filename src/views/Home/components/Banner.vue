@@ -27,16 +27,9 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { IBanner } from '@/utils/types';
 import Home from '@/api/home.ts';
 import PageJump from '@/utils/PageJump.ts';
-interface IBanner {
-  targetId: number;
-  imageUrl: string;
-  titleColor: string;
-  typeTitle: string;
-  targetType: number;
-  url: string | null;
-}
 @Component({
   components: {}
 })

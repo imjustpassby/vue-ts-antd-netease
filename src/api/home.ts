@@ -1,13 +1,29 @@
-import axios from 'ts-axios-new';
-interface ResponseBanner<T = any> {
-  banners: T;
-}
+import {
+  ResponseBanner,
+  ResponsePersonalizedNewSong,
+  ResponsePersonalizedPlaylist
+} from '@/utils/types';
+import request from '@/utils/request.ts';
+
 export default class Home {
   static async getBanners<T>() {
-    const res = await axios<ResponseBanner<T>>({
+    return request<ResponseBanner<T>>({
       url: '/api/banner',
       withCredentials: true
     });
-    return res;
+  }
+
+  static async getPersonalizedPlaylist<T>() {
+    return request<ResponsePersonalizedPlaylist<T>>({
+      url: '/api/personalized',
+      withCredentials: true
+    });
+  }
+
+  static async getPersonalizedNewSong() {
+    return request<ResponsePersonalizedNewSong>({
+      url: '/api/personalized/newsong',
+      withCredentials: true
+    });
   }
 }

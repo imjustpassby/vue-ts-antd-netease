@@ -12,7 +12,9 @@ Vue.use(Vuex);
 /**
  * 声明 root state
  */
-export interface StateRoot {}
+export interface StateRoot {
+  [x: string]: any;
+}
 
 const modules: ModuleTree<StateRoot> = {};
 

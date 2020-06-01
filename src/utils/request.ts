@@ -1,19 +1,18 @@
-import axios from 'ts-axios-new';
+import axios, { AxiosError, AxiosResponse } from 'ts-axios-new';
 import Cookies from 'js-cookie';
-import Vue from 'vue';
-
-const instance = axios.create({
+import store from '@/store';
+const request = axios.create({
   baseURL:
     process.env.NODE_ENV === 'production'
       ? 'https://ipassby.cloud'
       : 'http://localhost:9001'
 });
 
-instance.interceptors.request.use(config => {
+request.interceptors.request.use(config => {
   config.params = {
     _t: Number(new Date())
   };
-  if (Vue.prototype.$store.state.user.loginSuccess === 'true') {
+  if (store.state.user.loginSuccess === 'true') {
     const cookie = window.sessionStorage.getItem('cookie')!;
     Cookies.set('MUSIC_U', JSON.parse(cookie).MUSIC_U);
     Cookies.set('__csrf', JSON.parse(cookie).__csrf);
@@ -22,9 +21,9 @@ instance.interceptors.request.use(config => {
   return config;
 });
 
-instance.interceptors.response.use(
-  res => {
-    if (Vue.prototype.$store.getters.loginSuccess) {
+request.interceptors.response.use(
+  (res: AxiosResponse) => {
+    if (store.state.user.loginSuccess === 'true') {
       //每次请求结束后删除cookie
       Cookies.remove('MUSIC_U');
       Cookies.remove('__csrf');
@@ -32,9 +31,16 @@ instance.interceptors.response.use(
     }
     return Promise.resolve(res);
   },
-  (error: Error) => {
-    return Promise.reject(error);
+  (err: AxiosError) => {
+    console.log(err);
+
+    /* if (err.response!.status == 504) {
+      Vue.prototype.$message.warning('服务器错误...');
+    } else if (err.response!.status == 301) {
+      Vue.prototype.$message.warning('请登录之后再体验该功能喔...');
+    } */
+    return Promise.reject(err);
   }
 );
 
-export default instance;
+export default request;
