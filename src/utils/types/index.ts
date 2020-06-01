@@ -33,7 +33,7 @@ export type IBanner = {
   url: string | null;
 };
 
-export type ResponsePersonalizedPlaylist<T = any> = {
+export type ResponsePersonalized<T = any> = {
   result: T;
 };
 
@@ -45,4 +45,10 @@ export type IPersonalizedPlaylist = {
 
 export type ResponsePersonalizedNewSong = {
   result: [];
+};
+
+export type IPersonalizedMv = {
+  id: number;
+  name: string;
+  picUrl: string;
 };

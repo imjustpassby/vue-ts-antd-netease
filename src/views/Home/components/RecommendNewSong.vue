@@ -39,7 +39,7 @@
               <p
                 class="recommend-title"
                 style="line-height:1.5em;cursor:pointer"
-                @click="goSongDetail(item)"
+                @click="goSongDetail(item.id)"
               >
                 {{ item.name }}
               </p>
@@ -79,10 +79,10 @@ export default class RecommendNewSong extends Vue {
     this.loading = false;
   }
   private addMusic() {}
-  private goSongDetail(item: ISongFormat) {
+  private goSongDetail(id: number) {
     PageJump.pageJump({
       that: this,
-      id: item.id,
+      id: id,
       path: '/songDetail'
     });
   }

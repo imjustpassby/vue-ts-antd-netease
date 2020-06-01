@@ -1,7 +1,7 @@
 import {
   ResponseBanner,
-  ResponsePersonalizedNewSong,
-  ResponsePersonalizedPlaylist
+  ResponsePersonalized,
+  ResponsePersonalizedNewSong
 } from '@/utils/types';
 import request from '@/utils/request.ts';
 
@@ -14,16 +14,20 @@ export default class Home {
   }
 
   static async getPersonalizedPlaylist<T>() {
-    return request<ResponsePersonalizedPlaylist<T>>({
-      url: '/api/personalized',
-      withCredentials: true
+    return request<ResponsePersonalized<T>>({
+      url: '/api/personalized'
     });
   }
 
   static async getPersonalizedNewSong() {
     return request<ResponsePersonalizedNewSong>({
-      url: '/api/personalized/newsong',
-      withCredentials: true
+      url: '/api/personalized/newsong'
+    });
+  }
+
+  static async getPersonalizedMv<T>() {
+    return request<ResponsePersonalized<T>>({
+      url: '/api/personalized/mv'
     });
   }
 }
