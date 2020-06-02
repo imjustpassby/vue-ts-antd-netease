@@ -76,6 +76,7 @@
         @cancelLogin="cancelLogin"
         @loginSucceed="loginSucceed"
       ></login-form>
+      <a-player class="aplayer"></a-player>
     </a-row>
     <transition name="fade-transform" mode="out-in">
       <keep-alive include="search,artist-detail">
@@ -88,6 +89,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { namespace } from 'vuex-class';
+import APlayer from '@/components/APlayer/index.vue';
 import LoginForm from '@/components/Login/index.vue';
 const userModule = namespace('user');
 interface Link {
@@ -99,7 +101,7 @@ interface ResponseDataLogout {
 }
 
 @Component({
-  components: { LoginForm }
+  components: { LoginForm, APlayer }
 })
 export default class Layout extends Vue {
   topLink: Link[] = [
@@ -231,7 +233,7 @@ export default class Layout extends Vue {
   @userModule.Action('LOGOUT') ACTION_LOGOUT!: Function;
 }
 </script>
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .topbar {
   position: relative;
   z-index: 99;
@@ -337,5 +339,12 @@ export default class Layout extends Vue {
   li {
     margin: 0px 10px;
   }
+}
+.aplayer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  z-index: 999;
 }
 </style>

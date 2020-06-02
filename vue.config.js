@@ -45,8 +45,13 @@ module.exports = {
   indexPath: 'index.html',
   assetsDir: 'static',
   lintOnSave: false,
-  publicPath: './', // 部署应用包时的基本 URL 为相对路径
-  productionSourceMap: false, // 生产环境下的 source map
+
+  // 部署应用包时的基本 URL 为相对路径
+  publicPath: './',
+
+  // 生产环境下的 source map
+  productionSourceMap: false,
+
   //代理
   devServer: {
     port: port,
@@ -54,11 +59,8 @@ module.exports = {
   },
 
   css: {
-    extract: true, // 是否使用css分离插件 ExtractTextPlugin
-    sourceMap: false, // 开启 CSS source maps?
-    requireModuleExtension: true, // 启用 CSS modules for all css / pre-processor files.
-
-    // css预设器配置项
+    extract: isProduction,
+    requireModuleExtension: true,
     loaderOptions: {
       less: {
         javascriptEnabled: true
@@ -149,5 +151,7 @@ module.exports = {
         }
       }
     }
-  }
+  },
+
+  runtimeCompiler: true
 };
