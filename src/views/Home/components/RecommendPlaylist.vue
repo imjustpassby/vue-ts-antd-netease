@@ -27,7 +27,7 @@
             <img v-lazy="item.picUrl + '?param=200y200'" alt="img" />
           </div>
           <div style="height:46px;overflow:hidden">
-            <p class="recommend-title">{{ item.name }}</p>
+            <p class="common--title">{{ item.name }}</p>
           </div>
         </a-col>
       </a-row>

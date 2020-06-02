@@ -6,24 +6,25 @@ export function transformPlayList(list: []): ISongFormat[] {
   });
 }
 export function transformSong(item: any): ISongFormat {
-  const artist = [];
+  const artists = [];
   const artistId = item.song.artists.map((a: { id: any }) => {
     return a.id;
   });
   for (const ar of item.song.artists) {
-    artist.push(ar.name);
+    artists.push(ar.name);
   }
   return {
     name: item.name,
     id: item.id,
-    artist: artist.join('/'),
-    artists: artist,
+    artist: artists.join('/'),
+    artists: artists,
     artistId: artistId,
     cover: item.song.album.blurPicUrl,
     albumName: item.song.album.name,
     albumId: item.song.album.id,
     theme: [255, 255, 255],
-    songType: 'song'
+    songType: 'song',
+    key: item.id
   };
 }
 export function transformDjProgramList(list: []): ISongFormat[] {
@@ -43,6 +44,7 @@ export function transformDjProgram(item: any): ISongFormat {
     albumId: item.program.mainSong.id,
     cover: item.picUrl,
     theme: [255, 255, 255],
-    songType: 'dj'
+    songType: 'dj',
+    key: item.id
   };
 }

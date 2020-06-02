@@ -125,7 +125,7 @@ export default class Layout extends Vue {
     },
     {
       span: '排行榜',
-      link: '/ranking-list'
+      link: '/rankingList'
     },
     {
       span: '歌单',
@@ -133,7 +133,7 @@ export default class Layout extends Vue {
     },
     {
       span: '主播电台',
-      link: '/dj-radios'
+      link: '/djRadios'
     },
     {
       span: '歌手',
@@ -141,7 +141,7 @@ export default class Layout extends Vue {
     },
     {
       span: '新碟上架',
-      link: '/new-album'
+      link: '/newAlbum'
     }
   ];
   loginShow = false;
@@ -346,5 +346,6 @@ export default class Layout extends Vue {
   right: 0;
   bottom: -6px;
   z-index: 999;
+  margin: 5px 0;
 }
 </style>

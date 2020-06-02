@@ -14,7 +14,6 @@ let {
   Input,
   Pagination,
   Button,
-  Card,
   Form,
   Row,
   Col,
@@ -47,7 +46,6 @@ Vue.use(Pagination);
 Vue.use(Layout);
 Vue.use(Input);
 Vue.use(Button);
-Vue.use(Card);
 Vue.use(Form);
 Vue.use(Row);
 Vue.use(Col);

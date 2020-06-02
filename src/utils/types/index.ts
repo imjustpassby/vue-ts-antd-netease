@@ -9,6 +9,19 @@ export type ISongFormat = {
   albumId: number;
   theme: [number, number, number];
   songType: 'dj' | 'song';
+  key: number;
+};
+
+export type IPlaylistFormat = {
+  id: number;
+  name: string;
+  cover: string;
+  creator: string;
+  updateTime: string;
+  trackIds: number[];
+  tracks: ISongFormat[];
+  description: string;
+  tags?: string[];
 };
 
 export type IProfile = {
@@ -52,4 +65,14 @@ export type IPersonalizedMv = {
   id: number;
   name: string;
   picUrl: string;
+};
+
+export type ResponseRankingList<T = any> = {
+  code: number;
+  list: T;
+};
+
+export type ResponsePlaylist = {
+  code: number;
+  playlist: [];
 };

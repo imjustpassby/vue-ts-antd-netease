@@ -55,12 +55,6 @@ export default class Recommend extends Vue {}
     line-height: 1.5em;
     border-bottom: 1px solid #dddddd;
   }
-  .recommend-title {
-    margin-top: 7px;
-    font-size: 14px;
-    cursor: pointer;
-    line-height: 1.5em;
-  }
   .recommend-new-songs {
     border-bottom: 1px solid #ddd;
     margin-right: 16px;

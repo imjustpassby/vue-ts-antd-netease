@@ -24,3 +24,8 @@ export default class APlayerComponent extends Vue {
   }
 }
 </script>
+<style lang="scss" scoped>
+#aplayer {
+  text-align: left;
+}
+</style>

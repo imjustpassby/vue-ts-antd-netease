@@ -37,14 +37,14 @@
             </a-col>
             <a-col :span="18" :offset="1">
               <p
-                class="recommend-title"
+                class="common--title"
                 style="line-height:1.5em;cursor:pointer"
                 @click="goSongDetail(item.id)"
               >
                 {{ item.name }}
               </p>
               <span
-                class="recommend-title"
+                class="common--title"
                 style="line-height:1.5em;cursor:pointer;color:#999"
                 v-for="(ar, idx) in item.artists"
                 :key="idx"

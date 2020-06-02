@@ -68,6 +68,16 @@ const routes: RouteConfig[] = [
         path: 'home',
         name: 'home',
         component: () => import('@/views/Home/index.vue')
+      },
+      {
+        path: 'rankingList',
+        name: 'rankingList',
+        component: () => import('@/views/RankingList/index.vue')
+      },
+      {
+        path: 'rankingDetail',
+        name: 'rankingDetail',
+        component: () => import('@/views/RankingDetail/index.vue')
       }
     ]
   }

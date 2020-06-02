@@ -25,7 +25,7 @@
               @click.once="addMusic(item)"
             />
           </div>
-          <p class="recommend-title">{{ item.name }}</p>
+          <p class="common--title">{{ item.name }}</p>
         </a-col>
       </a-row>
     </div>

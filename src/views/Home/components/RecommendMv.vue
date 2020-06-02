@@ -25,7 +25,7 @@
             style="cursor: pointer;"
             @click="goMvDetail(item.id)"
           />
-          <p class="recommend-title" @click="goMvDetail(item.id)">
+          <p class="common--title" @click="goMvDetail(item.id)">
             {{ item.name }}
           </p>
         </a-col>
