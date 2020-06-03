@@ -77,7 +77,9 @@
         @loginSucceed="loginSucceed"
       ></login-form>
       <a-player class="aplayer"></a-player>
+      <my-playlist></my-playlist>
     </a-row>
+
     <transition name="fade-transform" mode="out-in">
       <keep-alive include="search,artist-detail">
         <router-view />
@@ -91,6 +93,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import { namespace } from 'vuex-class';
 import APlayer from '@/components/APlayer/index.vue';
 import LoginForm from '@/components/Login/index.vue';
+import MyPlaylist from '@/components/MyPlaylist/index.vue';
 const userModule = namespace('user');
 interface Link {
   span: string;
@@ -101,7 +104,7 @@ interface ResponseDataLogout {
 }
 
 @Component({
-  components: { LoginForm, APlayer }
+  components: { LoginForm, APlayer, MyPlaylist }
 })
 export default class Layout extends Vue {
   topLink: Link[] = [

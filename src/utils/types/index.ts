@@ -10,6 +10,8 @@ export type ISongFormat = {
   theme: [number, number, number];
   songType: 'dj' | 'song';
   key: number;
+  url?: string;
+  lrc?: string;
 };
 
 export type IPlaylistFormat = {
