@@ -75,9 +75,9 @@ const routes: RouteConfig[] = [
         component: () => import('@/views/RankingList/index.vue')
       },
       {
-        path: 'rankingDetail',
-        name: 'rankingDetail',
-        component: () => import('@/views/RankingDetail/index.vue')
+        path: 'playlistDetail',
+        name: 'playlistDetail',
+        component: () => import('@/views/PlaylistDetail/index.vue')
       }
     ]
   }

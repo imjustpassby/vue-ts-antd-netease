@@ -1,7 +1,7 @@
 import { formatTime } from '@/utils/UtilFunction.ts';
 import { IPlaylistFormat } from '@/utils/types/index.ts';
 import { ISongFormat } from './types';
-export function transformResponseRankingPlaylist(list: any): IPlaylistFormat {
+export function transformResponsePlaylist(list: any): IPlaylistFormat {
   let {
     id,
     name,
@@ -16,7 +16,7 @@ export function transformResponseRankingPlaylist(list: any): IPlaylistFormat {
   trackIds = trackIds.map((item: { id: number }) => {
     return item.id;
   });
-  tracks = transformRankingTracks(tracks);
+  tracks = transformTracks(tracks);
   updateTime = formatTime(updateTime, '{y}-{m}-{d}');
   return {
     id,
@@ -31,7 +31,7 @@ export function transformResponseRankingPlaylist(list: any): IPlaylistFormat {
   };
 }
 
-export function transformRankingTracks(list: []): ISongFormat[] {
+export function transformTracks(list: []): ISongFormat[] {
   return list.map((item: any) => {
     return TransformTracksSongFormat(item);
   });

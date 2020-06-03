@@ -12,10 +12,10 @@
             >
               <div class="img-box">
                 <img
-                  v-lazy="item.url + '?param=200y200'"
+                  v-lazy="item.coverImgUrl + '?param=200y200'"
                   width="100%"
                   alt="img"
-                  @click="goRankingDetail(index)"
+                  @click="goRankingDetail(item.id)"
                 />
               </div>
               <p class="common--title">{{ item.name }}</p>
@@ -29,7 +29,8 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { getRankingList, IRanking } from '@/api/ranking.ts';
+import { getRankingList } from '@/api/ranking.ts';
+import { IRanking } from '@/utils/types/index.ts';
 import PageJump from '@/utils/PageJump';
 @Component({
   components: {}
@@ -38,16 +39,17 @@ export default class RankingList extends Vue {
   rankingList: IRanking[] = [];
   loading = true;
 
-  private mounted() {
-    this.rankingList = getRankingList();
+  private async mounted() {
+    const res = await getRankingList<IRanking[]>();
+    this.rankingList = res.data.list;
     this.loading = false;
   }
 
-  private goRankingDetail(idx: number) {
+  private goRankingDetail(id: number) {
     PageJump.pageJump({
       that: this,
-      path: '/rankingDetail',
-      id: idx
+      path: '/playlistDetail',
+      id: id
     });
   }
 }

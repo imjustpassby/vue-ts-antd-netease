@@ -4,14 +4,15 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { getPlaylistDetail } from '@/api/playlist.ts';
 import { getRankingDetail } from '@/api/ranking.ts';
 import { IPlaylistFormat } from '@/utils/types/index.ts';
-import { transformResponseRankingPlaylist } from '@/utils/transformPlaylistFormat.ts';
+import { transformResponsePlaylist } from '@/utils/transformPlaylistFormat.ts';
 import PlaylistDetail from '@/components/PlaylistDetail/index.vue';
 @Component({
   components: { PlaylistDetail }
 })
-export default class RankingDetail extends Vue {
+export default class PlaylistDetailPage extends Vue {
   loading = true;
   playList: IPlaylistFormat = {
     id: 0,
@@ -24,15 +25,17 @@ export default class RankingDetail extends Vue {
     tracks: [],
     tags: []
   };
-
-  get idx() {
+  get id() {
     return this.$route.query.id;
   }
-
+  get type() {
+    return this.$route.query.type;
+  }
   private async mounted() {
-    const res = await getRankingDetail(this.idx as string);
-    this.playList = transformResponseRankingPlaylist(res.data.playlist);
+    const res = await getPlaylistDetail(this.id as string);
+    this.playList = transformResponsePlaylist(res.data.playlist);
     this.loading = false;
   }
 }
 </script>
+<style lang="scss" scoped></style>

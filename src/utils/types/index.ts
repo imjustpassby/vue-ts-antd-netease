@@ -69,6 +69,12 @@ export type IPersonalizedMv = {
   picUrl: string;
 };
 
+export type IRanking = {
+  id: number;
+  name: string;
+  coverImgUrl: string;
+};
+
 export type ResponseRankingList<T = any> = {
   code: number;
   list: T;
