@@ -99,8 +99,8 @@ export default class extends Vue {
   @playlistModule.State('currentIndex') currentIndex!: number;
   @playlistModule.State('playlist') playlist!: ISongFormat[];
 
-  @playlistModule.Action('DELETE_SONG') DELETE_SONG!: Function;
-  @playlistModule.Action('CLEAR_PLAYLIST') CLEAR_PLAYLIST!: Function;
+  @playlistModule.Mutation('DELETE_SONG') DELETE_SONG!: Function;
+  @playlistModule.Mutation('CLEAR_PLAYLIST') CLEAR_PLAYLIST!: Function;
   @playlistModule.Action('SET_CURRENT_MUSIC_ACTION')
   SET_CURRENT_MUSIC_ACTION!: Function;
 

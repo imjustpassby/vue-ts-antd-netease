@@ -28,7 +28,7 @@
                   <use xlink:href="#icon-play" />
                 </svg>
                 <img
-                  v-lazy="item.cover + '?param=200y200'"
+                  v-lazy="item.cover"
                   width="100%"
                   alt="img"
                   style="margin:9px 0 0 9px;cursor: pointer;z-index:-1"
@@ -64,21 +64,30 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { ISongFormat, ResponsePersonalizedNewSong } from '@/utils/types';
+import { namespace } from 'vuex-class';
 import { transformPlayList } from '@/utils/TransformSongFormat.ts';
 import Home from '@/api/home.ts';
 import PageJump from '@/utils/PageJump.ts';
+const playlistModule = namespace('playlist');
+
 @Component({
   components: {}
 })
 export default class RecommendNewSong extends Vue {
   loading = true;
   personalizedNewSong: ISongFormat[] = [];
+
+  @playlistModule.Action('SET_CURRENT_MUSIC_ACTION')
+  SET_CURRENT_MUSIC_ACTION!: Function;
+
   private async mounted() {
     const res = await Home.getPersonalizedNewSong();
     this.personalizedNewSong = transformPlayList(res.data.result as []);
     this.loading = false;
   }
-  private addMusic() {}
+  private addMusic(song: ISongFormat) {
+    this.SET_CURRENT_MUSIC_ACTION(song);
+  }
   private goSongDetail(id: number) {
     PageJump.pageJump({
       that: this,

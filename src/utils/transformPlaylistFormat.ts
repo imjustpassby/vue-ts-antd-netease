@@ -25,7 +25,7 @@ export function transformResponseRankingPlaylist(list: any): IPlaylistFormat {
     updateTime,
     trackIds,
     tracks,
-    cover: coverImgUrl,
+    cover: `${coverImgUrl}?param=200y200`,
     description,
     tags
   };
@@ -51,7 +51,7 @@ export function TransformTracksSongFormat(item: any): ISongFormat {
     artist: artists.join('/'),
     artists: artists,
     artistId: artistId,
-    cover: item.al.picUrl,
+    cover: `${item.al.picUrl}?param=200y200`,
     albumName: item.al.name,
     albumId: item.al.id,
     theme: [255, 255, 255],

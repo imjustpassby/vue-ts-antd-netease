@@ -19,7 +19,7 @@ export function transformSong(item: any): ISongFormat {
     artist: artists.join('/'),
     artists: artists,
     artistId: artistId,
-    cover: item.song.album.blurPicUrl,
+    cover: `${item.song.album.blurPicUrl}?param=200y200`,
     albumName: item.song.album.name,
     albumId: item.song.album.id,
     theme: [255, 255, 255],
@@ -42,7 +42,7 @@ export function transformDjProgram(item: any): ISongFormat {
     artistId: [item.program.radio.id],
     albumName: item.name,
     albumId: item.program.mainSong.id,
-    cover: item.picUrl,
+    cover: `${item.picUrl}?param=200y200`,
     theme: [255, 255, 255],
     songType: 'dj',
     key: item.id
