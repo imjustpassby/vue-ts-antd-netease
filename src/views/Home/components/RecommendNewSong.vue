@@ -63,10 +63,10 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { getPersonalizedNewSong } from '@/api/home.ts';
 import { ISongFormat, ResponsePersonalizedNewSong } from '@/utils/types';
 import { namespace } from 'vuex-class';
 import { transformPlayList } from '@/utils/TransformSongFormat.ts';
-import Home from '@/api/home.ts';
 import PageJump from '@/utils/PageJump.ts';
 const playlistModule = namespace('playlist');
 
@@ -81,7 +81,7 @@ export default class RecommendNewSong extends Vue {
   SET_CURRENT_MUSIC_ACTION!: Function;
 
   private async mounted() {
-    const res = await Home.getPersonalizedNewSong();
+    const res = await getPersonalizedNewSong();
     this.personalizedNewSong = transformPlayList(res.data.result as []);
     this.loading = false;
   }

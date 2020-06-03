@@ -1,4 +1,5 @@
 import { ResponsePlaylist } from '@/utils/types/index.ts';
+import mem from 'mem';
 import request from '@/utils/request.ts';
 export type IRanking = {
   url: string;
@@ -126,17 +127,21 @@ const coverImgUrl: IRanking[] = [
     name: '江小白YOLO云音乐说唱榜'
   }
 ];
-export default class Ranking {
-  static getRankingList(): IRanking[] {
-    return coverImgUrl;
-  }
 
-  static async getRankingDetail(data: string) {
+export const getRankingList = function() {
+  return coverImgUrl;
+};
+
+export const getRankingDetail = mem(
+  async function(data: string) {
     return await request<ResponsePlaylist>({
       url: '/api/top/list',
       params: {
         idx: data
       }
     });
+  },
+  {
+    maxAge: 1000 * 60 * 60
   }
-}
+);

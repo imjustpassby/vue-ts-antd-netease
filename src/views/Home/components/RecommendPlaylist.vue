@@ -37,8 +37,8 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { getPersonalizedPlaylist } from '@/api/home.ts';
 import { IPersonalizedPlaylist } from '@/utils/types';
-import Home from '@/api/home.ts';
 import PageJump from '@/utils/PageJump.ts';
 @Component({
   components: {}
@@ -48,7 +48,7 @@ export default class RecommendPlaylist extends Vue {
   loading = true;
 
   private async mounted() {
-    const res = await Home.getPersonalizedPlaylist<IPersonalizedPlaylist[]>();
+    const res = await getPersonalizedPlaylist<IPersonalizedPlaylist[]>();
     this.personalizedPlaylist = res.data.result;
     this.loading = false;
   }

@@ -29,8 +29,8 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { getRankingList, IRanking } from '@/api/ranking.ts';
 import PageJump from '@/utils/PageJump';
-import Ranking, { IRanking } from '@/api/ranking.ts';
 @Component({
   components: {}
 })
@@ -39,7 +39,7 @@ export default class RankingList extends Vue {
   loading = true;
 
   private mounted() {
-    this.rankingList = Ranking.getRankingList();
+    this.rankingList = getRankingList();
     this.loading = false;
   }
 

@@ -36,8 +36,8 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { getPersonalizedMv } from '@/api/home.ts';
 import { IPersonalizedMv } from '@/utils/types';
-import Home from '@/api/home.ts';
 import PageJump from '@/utils/PageJump.ts';
 @Component({
   components: {}
@@ -46,7 +46,7 @@ export default class RecommendMv extends Vue {
   loading = true;
   personalizedMv: IPersonalizedMv[] = [];
   private async mounted() {
-    const res = await Home.getPersonalizedMv<IPersonalizedMv[]>();
+    const res = await getPersonalizedMv<IPersonalizedMv[]>();
     this.personalizedMv = res.data.result;
     this.loading = false;
   }

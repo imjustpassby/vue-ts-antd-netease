@@ -27,8 +27,8 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { getBanners } from '@/api/home.ts';
 import { IBanner } from '@/utils/types';
-import Home from '@/api/home.ts';
 import PageJump from '@/utils/PageJump.ts';
 @Component({
   components: {}
@@ -37,7 +37,7 @@ export default class Banner extends Vue {
   private banners: IBanner[] = [];
 
   private async mounted() {
-    const res = await Home.getBanners<IBanner[]>();
+    const res = await getBanners<IBanner[]>();
     this.banners = res.data.banners;
   }
 

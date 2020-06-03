@@ -4,10 +4,10 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { getRankingDetail } from '@/api/ranking.ts';
 import { IPlaylistFormat } from '@/utils/types/index.ts';
 import { transformResponseRankingPlaylist } from '@/utils/transformPlaylistFormat.ts';
 import PlaylistDetail from '@/components/PlaylistDetail/index.vue';
-import Ranking from '@/api/ranking.ts';
 @Component({
   components: { PlaylistDetail }
 })
@@ -30,7 +30,7 @@ export default class RankingDetail extends Vue {
   }
 
   private async mounted() {
-    const res = await Ranking.getRankingDetail(this.idx as string);
+    const res = await getRankingDetail(this.idx as string);
     this.playList = transformResponseRankingPlaylist(res.data.playlist);
     this.loading = false;
   }

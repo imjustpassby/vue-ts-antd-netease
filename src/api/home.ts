@@ -3,37 +3,60 @@ import {
   ResponsePersonalized,
   ResponsePersonalizedNewSong
 } from '@/utils/types';
+import mem from 'mem';
 import request from '@/utils/request.ts';
 
-export default class Home {
-  static async getBanners<T>() {
+export const getBanners = mem(
+  function<T>() {
     return request<ResponseBanner<T>>({
-      url: '/api/banner',
-      withCredentials: true
+      url: '/api/banner'
     });
+  },
+  {
+    maxAge: 1000 * 60 * 15
   }
+);
 
-  static async getPersonalizedPlaylist<T>() {
+export const getPersonalizedPlaylist = mem(
+  function<T>() {
     return request<ResponsePersonalized<T>>({
       url: '/api/personalized'
     });
+  },
+  {
+    maxAge: 1000 * 60 * 15
   }
+);
 
-  static async getPersonalizedNewSong() {
+export const getPersonalizedNewSong = mem(
+  function<T>() {
     return request<ResponsePersonalizedNewSong>({
       url: '/api/personalized/newsong'
     });
+  },
+  {
+    maxAge: 1000 * 60 * 15
   }
+);
 
-  static async getPersonalizedMv<T>() {
+export const getPersonalizedMv = mem(
+  function<T>() {
     return request<ResponsePersonalized<T>>({
       url: '/api/personalized/mv'
     });
+  },
+  {
+    maxAge: 1000 * 60 * 15
   }
+);
 
-  static async getPersonalizedDjProgram() {
+export const getPersonalizedDjProgram = mem(
+  function<T>() {
     return request<ResponsePersonalized>({
       url: '/api/personalized/djprogram'
     });
+  },
+  {
+    maxAge: 1000 * 60 * 15
   }
-}
+);

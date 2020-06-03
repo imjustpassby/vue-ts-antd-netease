@@ -34,9 +34,9 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { getPersonalizedDjProgram } from '@/api/home.ts';
 import { ISongFormat } from '@/utils/types';
 import { transformDjProgramList } from '@/utils/TransformSongFormat.ts';
-import Home from '@/api/home.ts';
 import PageJump from '@/utils/PageJump.ts';
 @Component({
   components: {}
@@ -46,7 +46,7 @@ export default class RecommendDj extends Vue {
   personalizedDJProgram: ISongFormat[] = [];
 
   private async mounted() {
-    const res = await Home.getPersonalizedDjProgram();
+    const res = await getPersonalizedDjProgram();
     this.personalizedDJProgram = transformDjProgramList(res.data.result as []);
     this.loading = false;
   }
