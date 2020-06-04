@@ -45,6 +45,7 @@ export function transformDjProgram(item: any): ISongFormat {
     cover: `${item.picUrl}?param=200y200`,
     theme: [255, 255, 255],
     songType: 'dj',
-    key: item.id
+    key: item.id,
+    lrc: ''
   };
 }

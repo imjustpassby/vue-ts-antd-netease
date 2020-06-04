@@ -29,7 +29,7 @@ export const getPersonalizedPlaylist = mem(
 );
 
 export const getPersonalizedNewSong = mem(
-  function<T>() {
+  function() {
     return request<ResponsePersonalizedNewSong>({
       url: '/api/personalized/newsong'
     });
@@ -51,7 +51,7 @@ export const getPersonalizedMv = mem(
 );
 
 export const getPersonalizedDjProgram = mem(
-  function<T>() {
+  function() {
     return request<ResponsePersonalized>({
       url: '/api/personalized/djprogram'
     });

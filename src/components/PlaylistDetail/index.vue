@@ -100,7 +100,7 @@
                     <svg
                       class="icon play-icon"
                       aria-hidden="true"
-                      @click.once="playMusic(record)"
+                      @click="playMusic(record)"
                     >
                       <use xlink:href="#icon-play1" />
                     </svg>
@@ -175,6 +175,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { IPlaylistFormat, ISongFormat } from '@/utils/types/index.ts';
 import { namespace } from 'vuex-class';
+import Bus from '../../utils/Bus';
 import PageJump from '@/utils/PageJump.ts';
 import Spin from '@/components/Spin/index.vue';
 const playlistModule = namespace('playlist');
@@ -192,6 +193,7 @@ export default class PlaylistDetailComponent extends Vue {
   SET_CURRENT_MUSIC_ACTION!: Function;
 
   addMusicList() {
+    Bus.$emit('add', this.playlist!.tracks);
     this.$message.success('已加入播放列表！');
   }
 
@@ -208,10 +210,13 @@ export default class PlaylistDetailComponent extends Vue {
   }
 
   playMusic(song: ISongFormat) {
-    this.SET_CURRENT_MUSIC_ACTION(song);
+    this.SET_CURRENT_MUSIC_ACTION(song).then((result: ISongFormat) => {
+      Bus.$emit('play', result);
+    });
   }
 
   addMusic(song: ISongFormat) {
+    Bus.$emit('add', [song]);
     this.$message.success('已加入播放列表！');
   }
 

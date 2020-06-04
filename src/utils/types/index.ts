@@ -88,3 +88,25 @@ export type ResponsePlaylist = {
 export type ResponseSongDetail = {
   songs: [];
 };
+
+export type ResponseCheckMusic = {
+  success: boolean;
+};
+
+export type ISongUrl = {
+  id: number;
+  url: string;
+};
+
+export type ResponseSongUrl<T = any> = {
+  data: T;
+};
+
+export type ILrc = {
+  version: number;
+  lyric: string;
+};
+
+export type ResponseLrc = {
+  lrc?: ILrc;
+};

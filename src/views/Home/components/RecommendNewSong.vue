@@ -69,7 +69,7 @@ import { namespace } from 'vuex-class';
 import { transformPlayList } from '@/utils/TransformSongFormat.ts';
 import PageJump from '@/utils/PageJump.ts';
 const playlistModule = namespace('playlist');
-
+import Bus from '@/utils/Bus';
 @Component({
   components: {}
 })
@@ -86,7 +86,9 @@ export default class RecommendNewSong extends Vue {
     this.loading = false;
   }
   private addMusic(song: ISongFormat) {
-    this.SET_CURRENT_MUSIC_ACTION(song);
+    this.SET_CURRENT_MUSIC_ACTION(song).then((result: ISongFormat) => {
+      Bus.$emit('play', result);
+    });
   }
   private goSongDetail(id: number) {
     PageJump.pageJump({

@@ -14,7 +14,7 @@ export default class Spin extends Vue {}
 </script>
 <style lang="scss" scoped>
 .spin {
-  height: 80vh;
+  height: 100vh;
   border-radius: 4px;
   padding-top: 30%;
   text-align: center;

@@ -60,6 +60,7 @@ export function TransformTracksSongFormat(item: any): ISongFormat {
     albumId: item.al.id,
     theme: [255, 255, 255],
     songType: 'song',
-    key: item.id
+    key: item.id,
+    lrc: ''
   };
 }
