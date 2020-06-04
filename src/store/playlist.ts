@@ -46,8 +46,17 @@ export const mutations: MutationTree<IStatePlaylist> = {
 
 export const actions: ActionTree<IStatePlaylist, StateRoot> = {
   SET_CURRENT_MUSIC_ACTION: ({ state, commit }, song) => {
+    let hasSong = false;
+    for (const item of state.playlist) {
+      if (item.id === song.id) {
+        hasSong = true;
+        break;
+      }
+    }
+    if (!hasSong) {
+      commit('ADD_PLAYLIST', song);
+    }
     commit('SET_CURRENT_MUSIC', song);
-    commit('ADD_PLAYLIST', song);
     commit('SET_CURRENT_INDEX', length);
   },
   NEXT_SONG: ({ state, dispatch }) => {

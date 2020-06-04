@@ -1,7 +1,10 @@
 import { formatTime } from '@/utils/UtilFunction.ts';
+import { getSongDetail } from '@/api/song.ts';
 import { IPlaylistFormat } from '@/utils/types/index.ts';
 import { ISongFormat } from './types';
-export function transformResponsePlaylist(list: any): IPlaylistFormat {
+export async function transformResponsePlaylist(
+  list: any
+): Promise<IPlaylistFormat> {
   let {
     id,
     name,
@@ -16,7 +19,8 @@ export function transformResponsePlaylist(list: any): IPlaylistFormat {
   trackIds = trackIds.map((item: { id: number }) => {
     return item.id;
   });
-  tracks = transformTracks(tracks);
+  const res = await getSongDetail(trackIds.join(','));
+  tracks = transformTracks(res.data.songs);
   updateTime = formatTime(updateTime, '{y}-{m}-{d}');
   return {
     id,

@@ -7,7 +7,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import { getPlaylistDetail } from '@/api/playlist.ts';
 import { getRankingDetail } from '@/api/ranking.ts';
 import { IPlaylistFormat } from '@/utils/types/index.ts';
-import { transformResponsePlaylist } from '@/utils/transformPlaylistFormat.ts';
+import { transformResponsePlaylist } from '@/utils/TransformPlaylistFormat.ts';
 import PlaylistDetail from '@/components/PlaylistDetail/index.vue';
 @Component({
   components: { PlaylistDetail }
@@ -33,7 +33,7 @@ export default class PlaylistDetailPage extends Vue {
   }
   private async mounted() {
     const res = await getPlaylistDetail(this.id as string);
-    this.playList = transformResponsePlaylist(res.data.playlist);
+    this.playList = await transformResponsePlaylist(res.data.playlist);
     this.loading = false;
   }
 }

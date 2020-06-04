@@ -1,5 +1,5 @@
 import { ResponseLoginStatus } from '@/utils/types';
-import request from '@/utils/request.ts';
+import request from '@/utils/Request';
 interface ILoginParams {
   phone: string;
   password: string;

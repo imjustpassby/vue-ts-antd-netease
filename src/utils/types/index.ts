@@ -84,3 +84,7 @@ export type ResponsePlaylist = {
   code: number;
   playlist: [];
 };
+
+export type ResponseSongDetail = {
+  songs: [];
+};

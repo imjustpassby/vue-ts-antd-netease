@@ -1,6 +1,9 @@
 <template>
   <div class="playlist-detail-container">
     <a-row>
+      <a-col :span="14" :offset="5" v-if="loading">
+        <spin></spin>
+      </a-col>
       <a-col :span="14" :offset="5">
         <a-skeleton active :loading="loading">
           <div class="playlist-detail">
@@ -171,9 +174,12 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { IPlaylistFormat, ISongFormat } from '@/utils/types/index.ts';
+import { namespace } from 'vuex-class';
 import PageJump from '@/utils/PageJump.ts';
+import Spin from '@/components/Spin/index.vue';
+const playlistModule = namespace('playlist');
 @Component({
-  components: {}
+  components: { Spin }
 })
 export default class PlaylistDetailComponent extends Vue {
   @Prop({ required: true })
@@ -181,6 +187,9 @@ export default class PlaylistDetailComponent extends Vue {
 
   @Prop({ required: true })
   loading: boolean | undefined;
+
+  @playlistModule.Action('SET_CURRENT_MUSIC_ACTION')
+  SET_CURRENT_MUSIC_ACTION!: Function;
 
   addMusicList() {
     this.$message.success('已加入播放列表！');
@@ -196,6 +205,10 @@ export default class PlaylistDetailComponent extends Vue {
       path: '/songDetail',
       id: id
     });
+  }
+
+  playMusic(song: ISongFormat) {
+    this.SET_CURRENT_MUSIC_ACTION(song);
   }
 
   addMusic(song: ISongFormat) {

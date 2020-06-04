@@ -1,6 +1,6 @@
 import { ResponsePlaylist, ResponseRankingList } from '@/utils/types/index.ts';
 import mem from 'mem';
-import request from '@/utils/request.ts';
+import request from '@/utils/Request';
 
 export const getRankingList = mem(
   function<T>() {
