@@ -62,6 +62,13 @@ export const actions: ActionTree<IStatePlaylist, StateRoot> = {
                 song.lrc = res.data.lrc.lyric;
               }
             }
+            const colorThief = new ColorThief();
+            const color = colorThief.getColorAsync(
+              song.cover,
+              (color: [number, number, number]) => {
+                song.theme = color;
+              }
+            );
             let hasSong = false;
             const length = state.playlist.length;
             for (let i = 0; i < length; i++) {
