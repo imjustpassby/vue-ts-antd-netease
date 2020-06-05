@@ -1,7 +1,7 @@
 import { formatTime } from '@/utils/UtilFunction.ts';
 import { getSongDetail } from '@/api/song.ts';
 import { IPlaylistFormat } from '@/utils/types/index.ts';
-import { ISongFormat } from './types';
+import { ISearchSong, ISongFormat } from './types';
 export async function transformResponsePlaylist(
   list: any
 ): Promise<IPlaylistFormat> {
@@ -12,7 +12,7 @@ export async function transformResponsePlaylist(
     updateTime,
     trackIds,
     tracks,
-    coverImgUrl,
+    coverImgUrl = 'https://p2.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg',
     description,
     tags = []
   } = list;
@@ -29,7 +29,7 @@ export async function transformResponsePlaylist(
     updateTime,
     trackIds,
     tracks,
-    cover: `${coverImgUrl}?param=200y200`,
+    cover: `${coverImgUrl}`,
     description,
     tags
   };
@@ -55,7 +55,7 @@ export function TransformTracksSongFormat(item: any): ISongFormat {
     artist: artists.join('/'),
     artists: artists,
     artistId: artistId,
-    cover: `${item.al.picUrl}?param=200y200`,
+    cover: `${item.al.picUrl}`,
     albumName: item.al.name,
     albumId: item.al.id,
     theme: [255, 255, 255],
@@ -63,4 +63,12 @@ export function TransformTracksSongFormat(item: any): ISongFormat {
     key: item.id,
     lrc: ''
   };
+}
+
+export async function transformSearchSongTracks(tracks: ISearchSong[]) {
+  const ids = tracks.map((item: ISearchSong) => {
+    return item.id;
+  });
+  const res = await getSongDetail(ids.join(','));
+  return transformTracks(res.data.songs);
 }

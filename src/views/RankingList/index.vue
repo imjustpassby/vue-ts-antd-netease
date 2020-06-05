@@ -3,7 +3,7 @@
     <a-row class="ranking-list">
       <a-col :span="14" :offset="5">
         <a-skeleton active :loading="loading">
-          <a-row type="flex" justify="space-around">
+          <a-row type="flex" justify="start">
             <a-col
               :span="5"
               class="ranking-list-item"
@@ -60,7 +60,7 @@ export default class RankingList extends Vue {
   margin-top: 16px;
   padding-bottom: 100px;
   .ranking-list-item {
-    margin-top: 16px;
+    margin: 16px;
     img {
       cursor: pointer;
     }

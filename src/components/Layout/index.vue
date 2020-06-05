@@ -78,6 +78,7 @@
       ></login-form>
       <a-player class="aplayer"></a-player>
       <my-playlist></my-playlist>
+      <a-back-top style="bottom: 100px;left:10%" />
     </a-row>
 
     <transition name="fade-transform" mode="out-in">
@@ -118,7 +119,7 @@ export default class Layout extends Vue {
     },
     {
       span: '搜索',
-      link: '/search-detail'
+      link: '/search'
     }
   ];
   subLink: Link[] = [

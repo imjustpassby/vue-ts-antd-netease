@@ -28,7 +28,7 @@
                   <use xlink:href="#icon-play" />
                 </svg>
                 <img
-                  v-lazy="item.cover"
+                  v-lazy="item.cover + '?param=50y50'"
                   width="100%"
                   alt="img"
                   style="margin:9px 0 0 9px;cursor: pointer;z-index:-1"

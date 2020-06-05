@@ -110,3 +110,38 @@ export type ILrc = {
 export type ResponseLrc = {
   lrc?: ILrc;
 };
+
+export type SearchParams = {
+  keywords: string;
+  offset?: number;
+  type: number;
+  limit?: number;
+};
+
+export type IVideo = {
+  coverUrl: string;
+  title: string;
+  vid: string;
+};
+
+export type ResponseSearchVideoResult = {
+  videoCount: number;
+  videos: IVideo[];
+};
+
+export type ResponseSearchVideo = {
+  result: ResponseSearchVideoResult;
+};
+
+export type ISearchSong = {
+  id: number;
+};
+
+export type ResponseSearchSongResult = {
+  songCount: number;
+  songs: ISearchSong[];
+};
+
+export type ResponseSearchSong = {
+  result: ResponseSearchSongResult;
+};

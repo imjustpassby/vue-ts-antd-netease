@@ -1,6 +1,5 @@
 <template>
   <div>
-    <a-back-top style="bottom: 100px;left:10%" />
     <a-row>
       <a-col :span="14" :offset="5">
         <banner></banner>
