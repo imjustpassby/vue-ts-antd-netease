@@ -1,6 +1,6 @@
 <template>
   <a-skeleton active :loading="loading">
-    <div class="recommend-item">
+    <div class="recommend-item" style="min-height: 50vh">
       <div>
         <svg
           class="icon"

@@ -1,6 +1,11 @@
 <template>
-  <div class="search-song">
-    <playlist-table :tracks="tracks" :loading="loading"></playlist-table>
+  <div style="padding-bottom:100px;">
+    <spin v-if="loading"></spin>
+    <playlist-table
+      :tracks="tracks"
+      :loading="loading"
+      v-if="tracks.length > 0"
+    ></playlist-table>
   </div>
 </template>
 
@@ -9,14 +14,16 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import {
   ISearchSong,
   ISongFormat,
-  ResponseSearchSong,
+  ResponseSearch,
+  ResponseSearchSongResult,
   SearchParams
 } from '@/utils/types';
 import { searchByKeywordAndType } from '@/api/search';
 import { transformSearchSongTracks } from '@/utils/TransformPlaylistFormat';
 import PlaylistTable from '@/components/PlaylistTable/index.vue';
+import Spin from '@/components/Spin/index.vue';
 @Component({
-  components: { PlaylistTable }
+  components: { PlaylistTable, Spin }
 })
 export default class extends Vue {
   @Prop({ default: '' })
@@ -32,16 +39,19 @@ export default class extends Vue {
     }
   }
 
+  private async mounted() {
+    if (this.keywords !== '') {
+      await this.search({ keywords: this.keywords!, type: 1 });
+    }
+  }
+
   async search(data: SearchParams) {
     this.loading = true;
-    const res = await searchByKeywordAndType<ResponseSearchSong>(data);
+    const res = await searchByKeywordAndType<
+      ResponseSearch<ResponseSearchSongResult>
+    >(data);
     this.tracks = await transformSearchSongTracks(res.data.result.songs);
     this.loading = false;
   }
 }
 </script>
-<style scoped>
-.search-song {
-  padding-bottom: 100px;
-}
-</style>

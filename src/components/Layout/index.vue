@@ -82,7 +82,7 @@
     </a-row>
 
     <transition name="fade-transform" mode="out-in">
-      <keep-alive include="search,artist-detail">
+      <keep-alive include="search,artistDetail">
         <router-view />
       </keep-alive>
     </transition>

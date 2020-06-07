@@ -6,7 +6,7 @@
           placeholder="音乐/歌手/专辑/歌单/MV"
           @search="getSearchResult"
           enter-button
-          v-model="keywords"
+          v-model.trim="keywords"
         />
       </a-col>
     </a-row>

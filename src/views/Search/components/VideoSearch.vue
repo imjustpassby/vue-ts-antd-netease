@@ -1,5 +1,6 @@
 <template>
   <div style="padding-bottom:100px;">
+    <spin v-if="loading"></spin>
     <a-skeleton active :loading="loading" v-show="exactSearch.length > 0">
       <a-row type="flex" justify="start" style="margin:16px 0">
         <a-col
@@ -15,7 +16,7 @@
             alt="img"
             @click="goMvDetail(ar.vid)"
           />
-          <p class="artist-list-title">{{ ar.title }}</p>
+          <p>{{ ar.title }}</p>
         </a-col>
       </a-row>
     </a-skeleton>
@@ -24,17 +25,23 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-import { IVideo, ResponseSearchVideo, SearchParams } from '@/utils/types';
+import {
+  ISearchVideo,
+  ResponseSearch,
+  ResponseSearchVideoResult,
+  SearchParams
+} from '@/utils/types';
 import { searchByKeywordAndType } from '@/api/search';
 import PageJump from '@/utils/PageJump';
+import Spin from '@/components/Spin/index.vue';
 @Component({
-  components: {}
+  components: { Spin }
 })
 export default class VideoSearch extends Vue {
   @Prop({ default: '' })
   keywords: string | undefined;
 
-  exactSearch: IVideo[] = [];
+  exactSearch: ISearchVideo[] = [];
   loading = true;
 
   @Watch('keywords')
@@ -51,17 +58,23 @@ export default class VideoSearch extends Vue {
   }
   async search(data: SearchParams) {
     this.loading = true;
-    const res = await searchByKeywordAndType<ResponseSearchVideo>(data);
+    const res = await searchByKeywordAndType<
+      ResponseSearch<ResponseSearchVideoResult>
+    >(data);
     this.exactSearch = res.data.result.videos;
     this.loading = false;
   }
   goMvDetail(id: string) {
     PageJump.pageJump({
       that: this,
-      path: '/mvDetail',
+      path: '/videoDetail',
       id: Number(id)
     });
   }
 }
 </script>
-<style lang="scss" scoped></style>
+<style scoped>
+img {
+  cursor: pointer;
+}
+</style>

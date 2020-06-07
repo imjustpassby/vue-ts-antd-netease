@@ -118,7 +118,11 @@ export type SearchParams = {
   limit?: number;
 };
 
-export type IVideo = {
+export type ResponseSearch<T = any> = {
+  result: T;
+};
+
+export type ISearchVideo = {
   coverUrl: string;
   title: string;
   vid: string;
@@ -126,11 +130,7 @@ export type IVideo = {
 
 export type ResponseSearchVideoResult = {
   videoCount: number;
-  videos: IVideo[];
-};
-
-export type ResponseSearchVideo = {
-  result: ResponseSearchVideoResult;
+  videos: ISearchVideo[];
 };
 
 export type ISearchSong = {
@@ -142,6 +142,57 @@ export type ResponseSearchSongResult = {
   songs: ISearchSong[];
 };
 
-export type ResponseSearchSong = {
-  result: ResponseSearchSongResult;
+export type ISearchPlaylist = {
+  id: number;
+  name: string;
+  coverImgUrl: string;
+};
+
+export type ResponseSearchPlaylistResult = {
+  playlistCount: number;
+  playlists: ISearchPlaylist[];
+};
+
+export type ISearchMv = {
+  id: number;
+  name: string;
+  cover: string;
+};
+
+export type ResponseSearchMvResult = {
+  mvCount: number;
+  mvs: ISearchMv[];
+};
+
+export type ISearchAlbum = {
+  id: number;
+  name: string;
+  picUrl: string;
+};
+
+export type ResponseSearchAlbumResult = {
+  albumCount: number;
+  albums: ISearchAlbum[];
+};
+
+export type ISearchArtist = {
+  id: number;
+  name: string;
+  img1v1Url: string;
+};
+
+export type ResponseSearchArtistResult = {
+  albumCount: number;
+  artists: ISearchArtist[];
+};
+
+export type ISearchDjProgram = {
+  id: number;
+  name: string;
+  picUrl: string;
+};
+
+export type ResponseSearchDjProgramResult = {
+  djRadiosCount: number;
+  djRadios: ISearchDjProgram[];
 };
