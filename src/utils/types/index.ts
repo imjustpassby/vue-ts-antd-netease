@@ -229,3 +229,18 @@ export type ResponsePlaylistCategoryList = {
   sub: IPlaylistCategoryListSub[];
   categories: IPlaylistCategory;
 };
+
+export type TopAlbumParams = {
+  limit: number;
+  offset: number;
+};
+
+export type INewestAlbum = {
+  name: string;
+  id: number;
+  picUrl: string;
+};
+
+export type ResponseNewestAlbum = {
+  albums: INewestAlbum[];
+};

@@ -82,7 +82,7 @@
     </a-row>
 
     <transition name="fade-transform" mode="out-in">
-      <keep-alive include="search,artistDetail">
+      <keep-alive include="Search,ArtistDetail">
         <router-view />
       </keep-alive>
     </transition>
@@ -145,7 +145,7 @@ export default class Layout extends Vue {
     },
     {
       span: '新碟上架',
-      link: '/newAlbum'
+      link: '/newestAlbum'
     }
   ];
   loginShow = false;
