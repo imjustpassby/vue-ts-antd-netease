@@ -196,3 +196,36 @@ export type ResponseSearchDjProgramResult = {
   djRadiosCount: number;
   djRadios: ISearchDjProgram[];
 };
+
+export type TopPlaylistParams = {
+  limit: number;
+  category: string;
+  offset: number;
+};
+
+export type ITopPlaylist = {
+  id: number;
+  name: string;
+  coverImgUrl: string;
+};
+
+export type ResponseTopPlaylist = {
+  total: number;
+  code: number;
+  cat: string;
+  playlists: ITopPlaylist[];
+};
+
+export type IPlaylistCategoryListSub = {
+  name: string;
+  category: number;
+};
+
+export type IPlaylistCategory = {
+  [x: string]: string;
+};
+
+export type ResponsePlaylistCategoryList = {
+  sub: IPlaylistCategoryListSub[];
+  categories: IPlaylistCategory;
+};
