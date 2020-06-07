@@ -1,7 +1,7 @@
-import { formatTime } from '@/utils/UtilFunction.ts';
 import { getSongDetail } from '@/api/song.ts';
 import { IPlaylistFormat } from '@/utils/types/index.ts';
 import { ISearchSong, ISongFormat } from './types';
+import CommonMethod from '@/utils/CommonMethod';
 export async function transformResponsePlaylist(
   list: any
 ): Promise<IPlaylistFormat> {
@@ -21,7 +21,7 @@ export async function transformResponsePlaylist(
   });
   const res = await getSongDetail(trackIds.join(','));
   tracks = transformTracks(res.data.songs);
-  updateTime = formatTime(updateTime, '{y}-{m}-{d}');
+  updateTime = CommonMethod.formatTime(updateTime, '{y}-{m}-{d}');
   return {
     id,
     name,
