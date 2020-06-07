@@ -1,5 +1,5 @@
 <template>
-  <div style="padding-bottom: 100px;">
+  <div style="padding-bottom: 120px;">
     <a-row class="album-list">
       <a-col :span="14" :offset="5">
         <newest-album-component></newest-album-component>
@@ -46,7 +46,6 @@ export default class NewestAlbum extends Vue {}
 
   .album-list-title {
     font-size: 14px;
-    cursor: pointer;
     line-height: 1.5em;
   }
 }

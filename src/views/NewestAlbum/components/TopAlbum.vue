@@ -37,7 +37,7 @@
       @change="onChangePage"
       :current="currentPage"
       :total="50"
-      style="margin-top:10px"
+      style="margin-top:20px"
     />
   </div>
 </template>
