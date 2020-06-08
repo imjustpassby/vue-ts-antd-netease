@@ -244,3 +244,19 @@ export type INewestAlbum = {
 export type ResponseNewestAlbum = {
   albums: INewestAlbum[];
 };
+
+export type ArtistByCategoryParams = {
+  cat: number;
+  limit: number;
+  offset?: number;
+};
+
+export type IArtistByCategory = {
+  id: number;
+  name: number;
+  img1v1Url: string;
+};
+
+export type ResponseArtistByCategory = {
+  artists: IArtistByCategory[];
+};
