@@ -1,9 +1,11 @@
 import { ErrorHandler } from 'vue-router/types/router';
+import store from '@/store';
 import Vue from 'vue';
 import VueRouter, { RawLocation, Route, RouteConfig } from 'vue-router';
-
 // 重写 router 的 push 方法，添加全局异常捕获
 const originalPush = VueRouter.prototype.push;
+import NProgress from 'nprogress';
+
 VueRouter.prototype.push = function push(
   location: RawLocation,
   onComplete?: Function,
@@ -102,6 +104,10 @@ const router = new VueRouter({
   routes
 });
 
+/* 
+  需要登录才能访问的地址
+*/
+const needLoginPaths = ['/my/daily-recommend'];
 /**
  * 全局前置守卫
  * 参数或查询的改变并不会触发进入/离开的导航守卫
@@ -112,18 +118,26 @@ router.beforeEach(
     from: Route,
     next: (to?: RawLocation | false | ((vm: Vue) => any) | void) => void
   ) => {
-    // const isLogin = window.localStorage.getItem('sessionId');
+    NProgress.start();
     if (to.matched.length !== 0) {
-      // if (!isLogin && !to.meta.noAuth && to.name !== 'login') {
-      //   // 未登录，并且需要登录才能访问的页面，跳转至登录页。
-      //   next({ name: 'login' });
-      // }
-      next();
+      if (store.state.user.loginSuccess === 'true') {
+        next();
+      } else {
+        if (needLoginPaths.includes(to.path)) {
+          Vue.prototype.$message.warning('请先登录再体验该功能喔...');
+        } else {
+          next();
+        }
+      }
     } else {
       // 路由不存在，跳转至404页面。
       next({ name: '404' });
     }
   }
 );
+
+router.afterEach(() => {
+  NProgress.done();
+});
 
 export default router;
