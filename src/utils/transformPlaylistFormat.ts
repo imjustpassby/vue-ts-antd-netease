@@ -1,6 +1,5 @@
 import { getSongDetail } from '@/api/song.ts';
-import { IPlaylistFormat } from '@/utils/types/index.ts';
-import { ISearchSong, ISongFormat } from './types';
+import { IPlaylistFormat, ISearchSong, ISongFormat } from './types';
 import CommonMethod from '@/utils/CommonMethod';
 export async function transformResponsePlaylist(
   list: any
@@ -55,13 +54,15 @@ export function TransformTracksSongFormat(item: any): ISongFormat {
     artist: artists.join('/'),
     artists: artists,
     artistId: artistId,
-    cover: `${item.al.picUrl}`,
+    cover: `${item.al.picUrl}?param=200y200`,
     albumName: item.al.name,
     albumId: item.al.id,
     theme: [255, 255, 255],
     songType: 'song',
     key: item.id,
-    lrc: ''
+    lrc: '',
+    pop: item.pop,
+    duration: CommonMethod.getDuration(item.dt)
   };
 }
 

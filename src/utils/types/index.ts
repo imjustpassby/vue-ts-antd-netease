@@ -10,6 +10,8 @@ export type ISongFormat = {
   theme: [number, number, number];
   songType: 'dj' | 'song';
   key: number;
+  pop: number;
+  duration: string;
   url?: string;
   lrc?: string;
 };
@@ -246,8 +248,8 @@ export type ResponseNewestAlbum = {
 };
 
 export type ArtistByCategoryParams = {
-  cat: number;
-  limit: number;
+  cat?: number;
+  limit?: number;
   offset?: number;
 };
 
@@ -259,4 +261,39 @@ export type IArtistByCategory = {
 
 export type ResponseArtistByCategory = {
   artists: IArtistByCategory[];
+};
+
+export type IAlbumFormat = {
+  id: number;
+  name: string;
+  company: string;
+  cover: string;
+  description: string;
+  publishTime: string;
+  artists: string[];
+  tracks: ISongFormat[];
+};
+
+export type IResponseAlbumSongs = {
+  id: number;
+};
+
+export type IResponseAlbumArtist = {
+  name: string;
+  id: number;
+};
+
+export type IResponseAlbum = {
+  id: number;
+  name: string;
+  company: string;
+  artists: IResponseAlbumArtist[];
+  picUrl: string;
+  description: string;
+  publishTime: number;
+};
+
+export type ResponseAlbum = {
+  songs: IResponseAlbumSongs[];
+  album: IResponseAlbum;
 };

@@ -70,7 +70,7 @@
             <a-avatar
               slot="avatar"
               class="cover-img"
-              :src="item.cover + '?param=50y50'"
+              :src="item.cover"
               style="cursor:pointer"
               @click="goAlbumDetail(item)"
             />

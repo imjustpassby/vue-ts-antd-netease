@@ -11,7 +11,7 @@
         </svg>
         最新音乐
       </div>
-      <a-row type="flex" justify="space-around" style="padding: 14px 0 0 0">
+      <a-row type="flex" justify="space-around">
         <a-col
           :span="12"
           v-for="(item, index) in personalizedNewSong"

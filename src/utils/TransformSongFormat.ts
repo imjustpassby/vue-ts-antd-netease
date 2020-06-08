@@ -1,4 +1,5 @@
 import { ISongFormat } from './types';
+import CommonMethod from '@/utils/CommonMethod';
 // 处理home recommendNewSong格式
 export function transformPlayList(list: []): ISongFormat[] {
   return list.map((item: any) => {
@@ -24,7 +25,9 @@ export function transformSong(item: any): ISongFormat {
     albumId: item.song.album.id,
     theme: [255, 255, 255],
     songType: 'song',
-    key: item.id
+    key: item.id,
+    pop: 0,
+    duration: CommonMethod.getDuration(item.dt)
   };
 }
 
@@ -48,6 +51,8 @@ export function transformDjProgram(item: any): ISongFormat {
     theme: [255, 255, 255],
     songType: 'dj',
     key: item.id,
-    lrc: ''
+    lrc: '',
+    pop: 0,
+    duration: CommonMethod.getDuration(item.dt)
   };
 }

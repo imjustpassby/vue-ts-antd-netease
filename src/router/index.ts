@@ -97,6 +97,11 @@ const routes: RouteConfig[] = [
         component: () => import('@/views/PlaylistDetail/index.vue')
       },
       {
+        path: 'albumDetail',
+        name: 'albumDetail',
+        component: () => import('@/views/AlbumDetail/index.vue')
+      },
+      {
         path: 'search',
         name: 'search',
         component: () => import('@/views/Search/index.vue')
@@ -143,6 +148,7 @@ router.beforeEach(
 
 router.afterEach(() => {
   NProgress.done();
+  window.scrollTo(0, 0);
 });
 
 export default router;

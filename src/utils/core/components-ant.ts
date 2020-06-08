@@ -36,9 +36,11 @@ let {
   Carousel,
   Skeleton,
   message,
-  ConfigProvider
+  ConfigProvider,
+  Progress
 } = Antd;
 
+Vue.use(Progress);
 Vue.use(ConfigProvider);
 Vue.use(BackTop);
 Vue.use(LocaleProvider);

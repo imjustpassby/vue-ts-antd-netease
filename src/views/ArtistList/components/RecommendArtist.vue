@@ -74,6 +74,7 @@
 import { ArtistByCategoryParams, IArtistByCategory } from '@/utils/types';
 import { Component, Vue } from 'vue-property-decorator';
 import { getArtistByCategory, getTopArtists } from '@/api/artist';
+import PageJump from '@/utils/PageJump';
 @Component({
   components: {}
 })
@@ -95,6 +96,14 @@ export default class extends Vue {
   async getHotSinger() {
     const res = await getTopArtists({ limit: 20, offset: 0 });
     this.hotSinger = res.data.artists;
+  }
+
+  goArtistDetail(id: number) {
+    PageJump.pageJump({
+      that: this,
+      path: '/artistDetail',
+      id
+    });
   }
 }
 </script>

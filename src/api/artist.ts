@@ -131,7 +131,6 @@ export const getTopArtists = mem(
   function({ limit = 20, offset = 0 }: ArtistByCategoryParams) {
     return request<ResponseArtistByCategory>({
       url: '/api/top/artists',
-      withCredentials: true,
       params: {
         limit: limit,
         offset: offset

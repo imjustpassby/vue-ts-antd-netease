@@ -2,7 +2,7 @@
   <a-skeleton active :loading="loading">
     <div>
       <a-table :data-source="tracks">
-        <a-table-column title align="center" key="action" width="10%">
+        <a-table-column title align="center" key="action" width="12%">
           <template slot-scope="text, record">
             <span>
               <svg
@@ -22,7 +22,7 @@
             </span>
           </template>
         </a-table-column>
-        <a-table-column title="歌曲标题" width="40%" key="title">
+        <a-table-column title="歌曲标题" width="30%" key="title">
           <template slot-scope="text, record">
             <a-popover placement="top">
               <template slot="content">
@@ -34,7 +34,7 @@
             </a-popover>
           </template>
         </a-table-column>
-        <a-table-column title="歌手" align="center" width="25%" key="artist">
+        <a-table-column title="歌手" width="20%" key="artist">
           <template slot-scope="text, record">
             <a-popover placement="top">
               <template slot="content">
@@ -64,6 +64,23 @@
                 {{ record.albumName }}
               </span>
             </a-popover>
+          </template>
+        </a-table-column>
+        <a-table-column title="热度" width="10%" key="pop" align="center">
+          <template slot-scope="text, record">
+            <a-progress
+              :percent="record.pop"
+              :show-info="false"
+              size="small"
+              status="active"
+              stroke-color="red"
+              :format="percent => percent"
+            />
+          </template>
+        </a-table-column>
+        <a-table-column title="时长" width="10%" key="duration" align="center">
+          <template slot-scope="text, record">
+            <span>{{ record.duration }}</span>
           </template>
         </a-table-column>
       </a-table>
@@ -130,5 +147,6 @@ export default class PlaylistTable extends Vue {
 .play-icon {
   font-size: 20px;
   cursor: pointer;
+  margin: 0 2px;
 }
 </style>

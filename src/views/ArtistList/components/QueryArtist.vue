@@ -30,6 +30,7 @@
 <script lang="ts">
 import { Component, Emit, Prop, Vue } from 'vue-property-decorator';
 import { IArtistByCategory } from '@/utils/types';
+import PageJump from '@/utils/PageJump';
 @Component({
   components: {}
 })
@@ -47,6 +48,14 @@ export default class QueryArtist extends Vue {
   previous(cate: number) {}
   @Emit('next')
   next(cate: number) {}
+
+  goArtistDetail(id: number) {
+    PageJump.pageJump({
+      that: this,
+      path: '/artistDetail',
+      id
+    });
+  }
 }
 </script>
 <style lang="scss" scoped>

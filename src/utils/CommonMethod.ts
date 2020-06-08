@@ -48,10 +48,7 @@ export default class CommonMethod {
     return false;
   }
 
-  static formatTime(time: number, cFormat: string) {
-    if (arguments.length === 0) {
-      return null;
-    }
+  static formatTime(time: number, cFormat: string): string {
     if (`${time}`.length === 10) {
       time = Number(time) * 1000;
     }
@@ -95,5 +92,25 @@ export default class CommonMethod {
       return value || 0;
     });
     return time_str;
+  }
+
+  static getDuration(my_time: number) {
+    const days = my_time / 1000 / 60 / 60 / 24;
+    const daysRound = Math.floor(days);
+    const hours = my_time / 1000 / 60 / 60 - 24 * daysRound;
+    const hoursRound = Math.floor(hours);
+    const minutes = my_time / 1000 / 60 - 24 * 60 * daysRound - 60 * hoursRound;
+    const minutesRound = Math.floor(minutes);
+    const seconds =
+      my_time / 1000 -
+      24 * 60 * 60 * daysRound -
+      60 * 60 * hoursRound -
+      60 * minutesRound;
+    const secondsRound = Math.floor(seconds);
+    const time =
+      hoursRound === 0
+        ? `${minutesRound}:${secondsRound}`
+        : `${hoursRound}:${minutesRound}:${secondsRound}`;
+    return time;
   }
 }
