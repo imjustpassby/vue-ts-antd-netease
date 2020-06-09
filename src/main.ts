@@ -6,8 +6,8 @@ import store from './store';
 import Vue from 'vue';
 import VueLazyLoad from 'vue-lazyload';
 Vue.use(VueLazyLoad, {
-  error: require('@/assets/images/loading.gif'),
-  loading: require('@/assets/images/loading.gif')
+  error: require('../public/loading.gif'),
+  loading: require('../public/loading.gif')
 });
 Vue.config.productionTip = false;
 Vue.config.devtools = process.env.NODE_ENV === 'development'; // 生产环境下不允许使用 devtools
