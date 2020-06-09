@@ -37,13 +37,13 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { getNewestAlbum } from '@/api/album';
-import { INewestAlbum } from '@/utils/types';
+import { IAlbum } from '@/utils/types';
 import PageJump from '@/utils/PageJump';
 @Component({
   components: {}
 })
 export default class NewestAlbumComponent extends Vue {
-  albums: INewestAlbum[] = [];
+  albums: IAlbum[] = [];
   loading = true;
 
   private async mounted() {

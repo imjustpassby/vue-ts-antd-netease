@@ -7,11 +7,11 @@ import {
 import mem from 'mem';
 import request from '@/utils/Request';
 
-export async function getPlaylistDetail(id: string) {
+export async function getPlaylistDetail(id: number) {
   return await request<ResponsePlaylist>({
     url: '/api/playlist/detail',
     params: {
-      id: id
+      id
     }
   });
 }

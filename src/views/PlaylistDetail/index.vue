@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 import { getPlaylistDetail } from '@/api/playlist.ts';
 import { getRankingDetail } from '@/api/ranking.ts';
 import { IPlaylistFormat } from '@/utils/types/index.ts';
@@ -31,10 +31,20 @@ export default class PlaylistDetailPage extends Vue {
   get type() {
     return this.$route.query.type;
   }
-  private async mounted() {
-    const res = await getPlaylistDetail(this.id as string);
-    this.playList = await transformResponsePlaylist(res.data.playlist);
+  @Watch('$route', { deep: true })
+  async reset(to: any, from: any) {
+    this.loading = true;
+    await this.getPlaylist();
     this.loading = false;
+  }
+  private async mounted() {
+    await this.getPlaylist();
+    this.loading = false;
+  }
+
+  async getPlaylist() {
+    const res = await getPlaylistDetail(Number(this.id));
+    this.playList = await transformResponsePlaylist(res.data.playlist);
   }
 }
 </script>

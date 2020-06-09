@@ -66,7 +66,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import { getPersonalizedNewSong } from '@/api/home.ts';
 import { ISongFormat, ResponsePersonalizedNewSong } from '@/utils/types';
 import { namespace } from 'vuex-class';
-import { transformPlayList } from '@/utils/TransformSongFormat.ts';
+import { transformPlayList } from '@/utils/TransformNewSongFormat.ts';
 import PageJump from '@/utils/PageJump.ts';
 const playlistModule = namespace('playlist');
 import Bus from '@/utils/Bus';

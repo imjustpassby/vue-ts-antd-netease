@@ -237,14 +237,14 @@ export type TopAlbumParams = {
   offset: number;
 };
 
-export type INewestAlbum = {
+export type IAlbum = {
   name: string;
   id: number;
   picUrl: string;
 };
 
 export type ResponseNewestAlbum = {
-  albums: INewestAlbum[];
+  albums: IAlbum[];
 };
 
 export type ArtistByCategoryParams = {
@@ -296,4 +296,53 @@ export type IResponseAlbum = {
 export type ResponseAlbum = {
   songs: IResponseAlbumSongs[];
   album: IResponseAlbum;
+};
+
+export type IArtist = {
+  id: number;
+  name: string;
+  img1v1Url: string;
+  musicSize: number;
+  albumSize: number;
+  mvSize: number;
+  briefDesc: string;
+};
+
+export type ResponseArtistHotSongs = {
+  id: number;
+};
+
+export type ResponseArtist = {
+  artist: IArtist;
+  hotSongs: ResponseArtistHotSongs[];
+};
+
+export type IArtistIntroduction = {
+  ti: string;
+  txt: string;
+};
+
+export type ResponseArtistDesc = {
+  introduction: IArtistIntroduction[];
+  briefDesc: string;
+};
+
+export type ArtistAlbumParams = {
+  id: number;
+  limit: number;
+  offset: number;
+};
+
+export type ResponseArtistAlbum = {
+  hotAlbums: IAlbum[];
+};
+
+export type IArtistMv = {
+  id: number;
+  name: number;
+  imgurl16v9: string;
+};
+
+export type ResponseArtistMv = {
+  mvs: IArtistMv[];
 };

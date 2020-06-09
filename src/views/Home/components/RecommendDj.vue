@@ -36,7 +36,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { getPersonalizedDjProgram } from '@/api/home.ts';
 import { ISongFormat } from '@/utils/types';
-import { transformDjProgramList } from '@/utils/TransformSongFormat.ts';
+import { transformDjProgramList } from '@/utils/TransformNewSongFormat.ts';
 import PageJump from '@/utils/PageJump.ts';
 @Component({
   components: {}

@@ -1,6 +1,11 @@
 import {
+  ArtistAlbumParams,
   ArtistByCategoryParams,
-  ResponseArtistByCategory
+  ResponseArtist,
+  ResponseArtistAlbum,
+  ResponseArtistByCategory,
+  ResponseArtistDesc,
+  ResponseArtistMv
 } from '@/utils/types';
 import mem from 'mem';
 import request from '@/utils/Request';
@@ -134,6 +139,68 @@ export const getTopArtists = mem(
       params: {
         limit: limit,
         offset: offset
+      }
+    });
+  },
+  {
+    maxAge: 1000 * 60 * 60
+  }
+);
+
+/* 获取歌手单曲,传入歌手 id, 可获得歌手部分信息和热门歌曲  */
+export const getArtist = mem(
+  function(id: number) {
+    return request<ResponseArtist>({
+      url: '/api/artists',
+      params: {
+        id
+      }
+    });
+  },
+  {
+    maxAge: 1000 * 60 * 60
+  }
+);
+
+/* 获取歌手描述 */
+export const getArtistDesc = mem(
+  function(id: number) {
+    return request<ResponseArtistDesc>({
+      url: '/api/artist/desc',
+      params: {
+        id
+      }
+    });
+  },
+  {
+    maxAge: 1000 * 60 * 60
+  }
+);
+
+/* 获取歌手专辑 */
+export const getArtistAlbum = mem(
+  function({ id, limit = 20, offset = 0 }: ArtistAlbumParams) {
+    return request<ResponseArtistAlbum>({
+      url: '/api/artist/album',
+      params: {
+        id: id,
+        limit: limit,
+        offset: offset
+      }
+    });
+  },
+  {
+    maxAge: 1000 * 60 * 60
+  }
+);
+
+/* 获取歌手MV */
+export const getArtistMv = mem(
+  function(id: number) {
+    return request<ResponseArtistMv>({
+      url: '/api/artist/mv',
+      params: {
+        id
       }
     });
   },

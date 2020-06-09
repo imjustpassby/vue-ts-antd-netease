@@ -45,13 +45,13 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { getTopAlbum } from '@/api/album';
-import { INewestAlbum, TopAlbumParams } from '@/utils/types';
+import { IAlbum, TopAlbumParams } from '@/utils/types';
 import PageJump from '@/utils/PageJump';
 @Component({
   components: {}
 })
 export default class NewestAlbumComponent extends Vue {
-  albums: INewestAlbum[] = [];
+  albums: IAlbum[] = [];
   loading = true;
   currentPage = 1;
 
