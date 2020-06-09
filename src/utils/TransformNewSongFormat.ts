@@ -75,7 +75,7 @@ export function transformProgramRecommend(item: any): ISongFormat {
     cover: `${item.coverUrl}?param=200y200`,
     theme: [255, 255, 255],
     songType: 'dj',
-    key: item.id,
+    key: item.mainSong.id,
     lrc: '',
     pop: 0,
     duration: CommonMethod.getDuration(item.duration)

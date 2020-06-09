@@ -1,5 +1,9 @@
 <template>
-  <recommend-song :tracks="tracks" :loading="loading"></recommend-song>
+  <recommend-song
+    :tracks="tracks"
+    :loading="loading"
+    title="最新音乐"
+  ></recommend-song>
 </template>
 
 <script lang="ts">

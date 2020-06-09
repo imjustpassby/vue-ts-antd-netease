@@ -391,3 +391,38 @@ export type ITodayDj = {
 export type ResponseTodayDj = {
   data: ITodayDj[];
 };
+
+export type ISimilarSong = {
+  id: number;
+};
+
+export type ResponseSimilarSong = {
+  songs: ISimilarSong[];
+};
+
+export type ISimilarPlaylist = {
+  id: number;
+  name: string;
+  coverImgUrl: string;
+  playCount: number;
+};
+
+export type ResponseSimilarPlaylist = {
+  playlists: ISimilarPlaylist[];
+};
+
+export type IUser = {
+  nickname: string;
+  avatarUrl: string;
+};
+
+export type IComment = {
+  user: IUser;
+  content: string;
+  beReplied: IComment;
+};
+
+export type ResponseSongComment = {
+  hotComments: IComment[];
+  comments: IComment[];
+};

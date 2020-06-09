@@ -9,7 +9,7 @@
         >
           <use xlink:href="#icon-circle" />
         </svg>
-        最新音乐
+        {{ title }}
       </div>
       <a-row type="flex" justify="space-around">
         <a-col :span="12" v-for="(item, index) in tracks" :key="index">
@@ -32,23 +32,21 @@
               </div>
             </a-col>
             <a-col :span="18" :offset="1">
-              <p
-                class="common--title"
-                style="line-height:1.5em;cursor:pointer"
-                @click="goSongDetail(item.id)"
-              >
+              <p class="common--title" @click="goSongDetail(item)">
                 {{ item.name }}
               </p>
-              <span
-                class="common--title"
-                style="line-height:1.5em;cursor:pointer;color:#999"
-                v-for="(ar, idx) in item.artists"
-                :key="idx"
-                @click="goArtistDetail(item.artistId[idx])"
-              >
-                {{ ar }}
-                <span v-show="idx !== item.artists.length - 1">/</span>
-              </span>
+              <p v-if="item.songType === 'song'">
+                <span
+                  class="common--title"
+                  style="line-height:1.5em;cursor:pointer;color:#999"
+                  v-for="(ar, idx) in item.artists"
+                  :key="idx"
+                  @click="goArtistDetail(item.artistId[idx])"
+                >
+                  {{ ar }}
+                  <span v-show="idx !== item.artists.length - 1">/</span>
+                </span>
+              </p>
             </a-col>
           </a-row>
         </a-col>
@@ -72,6 +70,8 @@ export default class RecommendSong extends Vue {
   loading = true;
   @Prop({ required: true })
   tracks: ISongFormat[] | undefined;
+  @Prop({ required: true })
+  title: string | undefined;
 
   @playlistModule.Action('SET_CURRENT_MUSIC_ACTION')
   SET_CURRENT_MUSIC_ACTION!: Function;
@@ -81,12 +81,20 @@ export default class RecommendSong extends Vue {
       Bus.$emit('play', result);
     });
   }
-  private goSongDetail(id: number) {
-    PageJump.pageJump({
-      that: this,
-      id: id,
-      path: '/songDetail'
-    });
+  private goSongDetail(song: ISongFormat) {
+    if (song.songType === 'song') {
+      PageJump.pageJump({
+        that: this,
+        id: song.id,
+        path: '/songDetail'
+      });
+    } else if (song.songType === 'dj') {
+      PageJump.pageJump({
+        that: this,
+        id: song.artistId[0],
+        path: '/djDetail'
+      });
+    }
   }
   private goArtistDetail(id: number) {
     PageJump.pageJump({

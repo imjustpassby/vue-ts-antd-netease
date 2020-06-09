@@ -1,6 +1,7 @@
 import {
   ResponseCheckMusic,
   ResponseLrc,
+  ResponseSimilarSong,
   ResponseSongDetail,
   ResponseSongUrl
 } from '@/utils/types/index.ts';
@@ -48,6 +49,21 @@ export const getLyric = mem(
   async function(id: number) {
     return await request<ResponseLrc>({
       url: '/api/lyric',
+      params: {
+        id
+      }
+    });
+  },
+  {
+    maxAge: 1000 * 60 * 60
+  }
+);
+
+/* 获取相似歌曲 */
+export const getSimilarSong = mem(
+  function(id: number) {
+    return request<ResponseSimilarSong>({
+      url: '/api/simi/song',
       params: {
         id
       }

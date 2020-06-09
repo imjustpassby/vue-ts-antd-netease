@@ -28,7 +28,7 @@
               <template slot="content">
                 <span>{{ record.name }}</span>
               </template>
-              <span @click="goSongDetail(record)" style="cursor:pointer">
+              <span @click="goSongDetail(record.id)" style="cursor:pointer">
                 {{ record.name }}
               </span>
             </a-popover>
@@ -60,7 +60,10 @@
               <template slot="content">
                 <span>{{ record.albumName }}</span>
               </template>
-              <span @click="goAlbumDetail(record)" style="cursor:pointer">
+              <span
+                @click="goAlbumDetail(record.albumId)"
+                style="cursor:pointer"
+              >
                 {{ record.albumName }}
               </span>
             </a-popover>

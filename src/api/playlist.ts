@@ -1,6 +1,7 @@
 import { ResponsePlaylist } from '@/utils/types/index.ts';
 import {
   ResponsePlaylistCategoryList,
+  ResponseSimilarPlaylist,
   ResponseTopPlaylist,
   TopPlaylistParams
 } from '@/utils/types';
@@ -37,6 +38,21 @@ export const getPlayListCategoryList = mem(
   function() {
     return request<ResponsePlaylistCategoryList>({
       url: '/api/playlist/catlist'
+    });
+  },
+  {
+    maxAge: 1000 * 60 * 60
+  }
+);
+
+/* 获取相似歌单(包含这首歌的歌单) */
+export const getSimilarPlaylist = mem(
+  function(id: number) {
+    return request<ResponseSimilarPlaylist>({
+      url: '/api/simi/playlist',
+      params: {
+        id
+      }
     });
   },
   {

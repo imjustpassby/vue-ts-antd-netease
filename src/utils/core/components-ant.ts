@@ -37,9 +37,11 @@ let {
   Skeleton,
   message,
   ConfigProvider,
-  Progress
+  Progress,
+  Comment
 } = Antd;
 
+Vue.use(Comment);
 Vue.use(Progress);
 Vue.use(ConfigProvider);
 Vue.use(BackTop);
