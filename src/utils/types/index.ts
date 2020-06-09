@@ -346,3 +346,48 @@ export type IArtistMv = {
 export type ResponseArtistMv = {
   mvs: IArtistMv[];
 };
+
+export type IDjCategory = {
+  id: number;
+  name: string;
+  pic56x56Url: string;
+};
+
+export type ResponseDjCate = {
+  categories: IDjCategory[];
+};
+
+export type IDjRecommendByType = {
+  id: number;
+  name: string;
+  picUrl: string;
+};
+
+export type ResponseDjRecommendByType = {
+  djRadios: IDjRecommendByType[];
+};
+
+export type ResponseProgramRecommend = {
+  programs: [];
+};
+
+export type IDjRadios = {
+  id: number;
+  name: string;
+  picUrl: string;
+};
+
+export type ResponseDjRecommend = {
+  name: string;
+  djRadios: IDjRadios[];
+};
+
+export type ITodayDj = {
+  id: number;
+  name: string;
+  picUrl: string;
+};
+
+export type ResponseTodayDj = {
+  data: ITodayDj[];
+};

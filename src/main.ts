@@ -1,4 +1,4 @@
-import './assets/less/global.less'; // 自定义的全局样式
+import './assets/style/global.less'; // 自定义的全局样式
 import '@/utils/core/components-ant.ts';
 import App from './App.vue';
 import router from './router';

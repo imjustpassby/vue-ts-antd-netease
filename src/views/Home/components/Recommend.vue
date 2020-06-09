@@ -42,31 +42,8 @@ import RecommendPlaylist from './RecommendPlaylist.vue';
 })
 export default class Recommend extends Vue {}
 </script>
-<style lang="less">
+<style lang="scss">
 .recommend {
   padding-bottom: 100px;
-}
-.recommend-item {
-  text-align: left;
-  padding: 16px;
-  & > div {
-    width: 100%;
-    font-size: 24px;
-    line-height: 1.5em;
-    border-bottom: 1px solid #dddddd;
-  }
-  .recommend-new-songs {
-    border-bottom: 1px solid #ddd;
-    margin-right: 16px;
-    .play {
-      position: absolute;
-      height: 50%;
-      width: 50%;
-      left: 40%;
-      top: 25%;
-      z-index: 9;
-      cursor: pointer;
-    }
-  }
 }
 </style>

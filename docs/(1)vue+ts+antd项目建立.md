@@ -1,12 +1,14 @@
-# vue2.6+typescript+antd1.6.1开发--项目建立与基本开发
+# vue2.6+typescript+antd1.6.1 开发--项目建立与基本开发
 
 ## start
-+ 安装@vue/cli4
-+ vue create myproject 选择typescript
-+ yarn 安装依赖
+
+- 安装@vue/cli4
+- vue create myproject 选择 typescript
+- yarn 安装依赖
 
 ## 配置（eslint, prettier, vue.config.js ...）
-``` javascript
+
+```javascript
 // .eslintrc.js
 /**
  * eslint 配置文件，采用的模式是 eslint + prettier
@@ -224,10 +226,9 @@ module.exports = {
     }
   ]
 };
-
 ```
 
-``` javascript
+```javascript
 // vue.config.js
 const path = require('path');
 const webpack = require('webpack');
@@ -297,7 +298,7 @@ module.exports = {
      */
     'style-resources-loader': {
       preProcessor: 'less',
-      patterns: [path.resolve(__dirname, 'src/assets/less/global.less')]
+      patterns: [path.resolve(__dirname, 'src/assets/style/global.less')]
     }
   },
 
@@ -373,12 +374,11 @@ module.exports = {
     }
   }
 };
-
 ```
 
-## 引入antd
+## 引入 antd
 
-+ 修改shims-vue.d.ts
+- 修改 shims-vue.d.ts
 
 ```typescript
 // shims-vue.d.ts
@@ -393,17 +393,17 @@ declare module 'ant-design-vue' {
 }
 ```
 
-+ utils文件夹下新建文件 components-antd.ts
+- utils 文件夹下新建文件 components-antd.ts
 
-``` typescript
+```typescript
 import Vue from 'vue';
 import Antd from 'ant-design-vue';
 let {
-	Col,
-	Row,
-	Modal,
-	Message
-	// 按需引入需要的组件名称
+  Col,
+  Row,
+  Modal,
+  Message
+  // 按需引入需要的组件名称
 } = Antd;
 Vue.use(Col);
 Vue.use(Row);
@@ -415,10 +415,10 @@ Vue.prototype.$error = Modal.error;
 Vue.prototype.$warning = Modal.warning;
 ```
 
-+ 安装依赖 less less-loader babel-plugin-import
-+ 修改vue.config.js babel.config.js
+- 安装依赖 less less-loader babel-plugin-import
+- 修改 vue.config.js babel.config.js
 
-``` javascript
+```javascript
 // vue.config.js
 module.export = {
 	...
@@ -439,7 +439,7 @@ module.export = {
 
 ```
 
-``` javascript
+```javascript
 // babel.config.js
 ...
 plugins: [
@@ -455,19 +455,19 @@ plugins: [
  ...
 ```
 
-``` typescript
+```typescript
 // main.ts
 import '@/utils/components-antd.ts';
 ```
 
-## vue文件如何开发
+## vue 文件如何开发
 
 ```vue
 <template>
   <div>
     <a-row>
       <a-col>
-    	<a-button @click="onClick('someVal')">{{ msg }}</a-button>
+        <a-button @click="onClick('someVal')">{{ msg }}</a-button>
       </a-col>
     </a-row>
   </div>
@@ -477,38 +477,38 @@ import '@/utils/components-antd.ts';
 import { Component, Vue, Emit, Prop, Watch } from 'vue-property-decorator';
 @Component
 export default class App extends Vue {
-    @Prop({default: 'default'})
-    propA: string
-    
-    msg = 'antd btn';
-    
-    @Watch('msg', {immediate: true, deep: true})
-  	onChildChanged(val: string, oldVal: string) { 
-    	// ...
-    }
-    
-  	mounted() {
-        something();
-  	}
-    
-    get computedMsg(){
-        // ...
-    }
-    
-    //在Vue中我们是使用$emit触发事件,使用vue-property-decorator时,可以借助@Emit装饰器来实现.@Emit修饰的函数所接受的参数会在运行之后触发事件的时候传递过去
-    @Emit('doSth')
-    onClick(val){
-        // ...
-    }
-    
-    something(){
-        // ...
-    }
+  @Prop({ default: 'default' })
+  propA: string;
+
+  msg = 'antd btn';
+
+  @Watch('msg', { immediate: true, deep: true })
+  onChildChanged(val: string, oldVal: string) {
+    // ...
+  }
+
+  mounted() {
+    something();
+  }
+
+  get computedMsg() {
+    // ...
+  }
+
+  //在Vue中我们是使用$emit触发事件,使用vue-property-decorator时,可以借助@Emit装饰器来实现.@Emit修饰的函数所接受的参数会在运行之后触发事件的时候传递过去
+  @Emit('doSth')
+  onClick(val) {
+    // ...
+  }
+
+  something() {
+    // ...
+  }
 }
 </script>
 ```
 
-``` vue
+```vue
 <template>
   <div>
     <child :propA="propA" @doSth="doSth"></child>
@@ -523,8 +523,8 @@ import Child from './child.vue';
 })
 export default class Layout extends Vue {
   propA = 'propA';
-	
-  doSth(val){
+
+  doSth(val) {
     // ...
   }
 }

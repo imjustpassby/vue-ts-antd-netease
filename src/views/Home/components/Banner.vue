@@ -1,5 +1,6 @@
 <template>
   <div class="banner">
+    <spin v-if="loading"></spin>
     <a-carousel effect="fade" autoplay arrows>
       <div
         slot="prevArrow"
@@ -30,15 +31,18 @@ import { Component, Vue } from 'vue-property-decorator';
 import { getBanners } from '@/api/home.ts';
 import { IBanner } from '@/utils/types';
 import PageJump from '@/utils/PageJump.ts';
+import Spin from '@/components/Spin/index.vue';
 @Component({
-  components: {}
+  components: { Spin }
 })
 export default class Banner extends Vue {
   private banners: IBanner[] = [];
+  loading = true;
 
   private async mounted() {
     const res = await getBanners<IBanner[]>();
     this.banners = res.data.banners;
+    this.loading = false;
   }
 
   private bannerClick(banner: IBanner) {

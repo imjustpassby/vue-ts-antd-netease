@@ -20,7 +20,7 @@ export function transformSong(item: any): ISongFormat {
     artist: artists.join('/'),
     artists: artists,
     artistId: artistId,
-    cover: `${item.song.album.blurPicUrl}`,
+    cover: `${item.song.album.blurPicUrl}?param=200y200`,
     albumName: item.song.album.name,
     albumId: item.song.album.id,
     theme: [255, 255, 255],
@@ -47,12 +47,37 @@ export function transformDjProgram(item: any): ISongFormat {
     artistId: [item.program.radio.id],
     albumName: item.name,
     albumId: item.program.mainSong.id,
-    cover: `${item.picUrl}`,
+    cover: `${item.picUrl}?param=200y200`,
     theme: [255, 255, 255],
     songType: 'dj',
     key: item.id,
     lrc: '',
     pop: 0,
     duration: CommonMethod.getDuration(item.dt)
+  };
+}
+
+export function transformProgramRecommendList(list: []): ISongFormat[] {
+  return list.map(item => {
+    return transformProgramRecommend(item);
+  });
+}
+
+export function transformProgramRecommend(item: any): ISongFormat {
+  return {
+    name: item.mainSong.name,
+    id: item.mainSong.id,
+    artist: item.radio.name,
+    artists: [item.radio.name],
+    artistId: [item.radio.id],
+    albumName: item.radio.name,
+    albumId: item.radio.id,
+    cover: `${item.coverUrl}?param=200y200`,
+    theme: [255, 255, 255],
+    songType: 'dj',
+    key: item.id,
+    lrc: '',
+    pop: 0,
+    duration: CommonMethod.getDuration(item.duration)
   };
 }

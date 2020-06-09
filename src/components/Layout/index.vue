@@ -137,7 +137,7 @@ export default class Layout extends Vue {
     },
     {
       span: '主播电台',
-      link: '/djRadios'
+      link: '/dj'
     },
     {
       span: '歌手',
