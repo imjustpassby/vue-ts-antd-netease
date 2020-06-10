@@ -1,5 +1,5 @@
 <template>
-  <a-row style="padding-top:30px">
+  <a-row class="my-page-container">
     <a-col :span="4" :offset="4">
       <user-playlist
         @showPlaylist="showPlaylist"
@@ -9,7 +9,7 @@
     <a-col :span="12" v-if="!isShow">
       <daily-recommend></daily-recommend>
     </a-col>
-    <a-col :span="12" :offset="1" v-else>
+    <a-col :span="12" v-else style="margin-left:16px">
       <spin v-if="loading"></spin>
       <playlist-detail
         :playlist="playList"
@@ -70,3 +70,8 @@ export default class MyMusic extends Vue {
   }
 }
 </script>
+<style lang="scss" scoped>
+.my-page-container {
+  margin: 30px 0 90px 0;
+}
+</style>

@@ -32,11 +32,7 @@ import { Component, Vue } from 'vue-property-decorator';
 @Component({
   components: {}
 })
-export default class extends Vue {
-  private mounted() {
-    console.log('mounted');
-  }
-}
+export default class extends Vue {}
 </script>
 <style lang="scss" scoped>
 .container {

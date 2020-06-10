@@ -44,19 +44,6 @@
               </svg>
               加入播放列表
             </a-button>
-            <a-button
-              @click.once="subscribe(playlist.id)"
-              style="margin-right: 20px"
-            >
-              <svg
-                class="icon"
-                aria-hidden="true"
-                style="font-size:16px; margin-right:16px;"
-              >
-                <use xlink:href="#icon-like2" />
-              </svg>
-              收藏歌单
-            </a-button>
           </div>
           <div class="tag" v-if="playlist.tags.length">
             <span>标签：</span>
