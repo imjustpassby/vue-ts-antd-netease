@@ -21,6 +21,7 @@ export type IPlaylistFormat = {
   name: string;
   cover: string;
   creator: string;
+  userId: number;
   updateTime: string;
   trackIds: number[];
   tracks: ISongFormat[];

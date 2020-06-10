@@ -22,7 +22,7 @@
             <img
               v-lazy="item.cover + '?param=200y200'"
               alt="img"
-              @click.once="addMusic(item)"
+              @click.once="playMusic(item)"
             />
           </div>
           <p class="common--title">{{ item.name }}</p>
@@ -36,8 +36,11 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { getPersonalizedDjProgram } from '@/api/home.ts';
 import { ISongFormat } from '@/utils/types';
+import { namespace } from 'vuex-class';
 import { transformDjProgramList } from '@/utils/TransformNewSongFormat.ts';
+import Bus from '@/utils/Bus';
 import PageJump from '@/utils/PageJump.ts';
+const playlistModule = namespace('playlist');
 @Component({
   components: {}
 })
@@ -45,10 +48,19 @@ export default class RecommendDj extends Vue {
   loading = true;
   personalizedDJProgram: ISongFormat[] = [];
 
+  @playlistModule.Action('SET_CURRENT_MUSIC_ACTION')
+  SET_CURRENT_MUSIC_ACTION!: Function;
+
   private async mounted() {
     const res = await getPersonalizedDjProgram();
     this.personalizedDJProgram = transformDjProgramList(res.data.result as []);
     this.loading = false;
+  }
+
+  playMusic(song: ISongFormat) {
+    this.SET_CURRENT_MUSIC_ACTION(song).then((result: ISongFormat) => {
+      Bus.$emit('play', result);
+    });
   }
 }
 </script>

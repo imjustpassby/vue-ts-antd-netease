@@ -19,7 +19,7 @@
                 slot="avatar"
                 class="cover-img"
                 :src="item.cover"
-                @click="goSongDetail(item.id)"
+                @click="goSongDetail(item)"
               />
             </a-list-item-meta>
           </a-list-item>
@@ -63,8 +63,11 @@ import { getSimilarPlaylist } from '@/api/playlist';
 import { getSimilarSong } from '@/api/song';
 import { getSongDetail } from '@/api/song';
 import { ISimilarPlaylist, ISongFormat } from '@/utils/types';
+import { namespace } from 'vuex-class';
 import { transformTracks } from '@/utils/TransformPlaylistFormat';
+import Bus from '@/utils/Bus';
 import PageJump from '@/utils/PageJump';
+const playlistModule = namespace('playlist');
 @Component({
   components: {}
 })
@@ -78,6 +81,9 @@ export default class SimilarSong extends Vue {
     await this.getSimilarSong();
     await this.getSimilarPlaylist();
   }
+
+  @playlistModule.Action('SET_CURRENT_MUSIC_ACTION')
+  SET_CURRENT_MUSIC_ACTION!: Function;
 
   private async mounted() {
     await this.getSimilarSong();
@@ -95,11 +101,14 @@ export default class SimilarSong extends Vue {
     const res = await getSimilarPlaylist(Number(this.$route.query.id));
     this.playlist = res.data.playlists;
   }
-  goSongDetail(id: number) {
+  goSongDetail(song: ISongFormat) {
+    this.SET_CURRENT_MUSIC_ACTION(song).then((result: ISongFormat) => {
+      Bus.$emit('play', result);
+    });
     PageJump.pageJump({
       that: this,
       path: '/songDetail',
-      id
+      id: song.id
     });
   }
 

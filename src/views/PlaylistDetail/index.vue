@@ -17,6 +17,7 @@ export default class PlaylistDetailPage extends Vue {
   playList: IPlaylistFormat = {
     id: 0,
     creator: '',
+    userId: 0,
     name: '',
     cover: '',
     updateTime: '',
