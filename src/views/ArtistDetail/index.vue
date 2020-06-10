@@ -165,8 +165,7 @@ export default class ArtistDetail extends Vue {
     const trackIds = res.data.hotSongs.map(song => {
       return song.id;
     });
-    const res1 = await getSongDetail(trackIds.join(','));
-    const tracks: ISongFormat[] = transformTracks(res1.data.songs);
+    const tracks: ISongFormat[] = await transformTracks(trackIds);
     this.hotSongs = tracks;
   }
 

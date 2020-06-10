@@ -74,7 +74,6 @@ import { Component, Emit, Prop, Vue } from 'vue-property-decorator';
 import { IPagination, IProgramFormat, ISongFormat } from '@/utils/types';
 import { namespace } from 'vuex-class';
 import { transformProgramRecommend } from '@/utils/TransformNewSongFormat';
-import { transformTracks } from '@/utils/TransformPlaylistFormat';
 import Bus from '@/utils/Bus';
 import PageJump from '@/utils/PageJump.ts';
 const playlistModule = namespace('playlist');

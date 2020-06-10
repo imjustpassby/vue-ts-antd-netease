@@ -59,3 +59,15 @@ export const getSimilarPlaylist = mem(
     maxAge: 1000 * 60 * 60
   }
 );
+
+/* 获取每日推荐歌单(需要登录) */
+export const getRecommendResource = mem(
+  function() {
+    return request({
+      url: '/api/recommend/resource'
+    });
+  },
+  {
+    maxAge: 1000 * 60 * 60
+  }
+);

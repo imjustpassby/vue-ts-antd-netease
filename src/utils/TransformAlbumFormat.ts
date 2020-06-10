@@ -1,4 +1,3 @@
-import { getSongDetail } from '@/api/song.ts';
 import {
   IAlbumFormat,
   IResponseAlbum,
@@ -31,8 +30,7 @@ export async function transformAlbumFormat(
   const trackIds = songs.map(song => {
     return song.id;
   });
-  const res = await getSongDetail(trackIds.join(','));
-  const tracks: ISongFormat[] = transformTracks(res.data.songs);
+  const tracks: ISongFormat[] = await transformTracks(trackIds);
   return {
     id,
     name,

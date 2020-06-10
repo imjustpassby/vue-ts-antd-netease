@@ -8,7 +8,7 @@ export async function transformResponsePlaylist(
     id,
     name,
     creator,
-    userId,
+    createTime,
     updateTime,
     trackIds,
     tracks,
@@ -19,14 +19,14 @@ export async function transformResponsePlaylist(
   trackIds = trackIds.map((item: { id: number }) => {
     return item.id;
   });
-  const res = await getSongDetail(trackIds.join(','));
-  tracks = transformTracks(res.data.songs);
+  tracks = await transformTracks(trackIds);
+  createTime = CommonMethod.formatTime(createTime, '{y}-{m}-{d}');
   updateTime = CommonMethod.formatTime(updateTime, '{y}-{m}-{d}');
   return {
     id,
     name,
     creator,
-    userId,
+    createTime,
     updateTime,
     trackIds,
     tracks,
@@ -36,8 +36,9 @@ export async function transformResponsePlaylist(
   };
 }
 
-export function transformTracks(list: []): ISongFormat[] {
-  return list.map((item: any) => {
+export async function transformTracks(ids: number[]): Promise<ISongFormat[]> {
+  const res = await getSongDetail(ids.join(','));
+  return res.data.songs.map((item: any) => {
     return TransformTracksSongFormat(item);
   });
 }
@@ -72,6 +73,5 @@ export async function transformSearchSongTracks(tracks: ISearchSong[]) {
   const ids = tracks.map((item: ISearchSong) => {
     return item.id;
   });
-  const res = await getSongDetail(ids.join(','));
-  return transformTracks(res.data.songs);
+  return await transformTracks(ids);
 }

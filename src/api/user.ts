@@ -1,4 +1,4 @@
-import { ResponseLoginStatus } from '@/utils/types';
+import { ResponseLoginStatus, ResponseUserPlaylist } from '@/utils/types';
 import request from '@/utils/Request';
 interface ILoginParams {
   phone: string;
@@ -38,3 +38,13 @@ export default class User {
     return res;
   }
 }
+
+/* 获取用户歌单 */
+export const getUserPlaylist = function(id: number) {
+  return request<ResponseUserPlaylist>({
+    url: '/api/user/playlist',
+    params: {
+      uid: id
+    }
+  });
+};

@@ -21,7 +21,7 @@ export type IPlaylistFormat = {
   name: string;
   cover: string;
   creator: string;
-  userId: number;
+  createTime: string;
   updateTime: string;
   trackIds: number[];
   tracks: ISongFormat[];
@@ -83,13 +83,29 @@ export type ResponseRankingList<T = any> = {
   list: T;
 };
 
+export type IPlaylistDetail = {
+  id: number;
+  name: string;
+  creator: any;
+  updateTime: number;
+  trackIds: any[];
+  tracks: any[];
+  coverImgUrl: string;
+  description: string;
+  tags: string[];
+};
+
 export type ResponsePlaylist = {
   code: number;
-  playlist: [];
+  playlist: IPlaylistDetail;
+};
+
+type ISongDetail = {
+  [x: number]: any;
 };
 
 export type ResponseSongDetail = {
-  songs: [];
+  songs: ISongDetail[];
 };
 
 export type ResponseCheckMusic = {
@@ -491,4 +507,30 @@ export type IPagination = {
   total?: number;
   pageSize?: number;
   current?: number;
+};
+
+export type IDailyRecommendSong = {
+  id: number;
+};
+
+export type ResponseDailyRecommendSong = {
+  recommend: IDailyRecommendSong[];
+};
+
+export type IResponseUserPlaylistCreator = {
+  userId: number;
+};
+
+export type IResponseUserPlaylist = {
+  userId: number;
+  id: number;
+};
+
+export type ResponseUserPlaylist = {
+  playlist: IResponseUserPlaylist[];
+};
+
+export type showPlaylistParams = {
+  playlist: IResponseUserPlaylist;
+  type: 'self' | 'other';
 };

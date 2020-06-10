@@ -125,6 +125,16 @@ const routes: RouteConfig[] = [
         path: 'dj',
         name: 'dj',
         component: () => import('@/views/DjList/index.vue')
+      },
+      {
+        path: 'copyright',
+        name: 'copyright',
+        component: () => import('@/views/CopyRight/index.vue')
+      },
+      {
+        path: 'my',
+        name: 'my',
+        component: () => import('@/views/MyMusic/index.vue')
       }
     ]
   }
@@ -137,7 +147,7 @@ const router = new VueRouter({
 /* 
   需要登录才能访问的地址
 */
-const needLoginPaths = ['/my/daily-recommend'];
+const needLoginPaths = ['/my'];
 /**
  * 全局前置守卫
  * 参数或查询的改变并不会触发进入/离开的导航守卫

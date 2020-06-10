@@ -11,10 +11,10 @@ const request = axios.create({
 request.interceptors.request.use(config => {
   config.withCredentials = true;
   if (store.state.user.loginSuccess === 'true') {
-    const cookie = window.sessionStorage.getItem('cookie')!;
-    Cookies.set('MUSIC_U', JSON.parse(cookie).MUSIC_U);
-    Cookies.set('__csrf', JSON.parse(cookie).__csrf);
-    Cookies.set('__remember_me', JSON.parse(cookie).__remember_me);
+    const cookie = JSON.parse(window.sessionStorage.getItem('cookie')!);
+    Cookies.set('MUSIC_U', cookie.MUSIC_U);
+    Cookies.set('__csrf', cookie.__csrf);
+    Cookies.set('__remember_me', cookie.__remember_me);
   }
   return config;
 });

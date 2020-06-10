@@ -1,7 +1,7 @@
 <template>
   <a-skeleton active :loading="loading">
     <div>
-      <a-table :data-source="tracks">
+      <a-table :data-source="tracks" :pagination="pagination">
         <a-table-column title="" align="center" key="action" width="12%">
           <template slot-scope="text, record">
             <span>
@@ -15,7 +15,7 @@
               <svg
                 class="icon play-icon"
                 aria-hidden="true"
-                @click.once="addMusic(record)"
+                @click="addMusic(record)"
               >
                 <use xlink:href="#icon-add" />
               </svg>
@@ -93,7 +93,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { ISongFormat } from '@/utils/types/index.ts';
+import { IPagination, ISongFormat } from '@/utils/types';
 import { namespace } from 'vuex-class';
 import Bus from '@/utils/Bus';
 import PageJump from '@/utils/PageJump.ts';
@@ -106,6 +106,10 @@ export default class PlaylistTable extends Vue {
   tracks: ISongFormat[] | undefined;
   @Prop({ required: true })
   loading: boolean | undefined;
+
+  pagination = {
+    pageSize: 20
+  };
 
   @playlistModule.Action('SET_CURRENT_MUSIC_ACTION')
   SET_CURRENT_MUSIC_ACTION!: Function;

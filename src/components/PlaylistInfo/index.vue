@@ -99,7 +99,6 @@ export default class PlaylistInfo extends Vue {
 <style lang="scss" scoped>
 .playlist-detail {
   text-align: left;
-  margin-top: 16px;
   padding-bottom: 30px;
   min-height: 300px;
   h1 {

@@ -73,7 +73,7 @@ import { Component, Vue, Watch } from 'vue-property-decorator';
 import { getLyric, getSongDetail } from '@/api/song';
 import { ISongFormat } from '@/utils/types';
 import { namespace } from 'vuex-class';
-import { transformTracks } from '@/utils/TransformPlaylistFormat';
+import { TransformTracksSongFormat } from '@/utils/TransformPlaylistFormat';
 import Bus from '@/utils/Bus';
 import PageJump from '@/utils/PageJump.ts';
 const playlistModule = namespace('playlist');
@@ -116,7 +116,7 @@ export default class SongInfo extends Vue {
 
   async getSongInfo() {
     const res = await getSongDetail(this.$route.query.id as string);
-    this.songInfo = transformTracks(res.data.songs).pop()!;
+    this.songInfo = await TransformTracksSongFormat(res.data.songs[0]);
   }
 
   async getLyric() {

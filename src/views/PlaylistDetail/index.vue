@@ -1,11 +1,17 @@
 <template>
-  <playlist-detail :playlist="playList" :loading="loading"></playlist-detail>
+  <a-row>
+    <a-col :span="14" :offset="5">
+      <playlist-detail
+        :playlist="playList"
+        :loading="loading"
+      ></playlist-detail>
+    </a-col>
+  </a-row>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { getPlaylistDetail } from '@/api/playlist.ts';
-import { getRankingDetail } from '@/api/ranking.ts';
 import { IPlaylistFormat } from '@/utils/types/index.ts';
 import { transformResponsePlaylist } from '@/utils/TransformPlaylistFormat.ts';
 import PlaylistDetail from '@/components/PlaylistDetail/index.vue';
@@ -17,9 +23,9 @@ export default class PlaylistDetailPage extends Vue {
   playList: IPlaylistFormat = {
     id: 0,
     creator: '',
-    userId: 0,
     name: '',
     cover: '',
+    createTime: '',
     updateTime: '',
     description: '',
     trackIds: [],

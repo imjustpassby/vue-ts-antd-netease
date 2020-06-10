@@ -12,17 +12,3 @@ export const getRankingList = mem(
     maxAge: 1000 * 60 * 60
   }
 );
-
-export const getRankingDetail = mem(
-  async function(data: string) {
-    return await request<ResponsePlaylist>({
-      url: '/api/top/list',
-      params: {
-        idx: data
-      }
-    });
-  },
-  {
-    maxAge: 1000 * 60 * 60
-  }
-);

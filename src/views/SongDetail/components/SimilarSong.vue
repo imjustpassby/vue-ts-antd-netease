@@ -93,8 +93,7 @@ export default class SimilarSong extends Vue {
   async getSimilarSong() {
     const res = await getSimilarSong(Number(this.$route.query.id));
     const trackIds = res.data.songs.map(item => item.id);
-    const resSongDetail = await getSongDetail(trackIds.join(','));
-    this.tracks = transformTracks(resSongDetail.data.songs);
+    this.tracks = await transformTracks(trackIds);
   }
 
   async getSimilarPlaylist() {

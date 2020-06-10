@@ -1,19 +1,11 @@
 <template>
-  <div class="playlist-detail-container">
-    <a-row>
-      <a-col :span="14" :offset="5" v-if="loading">
-        <spin></spin>
-      </a-col>
-      <a-col :span="14" :offset="5">
-        <playlist-info :playlist="playlist" :loading="loading"></playlist-info>
-      </a-col>
-      <a-col :span="14" :offset="5">
-        <playlist-table
-          :tracks="playlist.tracks"
-          :loading="loading"
-        ></playlist-table>
-      </a-col>
-    </a-row>
+  <div style="padding-bottom:120px">
+    <spin v-if="loading"></spin>
+    <playlist-info :playlist="playlist" :loading="loading"></playlist-info>
+    <playlist-table
+      :tracks="playlist.tracks"
+      :loading="loading"
+    ></playlist-table>
   </div>
 </template>
 
@@ -34,9 +26,3 @@ export default class PlaylistDetailComponent extends Vue {
   loading: boolean | undefined;
 }
 </script>
-<style lang="scss" scoped>
-.playlist-detail-container {
-  padding-bottom: 100px;
-  font-size: 14px;
-}
-</style>

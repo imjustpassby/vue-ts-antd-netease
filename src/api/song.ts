@@ -1,5 +1,6 @@
 import {
   ResponseCheckMusic,
+  ResponseDailyRecommendSong,
   ResponseLrc,
   ResponseSimilarSong,
   ResponseSongDetail,
@@ -67,6 +68,18 @@ export const getSimilarSong = mem(
       params: {
         id
       }
+    });
+  },
+  {
+    maxAge: 1000 * 60 * 60
+  }
+);
+
+/* 获取每日推荐歌曲(需要登录) */
+export const getRecommendSongs = mem(
+  function() {
+    return request<ResponseDailyRecommendSong>({
+      url: '/api/recommend/songs'
     });
   },
   {

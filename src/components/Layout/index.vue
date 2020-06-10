@@ -40,7 +40,7 @@
             class="flex--start--center flex--start--center--with--margin"
           >
             <li>
-              <button class="loginBar_btn" @click="logout">登出</button>
+              <a-avatar icon="user" :src="StateAvatarUrl + '?param=200y200'" />
             </li>
             <li>
               <button class="loginBar_btn" @click="goMyMusic">
@@ -48,7 +48,7 @@
               </button>
             </li>
             <li>
-              <a-avatar icon="user" :src="StateAvatarUrl" />
+              <button class="loginBar_btn" @click="logout">登出</button>
             </li>
           </ul>
         </a-col>
@@ -115,7 +115,7 @@ export default class Layout extends Vue {
     },
     {
       span: '我的音乐',
-      link: '/my/daily-recommend'
+      link: '/my'
     },
     {
       span: '搜索',
@@ -170,7 +170,7 @@ export default class Layout extends Vue {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       this.checkedSubLink = window.sessionStorage.getItem('checkedSubLink')!;
     } else if (idx == 1) {
-      if (this.$store.getters.loginSuccess) {
+      if (this.StateLoginSuccess === 'true') {
         window.sessionStorage.setItem('checkedTopLink', `${idx}`);
         window.sessionStorage.setItem('checkedSubLink', '-1');
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
