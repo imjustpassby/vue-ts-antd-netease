@@ -68,7 +68,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 import { getAlbum } from '@/api/album';
 import { IAlbumFormat } from '@/utils/types/index.ts';
 import { transformAlbumFormat } from '@/utils/TransformAlbumFormat';
@@ -93,7 +93,17 @@ export default class AblumDetail extends Vue {
   expand = false;
   expandText = '展开';
 
+  @Watch('$route', { deep: true })
+  async reset() {
+    await this.getAlbum();
+  }
+
   private async mounted() {
+    await this.getAlbum();
+  }
+
+  async getAlbum() {
+    this.loading = true;
     const res = await getAlbum(Number(this.$route.query.id));
     this.album = await transformAlbumFormat(res.data.songs, res.data.album);
     this.loading = false;

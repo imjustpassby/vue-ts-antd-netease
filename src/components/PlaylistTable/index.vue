@@ -2,7 +2,7 @@
   <a-skeleton active :loading="loading">
     <div>
       <a-table :data-source="tracks">
-        <a-table-column title align="center" key="action" width="12%">
+        <a-table-column title="" align="center" key="action" width="12%">
           <template slot-scope="text, record">
             <span>
               <svg

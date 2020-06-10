@@ -369,7 +369,7 @@ export type ResponseDjRecommendByType = {
 };
 
 export type ResponseProgramRecommend = {
-  programs: [];
+  programs: [] | IDjProgram[];
 };
 
 export type IDjRadios = {
@@ -426,4 +426,69 @@ export type IComment = {
 export type ResponseSongComment = {
   hotComments: IComment[];
   comments: IComment[];
+};
+
+export type IDjProfile = {
+  avatarUrl: string;
+  nickname: string;
+  signature: string;
+};
+
+export type IDjDetail = {
+  id: number;
+  dj: IDjProfile;
+  name: string;
+  picUrl: string;
+  desc: string;
+  programCount: number;
+  createTime: number;
+  category: string;
+  lastProgramCreateTime: number;
+};
+
+export type ResponseDjDetail = {
+  djRadio: IDjDetail;
+};
+
+export type IDjInfoFormat = {
+  id: number;
+  djAvatarUrl: string;
+  djNickname: string;
+  djSignature: string;
+  name: string;
+  picUrl: string;
+  desc: string;
+  programCount: number;
+  createTime: string;
+  category: string;
+  lastUpdateTime: string;
+};
+
+export type IProgramFormat = {
+  id: number;
+  name: string;
+  listenerCount: number;
+  description: string;
+  key: number;
+};
+
+export type IDjProgramMainSong = {
+  id: number;
+  name: string;
+};
+
+export type IDjProgram = {
+  mainSong: IDjProgramMainSong;
+  listenerCount: number;
+  description: string;
+};
+
+export type ResponseDjProgram = {
+  programs: IDjProgram[];
+};
+
+export type IPagination = {
+  total?: number;
+  pageSize?: number;
+  current?: number;
 };

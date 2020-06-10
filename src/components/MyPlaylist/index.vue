@@ -144,23 +144,16 @@ export default class extends Vue {
     if (song.songType === 'dj') {
       PageJump.pageJump({
         that: this,
-        path: 'djDetail',
+        path: '/djDetail',
         id: song.artistId[0]
       });
     } else {
       PageJump.pageJump({
         that: this,
-        path: 'songDetail',
+        path: '/songDetail',
         id: song.id
       });
     }
-  }
-  goArtistDetail(song: ISongFormat) {
-    PageJump.pageJump({
-      that: this,
-      path: '/artistDetail',
-      id: song.artistId[0]
-    });
   }
   goAlbumDetail(song: ISongFormat) {
     if (song.songType === 'dj') {

@@ -112,6 +112,11 @@ const routes: RouteConfig[] = [
         component: () => import('@/views/SongDetail/index.vue')
       },
       {
+        path: 'djDetail',
+        name: 'djDetail',
+        component: () => import('@/views/DjDetail/index.vue')
+      },
+      {
         path: 'search',
         name: 'search',
         component: () => import('@/views/Search/index.vue')

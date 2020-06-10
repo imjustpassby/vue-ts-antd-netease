@@ -1,5 +1,7 @@
 import {
   ResponseDjCate,
+  ResponseDjDetail,
+  ResponseDjProgram,
   ResponseDjRecommend,
   ResponseDjRecommendByType,
   ResponseProgramRecommend,
@@ -69,7 +71,7 @@ export const getTodayDj = mem(
 /* 电台详情 */
 export const getDjDetail = mem(
   function(id: number) {
-    return request({
+    return request<ResponseDjDetail>({
       url: '/api/dj/detail',
       params: {
         rid: id
@@ -82,12 +84,13 @@ export const getDjDetail = mem(
 );
 /* 电台节目 */
 export const getDjProgram = mem(
-  function(data: { id: any; limit: any }) {
-    return request({
+  function(data: { id: number; limit: number; offset: number }) {
+    return request<ResponseDjProgram>({
       url: '/api/dj/program',
       params: {
         rid: data.id,
-        limit: data.limit
+        limit: data.limit,
+        offset: data.offset
       }
     });
   },

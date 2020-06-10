@@ -1,4 +1,4 @@
-import { ISongFormat } from './types';
+import { IDjProgram, ISongFormat } from './types';
 import CommonMethod from '@/utils/CommonMethod';
 // 处理home recommendNewSong格式
 export function transformPlayList(list: []): ISongFormat[] {
@@ -57,8 +57,8 @@ export function transformDjProgram(item: any): ISongFormat {
   };
 }
 
-export function transformProgramRecommendList(list: []): ISongFormat[] {
-  return list.map(item => {
+export function transformProgramRecommendList(list: any[]): ISongFormat[] {
+  return list.map((item: any) => {
     return transformProgramRecommend(item);
   });
 }
