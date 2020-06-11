@@ -66,7 +66,6 @@ export const actions: ActionTree<IStateUser, StateRoot> = {
         password: userInfo.password
       })
         .then(res => {
-          console.log('ACTIONS LOGIN');
           commit('SET_LOGIN_SUCCESS', 'true');
           commit('SET_COOKIE', Cookies.get()); //保存登录后返回的cookie到vuex
           resolve(res.data);
@@ -78,7 +77,6 @@ export const actions: ActionTree<IStateUser, StateRoot> = {
   },
   LOGIN_STATUS: async ({ commit }) => {
     const res = await User.loginStatus<IProfile>();
-    console.log('ACTIONS LOGIN_STATUS');
     commit('SET_UID', res.data.profile.userId.toString());
     commit('SET_NICKNAME', res.data.profile.nickname);
     commit('SET_AVATAR_URL', res.data.profile.avatarUrl);
@@ -87,7 +85,6 @@ export const actions: ActionTree<IStateUser, StateRoot> = {
     return new Promise((resolve, reject) => {
       User.logout()
         .then(res => {
-          console.log('ACTIONS LOGOUT');
           commit('INIT_STATE');
           resolve(res);
         })

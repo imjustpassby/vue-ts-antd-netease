@@ -79,7 +79,10 @@ export const getSimilarSong = mem(
 export const getRecommendSongs = mem(
   function() {
     return request<ResponseDailyRecommendSong>({
-      url: '/api/recommend/songs'
+      url: '/api/recommend/songs',
+      params: {
+        _t: Date.now()
+      }
     });
   },
   {

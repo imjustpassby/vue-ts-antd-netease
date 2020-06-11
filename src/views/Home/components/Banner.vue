@@ -17,7 +17,11 @@
         :key="index"
         @click="bannerClick(item)"
       >
-        <img :src="item.imageUrl" width="100%" alt="banner" />
+        <img
+          :src="item.imageUrl + '?imageView&quality=89'"
+          width="100%"
+          alt="banner"
+        />
         <span class="banner-tag" :style="'background:' + item.titleColor">
           {{ item.typeTitle }}
         </span>

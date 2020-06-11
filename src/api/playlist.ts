@@ -8,14 +8,19 @@ import {
 import mem from 'mem';
 import request from '@/utils/Request';
 
-export async function getPlaylistDetail(id: number) {
-  return await request<ResponsePlaylist>({
-    url: '/api/playlist/detail',
-    params: {
-      id
-    }
-  });
-}
+export const getPlaylistDetail = mem(
+  function(id: number) {
+    return request<ResponsePlaylist>({
+      url: '/api/playlist/detail',
+      params: {
+        id
+      }
+    });
+  },
+  {
+    maxAge: 1000 * 60 * 30
+  }
+);
 
 export const getPlayList = mem(
   function({ limit = 20, category = '全部', offset = 20 }: TopPlaylistParams) {
@@ -61,13 +66,11 @@ export const getSimilarPlaylist = mem(
 );
 
 /* 获取每日推荐歌单(需要登录) */
-export const getRecommendResource = mem(
-  function() {
-    return request({
-      url: '/api/recommend/resource'
-    });
-  },
-  {
-    maxAge: 1000 * 60 * 60
-  }
-);
+export const getRecommendResource = function() {
+  return request({
+    url: '/api/recommend/resource',
+    params: {
+      _t: Date.now()
+    }
+  });
+};

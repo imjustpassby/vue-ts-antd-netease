@@ -10,7 +10,7 @@ export default class User {
     const res = await request({
       url: '/api/login/cellphone',
       params: {
-        _t: Number(Date.now()),
+        _t: Date.now(),
         phone: loginParams.phone,
         password: loginParams.password
       }
@@ -22,7 +22,7 @@ export default class User {
     const res = await request<ResponseLoginStatus<T>>({
       url: '/api/login/status',
       params: {
-        _t: Number(Date.now())
+        _t: Date.now()
       }
     });
     return res;
@@ -32,7 +32,7 @@ export default class User {
     const res = await request({
       url: '/api/logout',
       params: {
-        _t: Number(Date.now())
+        _t: Date.now()
       }
     });
     return res;

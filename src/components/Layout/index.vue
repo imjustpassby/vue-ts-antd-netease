@@ -40,7 +40,11 @@
             class="flex--start--center flex--start--center--with--margin"
           >
             <li>
-              <a-avatar icon="user" :src="StateAvatarUrl + '?param=200y200'" />
+              <a-avatar
+                icon="user"
+                :src="StateAvatarUrl + '?param=50y50'"
+                @click="goMyMusic"
+              />
             </li>
             <li>
               <button class="loginBar_btn" @click="goMyMusic">
@@ -95,6 +99,7 @@ import { namespace } from 'vuex-class';
 import APlayer from '@/components/APlayer/index.vue';
 import LoginForm from '@/components/Login/index.vue';
 import MyPlaylist from '@/components/MyPlaylist/index.vue';
+import PageJump from '@/utils/PageJump';
 const userModule = namespace('user');
 interface Link {
   span: string;
@@ -220,7 +225,12 @@ export default class Layout extends Vue {
       .catch((err: Error) => {});
   }
 
-  goMyMusic() {}
+  goMyMusic() {
+    PageJump.pageJump({
+      that: this,
+      path: '/my'
+    });
+  }
 
   showLoginForm() {
     this.loginShow = true;
