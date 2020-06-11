@@ -130,24 +130,20 @@ module.exports = {
         // ============代码压缩 end============
       ],
       splitChunks: {
-        chunks: 'all', //默认`async`只作用于异步模块，为`all`时对所有模块生效,`initial`对同步模块有效
-        minChunks: 1, // 模块至少被引用的次数
-        minSize: 0, // 合并前模块文件的体积，约30Kb
-        // maxSize: 0, // 用于http2和长期缓存
-        maxAsyncRequests: 6, // 异步并行加载的最大代码块数量，默认5
-        maxInitialRequests: 6, // 页面初始化加载的最大代码块数量，默认3
-        // automaticNameDelimiter: '-', //自动命名连接符
         cacheGroups: {
           // eslint-disable-next-line prettier/prettier
           vendor: {
-            test: /[\\/]node_modules[\\/]/,
+            chunks: 'all',
+            test: /node_modules/,
             name: 'vendor',
-            chunks: 'initial',
-            priority: 10
+            minChunks: 1,
+            maxInitialRequests: 5,
+            minSize: 0,
+            priority: 100
           },
           'async-vendors': {
             test: /[\\/]node_modules[\\/]/,
-            minChunks: 2,
+            minChunks: 1,
             chunks: 'async',
             name: 'async-vendors'
           },
@@ -155,13 +151,14 @@ module.exports = {
           commons: {
             name: 'chunk-commons',
             test: path.join(__dirname, 'src/components'), // can customize your rules
-            minChunks: 2, //  minimum common number
-            priority: 5,
+            maxInitialRequests: 5,
+            minSize: 0,
+            priority: 60,
             reuseExistingChunk: true
           },
           // eslint-disable-next-line prettier/prettier
           runtimeChunk: {
-            name: 'runtime'
+            name: 'manifest'
           }
         }
       }
