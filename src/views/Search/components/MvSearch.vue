@@ -69,7 +69,7 @@ export default class MvSearch extends Vue {
   goMvDetail(id: number) {
     PageJump.pageJump({
       that: this,
-      path: '/videoDetail',
+      path: '/mv',
       id
     });
   }

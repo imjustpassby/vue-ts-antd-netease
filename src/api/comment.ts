@@ -1,4 +1,4 @@
-import { ResponseSongComment } from '@/utils/types';
+import { ResponseComment } from '@/utils/types';
 import request from '@/utils/Request';
 
 type commentParams = {
@@ -9,7 +9,7 @@ type commentParams = {
 
 /* 歌曲评论 */
 export function getCommentMusic(id: number) {
-  return request<ResponseSongComment>({
+  return request<ResponseComment>({
     url: '/api/comment/music',
     params: {
       id,

@@ -38,9 +38,11 @@ let {
   message,
   ConfigProvider,
   Progress,
-  Comment
+  Comment,
+  Empty
 } = Antd;
 
+Vue.use(Empty);
 Vue.use(Comment);
 Vue.use(Progress);
 Vue.use(ConfigProvider);

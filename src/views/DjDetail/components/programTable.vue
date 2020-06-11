@@ -75,7 +75,6 @@ import { IPagination, IProgramFormat, ISongFormat } from '@/utils/types';
 import { namespace } from 'vuex-class';
 import { transformProgramRecommend } from '@/utils/TransformNewSongFormat';
 import Bus from '@/utils/Bus';
-import PageJump from '@/utils/PageJump.ts';
 const playlistModule = namespace('playlist');
 
 @Component({

@@ -1,7 +1,7 @@
 <template>
   <div style="padding-top: 36px">
     <a-row>
-      <a-col>
+      <a-col v-if="tracks.length > 0">
         <p class="title">相似歌曲</p>
         <hr />
         <a-list item-layout="horizontal" :data-source="tracks" :locale="locale">

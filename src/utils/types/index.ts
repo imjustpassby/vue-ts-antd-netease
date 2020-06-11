@@ -29,6 +29,23 @@ export type IPlaylistFormat = {
   tags?: string[];
 };
 
+export type IXgPlayerConfig = {
+  url: string;
+  id: string;
+  width?: number;
+  height?: number;
+  fluid?: boolean;
+  fitVideoSize?: 'fixWidth' | 'fixHeight' | 'auto';
+  autoplay?: boolean;
+  loop?: boolean;
+  videoInit?: boolean;
+  poster?: string;
+  pip?: boolean;
+  cssFullscreen?: boolean;
+  screenShot?: boolean;
+  lang?: 'zh-cn' | 'en' | 'jp';
+};
+
 export type IProfile = {
   userId: number;
   nickname: string;
@@ -439,7 +456,7 @@ export type IComment = {
   beReplied: IComment;
 };
 
-export type ResponseSongComment = {
+export type ResponseComment = {
   hotComments: IComment[];
   comments: IComment[];
 };
@@ -533,4 +550,30 @@ export type ResponseUserPlaylist = {
 export type showPlaylistParams = {
   playlist: IResponseUserPlaylist;
   type: 'self' | 'other';
+};
+
+export type ResponseMvDetailData = {
+  id: number;
+  name: string;
+  artistId: number;
+  artistName: string;
+  cover: string;
+  playCount: number;
+  subCount: number;
+  shareCount: number;
+  commentCount: number;
+  publishTime: string;
+};
+
+export type ResponseMvDetail = {
+  data: ResponseMvDetailData;
+};
+
+export type ResponseMvUrlData = {
+  id: number;
+  url: string;
+};
+
+export type ResponseMvUrl = {
+  data: ResponseMvUrlData;
 };

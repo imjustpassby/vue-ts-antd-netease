@@ -54,7 +54,7 @@ export default class RecommendMv extends Vue {
     PageJump.pageJump({
       that: this,
       id: id,
-      path: '/mvDetail'
+      path: '/mv'
     });
   }
 }

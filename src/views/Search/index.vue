@@ -23,14 +23,10 @@
             <album-search :keywords="keywords"></album-search>
           </a-tab-pane>
           <a-tab-pane key="5">
-            <span slot="tab">视频</span>
-            <video-search :keywords="keywords"></video-search>
-          </a-tab-pane>
-          <a-tab-pane key="6">
             <span slot="tab">MV</span>
             <mv-search :keywords="keywords"></mv-search>
           </a-tab-pane>
-          <a-tab-pane key="7">
+          <a-tab-pane key="6">
             <span slot="tab">电台</span>
             <program-search :keywords="keywords"></program-search>
           </a-tab-pane>
@@ -49,11 +45,10 @@ import PlaylistSearch from './components/PlaylistSearch.vue';
 import ProgramSearch from './components/ProgramSearch.vue';
 import SearchBar from './components/SearchBar.vue';
 import SongSearch from './components/SongSearch.vue';
-import VideoSearch from './components/VideoSearch.vue';
+// import VideoSearch from './components/VideoSearch.vue';
 @Component({
   components: {
     SearchBar,
-    VideoSearch,
     SongSearch,
     PlaylistSearch,
     MvSearch,
