@@ -123,7 +123,7 @@ export default class ProgramTable extends Vue {
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .play-icon {
   font-size: 20px;
   cursor: pointer;

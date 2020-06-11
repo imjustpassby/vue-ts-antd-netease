@@ -26,13 +26,13 @@
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import {
+  IPageJumpConfig,
   ISearchMv,
   ResponseSearch,
   ResponseSearchMvResult,
   SearchParams
 } from '@/utils/types';
 import { searchByKeywordAndType } from '@/api/search';
-import PageJump from '@/utils/PageJump.ts';
 import Spin from '@/components/Spin/index.vue';
 @Component({
   components: { Spin }
@@ -67,10 +67,19 @@ export default class MvSearch extends Vue {
   }
 
   goMvDetail(id: number) {
-    PageJump.pageJump({
-      that: this,
+    this.pageJump({
       path: '/mv',
       id
+    });
+  }
+
+  pageJump(config: IPageJumpConfig) {
+    const { id, path } = config;
+    this.$router.push({
+      path: path,
+      query: {
+        id: id!.toString()
+      }
     });
   }
 }

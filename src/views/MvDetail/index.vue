@@ -131,7 +131,7 @@ export default class MvDetail extends Vue {
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .mv-title {
   margin: 16px 0;
   text-align: left;

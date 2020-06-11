@@ -28,13 +28,13 @@
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import {
+  IPageJumpConfig,
   ISearchPlaylist,
   ResponseSearch,
   ResponseSearchPlaylistResult,
   SearchParams
 } from '@/utils/types';
 import { searchByKeywordAndType } from '@/api/search';
-import PageJump from '@/utils/PageJump.ts';
 import Spin from '@/components/Spin/index.vue';
 @Component({
   components: { Spin }
@@ -69,10 +69,19 @@ export default class PlaylistSearch extends Vue {
   }
 
   goPlaylistDetail(id: number) {
-    PageJump.pageJump({
-      that: this,
+    this.pageJump({
       path: '/playlistDetail',
       id
+    });
+  }
+
+  pageJump(config: IPageJumpConfig) {
+    const { id, path } = config;
+    this.$router.push({
+      path: path,
+      query: {
+        id: id!.toString()
+      }
     });
   }
 }

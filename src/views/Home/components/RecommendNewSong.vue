@@ -15,7 +15,7 @@ import RecommendSong from '@/components/RecommendSong/index.vue';
 @Component({
   components: { RecommendSong }
 })
-export default class extends Vue {
+export default class RecommendNewSong extends Vue {
   tracks: ISongFormat[] = [];
   loading = true;
   private async mounted() {
@@ -25,4 +25,4 @@ export default class extends Vue {
   }
 }
 </script>
-<style lang="scss" scoped></style>
+<style lang="less" scoped></style>

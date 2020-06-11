@@ -3,8 +3,8 @@ declare module '*.vue' {
   export default Vue;
 }
 declare module 'ant-design-vue' {
-  const Antd: any;
-  export default Antd;
+  const antd: any;
+  export default antd;
 }
 
 declare module 'aplayer' {

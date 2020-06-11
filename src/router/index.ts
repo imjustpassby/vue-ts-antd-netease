@@ -79,7 +79,22 @@ const routes: RouteConfig[] = [
       {
         path: 'artist',
         name: 'artist',
-        component: () => import('@/views/ArtistList/index.vue')
+        redirect: '/artist/recommend',
+        component: () => import('@/views/ArtistList/index.vue'),
+        children: [
+          {
+            path: 'recommend',
+            name: 'artistRecommend',
+            component: () =>
+              import('@/views/ArtistList/components/RecommendArtist.vue')
+          },
+          {
+            path: 'category',
+            name: 'artistCategory',
+            component: () =>
+              import('@/views/ArtistList/components/QueryArtist.vue')
+          }
+        ]
       },
       {
         path: 'newestAlbum',
@@ -146,7 +161,11 @@ const routes: RouteConfig[] = [
 ];
 
 const router = new VueRouter({
-  routes
+  routes,
+  scrollBehavior: () => ({
+    x: 0,
+    y: 0
+  })
 });
 
 /* 
@@ -167,23 +186,26 @@ router.beforeEach(
     if (to.matched.length !== 0) {
       if (store.state.user.loginSuccess === 'true') {
         next();
+        NProgress.done();
       } else {
         if (needLoginPaths.includes(to.path)) {
           Vue.prototype.$message.warning('请先登录再体验该功能喔...');
+          NProgress.done();
         } else {
           next();
+          NProgress.done();
         }
       }
     } else {
       // 路由不存在，跳转至404页面。
       next({ name: '404' });
+      NProgress.done();
     }
   }
 );
 
 router.afterEach(() => {
   NProgress.done();
-  window.scrollTo(0, 0);
 });
 
 export default router;

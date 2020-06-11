@@ -81,7 +81,7 @@ interface ResponseDataLogin {
 @Component({
   components: {}
 })
-export default class extends Vue {
+export default class Login extends Vue {
   form: any = null;
   modalShow = false;
 

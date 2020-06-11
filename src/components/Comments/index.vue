@@ -107,7 +107,7 @@ export default class Comments extends Vue {
   loading: boolean | undefined;
 }
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .comment-container {
   text-align: left;
   margin: 16px 0;

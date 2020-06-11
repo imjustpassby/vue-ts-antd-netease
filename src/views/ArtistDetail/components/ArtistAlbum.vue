@@ -39,8 +39,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { getArtistAlbum } from '@/api/artist';
-import { IAlbum } from '@/utils/types';
-import PageJump from '@/utils/PageJump';
+import { IAlbum, IPageJumpConfig } from '@/utils/types';
 @Component({
   components: {}
 })
@@ -73,10 +72,19 @@ export default class ArtistAlbum extends Vue {
   }
 
   goAlbumDetail(id: number) {
-    PageJump.pageJump({
-      that: this,
+    this.pageJump({
       path: '/albumDetail',
       id
+    });
+  }
+
+  pageJump(config: IPageJumpConfig) {
+    const { id, path } = config;
+    this.$router.push({
+      path: path,
+      query: {
+        id: id!.toString()
+      }
     });
   }
 }

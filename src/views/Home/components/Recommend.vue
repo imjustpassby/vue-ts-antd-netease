@@ -42,7 +42,7 @@ import RecommendPlaylist from './RecommendPlaylist.vue';
 })
 export default class Recommend extends Vue {}
 </script>
-<style lang="scss">
+<style lang="less">
 .recommend {
   padding-bottom: 100px;
 }

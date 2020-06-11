@@ -20,4 +20,4 @@ export default class ArtistHotSong extends Vue {
   loading: boolean | undefined;
 }
 </script>
-<style lang="scss" scoped></style>
+<style lang="less" scoped></style>

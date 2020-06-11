@@ -28,24 +28,24 @@
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import {
+  IPageJumpConfig,
   ISearchArtist,
   ResponseSearch,
   ResponseSearchArtistResult,
   SearchParams
 } from '@/utils/types';
 import { searchByKeywordAndType } from '@/api/search';
-import PageJump from '@/utils/PageJump';
 import Spin from '@/components/Spin/index.vue';
 
 @Component({
   components: { Spin }
 })
-export default class extends Vue {
+export default class ArtistSearch extends Vue {
   @Prop({ default: '' })
   keywords: string | undefined;
 
   exactSearch: ISearchArtist[] = [];
-  loading = true;
+  loading = false;
 
   @Watch('keywords')
   async watchKeywords(newVal: string, oldVal: string) {
@@ -68,10 +68,18 @@ export default class extends Vue {
     this.loading = false;
   }
   goArtistDetail(id: number) {
-    PageJump.pageJump({
-      that: this,
+    this.pageJump({
       path: '/artistDetail',
       id
+    });
+  }
+  pageJump(config: IPageJumpConfig) {
+    const { id, path } = config;
+    this.$router.push({
+      path: path,
+      query: {
+        id: id!.toString()
+      }
     });
   }
 }

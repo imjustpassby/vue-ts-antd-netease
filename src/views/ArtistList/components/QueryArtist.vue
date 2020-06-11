@@ -20,45 +20,96 @@
     </a-row>
     <a-row type="flex" justify="space-around">
       <a-col>
-        <a-button @click="previous(Number(cate))">&lt;</a-button>
-        <a-button @click="next(Number(cate))">&gt;</a-button>
+        <a-button @click="previous">&lt;</a-button>
+        <a-button @click="next">&gt;</a-button>
       </a-col>
     </a-row>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Emit, Prop, Vue } from 'vue-property-decorator';
-import { IArtistByCategory } from '@/utils/types';
-import PageJump from '@/utils/PageJump';
+import {
+  ArtistByCategoryParams,
+  IArtistByCategory,
+  IPageJumpConfig
+} from '@/utils/types';
+import { Component, Emit, Prop, Vue, Watch } from 'vue-property-decorator';
+import { getArtistByCategory } from '@/api/artist';
 @Component({
   components: {}
 })
 export default class QueryArtist extends Vue {
-  @Prop({ required: true })
-  artists: IArtistByCategory[] | undefined;
-  @Prop({ required: true })
-  currentPage: number | undefined;
+  artists: IArtistByCategory[] = [];
+  currentPage: number = 1;
 
-  get cate() {
-    return this.$route.query.cate;
+  @Watch('$route', { deep: true })
+  async resetPage(to: any, from: any) {
+    this.currentPage = 1;
+    await this.queryArtist({ cat: Number(this.$route.query.cate), limit: 20 });
   }
 
-  @Emit('previous')
-  previous(cate: number) {}
-  @Emit('next')
-  next(cate: number) {}
+  private async mounted() {
+    await this.queryArtist({ cat: Number(this.$route.query.cate), limit: 20 });
+  }
 
   goArtistDetail(id: number) {
-    PageJump.pageJump({
-      that: this,
+    this.pageJump({
       path: '/artistDetail',
       id
     });
   }
+  pageJump(config: IPageJumpConfig) {
+    const { id, path } = config;
+    this.$router.push({
+      path: path,
+      query: {
+        id: id!.toString()
+      }
+    });
+  }
+
+  async queryArtist({ cat, limit = 20 }: ArtistByCategoryParams) {
+    await this.getArtists({
+      cat: Number(this.$route.query.cate),
+      limit: limit,
+      offset: (this.currentPage - 1) * limit
+    });
+  }
+
+  async getArtists({ cat, limit, offset }: ArtistByCategoryParams) {
+    const res = await getArtistByCategory({
+      cat,
+      limit,
+      offset
+    });
+    this.artists = res.data.artists;
+  }
+
+  async previous() {
+    if (this.currentPage === 1) {
+      this.$message.info('已经是第一页了...');
+    } else {
+      this.currentPage--;
+      await this.queryArtist({
+        cat: Number(this.$route.query.cate),
+        limit: 20
+      });
+    }
+  }
+  async next() {
+    if (this.artists.length < 20) {
+      this.$message.error('没有更多了...');
+    } else {
+      this.currentPage++;
+      await this.queryArtist({
+        cat: Number(this.$route.query.cate),
+        limit: 20
+      });
+    }
+  }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .query-artist {
   padding: 36px 16px 100px 16px;
   font-size: 16px;

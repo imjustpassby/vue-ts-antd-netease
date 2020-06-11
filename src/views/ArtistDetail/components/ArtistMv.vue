@@ -25,8 +25,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { getArtistMv } from '@/api/artist';
-import { IArtistMv } from '@/utils/types';
-import PageJump from '@/utils/PageJump.ts';
+import { IArtistMv, IPageJumpConfig } from '@/utils/types';
 @Component({
   components: {}
 })
@@ -39,10 +38,18 @@ export default class ArtistMv extends Vue {
     this.loading = false;
   }
   goMvDetail(id: number) {
-    PageJump.pageJump({
-      that: this,
+    this.pageJump({
       path: '/videoDetail',
       id
+    });
+  }
+  pageJump(config: IPageJumpConfig) {
+    const { id, path } = config;
+    this.$router.push({
+      path: path,
+      query: {
+        id: id!.toString()
+      }
     });
   }
 }

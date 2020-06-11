@@ -71,14 +71,17 @@
 </template>
 
 <script lang="ts">
-import { ArtistByCategoryParams, IArtistByCategory } from '@/utils/types';
+import {
+  ArtistByCategoryParams,
+  IArtistByCategory,
+  IPageJumpConfig
+} from '@/utils/types';
 import { Component, Vue } from 'vue-property-decorator';
 import { getArtistByCategory, getTopArtists } from '@/api/artist';
-import PageJump from '@/utils/PageJump';
 @Component({
   components: {}
 })
-export default class extends Vue {
+export default class RecommendArtist extends Vue {
   residentSinger: IArtistByCategory[] = [];
   hotSinger: IArtistByCategory[] = [];
   loading = true;
@@ -99,15 +102,24 @@ export default class extends Vue {
   }
 
   goArtistDetail(id: number) {
-    PageJump.pageJump({
-      that: this,
+    this.pageJump({
       path: '/artistDetail',
       id
     });
   }
+
+  pageJump(config: IPageJumpConfig) {
+    const { id, path } = config;
+    this.$router.push({
+      path: path,
+      query: {
+        id: id!.toString()
+      }
+    });
+  }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .artist {
   padding: 36px 16px 100px 16px;
   & .artist-list {

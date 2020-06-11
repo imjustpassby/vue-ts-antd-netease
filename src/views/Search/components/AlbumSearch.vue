@@ -28,18 +28,18 @@
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import {
+  IPageJumpConfig,
   ISearchAlbum,
   ResponseSearch,
   ResponseSearchAlbumResult,
   SearchParams
 } from '@/utils/types';
 import { searchByKeywordAndType } from '@/api/search';
-import PageJump from '@/utils/PageJump.ts';
 import Spin from '@/components/Spin/index.vue';
 @Component({
   components: { Spin }
 })
-export default class extends Vue {
+export default class AlbumSearch extends Vue {
   @Prop({ default: '' })
   keywords: string | undefined;
 
@@ -69,10 +69,19 @@ export default class extends Vue {
   }
 
   goAlbumDetail(id: number) {
-    PageJump.pageJump({
-      that: this,
+    this.pageJump({
       path: '/albumDetail',
       id
+    });
+  }
+
+  pageJump(config: IPageJumpConfig) {
+    const { id, path } = config;
+    this.$router.push({
+      path: path,
+      query: {
+        id: id!.toString()
+      }
     });
   }
 }

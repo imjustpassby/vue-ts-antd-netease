@@ -176,7 +176,7 @@ export default class ArtistDetail extends Vue {
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .artist-detail {
   padding: 16px 16px 100px 16px;
   margin-top: 16px;

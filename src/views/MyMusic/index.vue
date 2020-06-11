@@ -70,7 +70,7 @@ export default class MyMusic extends Vue {
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .my-page-container {
   margin: 30px 0 90px 0;
 }

@@ -62,9 +62,12 @@
                 width="100%"
                 style="cursor:pointer"
                 alt="dj"
+                @click="goDjDetail(item.id)"
               />
             </div>
-            <p class="recommend-title">{{ item.name }}</p>
+            <p class="recommend-title" @click="goDjDetail(item.id)">
+              {{ item.name }}
+            </p>
           </a-col>
         </a-row>
       </a-skeleton>
@@ -75,8 +78,11 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { getDjCateList, getDjRecommendByType } from '@/api/dj';
-import { IDjCategory, IDjRecommendByType } from '@/utils/types';
-import PageJump from '@/utils/PageJump';
+import {
+  IDjCategory,
+  IDjRecommendByType,
+  IPageJumpConfig
+} from '@/utils/types';
 @Component({
   components: {}
 })
@@ -105,15 +111,23 @@ export default class DjCate extends Vue {
     this.loading2 = false;
   }
   goDjDetail(id: number) {
-    PageJump.pageJump({
-      that: this,
+    this.pageJump({
       path: '/djDetail',
       id
     });
   }
+  pageJump(config: IPageJumpConfig) {
+    const { id, path } = config;
+    this.$router.push({
+      path: path,
+      query: {
+        id: id!.toString()
+      }
+    });
+  }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .dj-cate {
   padding: 14px 0;
 }

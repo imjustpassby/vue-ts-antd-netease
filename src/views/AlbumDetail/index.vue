@@ -125,7 +125,7 @@ export default class AblumDetail extends Vue {
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .album-detail-container {
   position: relative;
   padding-bottom: 120px;

@@ -23,4 +23,4 @@ import SongInfo from './components/SongInfo.vue';
 })
 export default class SongDetail extends Vue {}
 </script>
-<style lang="scss" scoped></style>
+<style lang="less" scoped></style>

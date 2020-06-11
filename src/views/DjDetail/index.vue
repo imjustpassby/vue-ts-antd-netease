@@ -138,7 +138,7 @@ export default class DjDetail extends Vue {
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .playlist-detail-container {
   padding-bottom: 100px;
   font-size: 14px;

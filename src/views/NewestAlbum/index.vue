@@ -21,7 +21,7 @@ import TopAlbum from './components/TopAlbum.vue';
 })
 export default class NewestAlbum extends Vue {}
 </script>
-<style lang="scss">
+<style lang="less">
 .album-list {
   font-size: 16px;
   margin-top: 16px;

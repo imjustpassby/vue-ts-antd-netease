@@ -46,7 +46,7 @@ export default class DailyRecommend extends Vue {
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .daily-recommend {
   padding: 0 0 100px 16px;
   font-size: 14px;

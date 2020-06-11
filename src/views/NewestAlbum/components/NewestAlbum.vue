@@ -37,8 +37,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { getNewestAlbum } from '@/api/album';
-import { IAlbum } from '@/utils/types';
-import PageJump from '@/utils/PageJump';
+import { IAlbum, IPageJumpConfig } from '@/utils/types';
 @Component({
   components: {}
 })
@@ -57,12 +56,21 @@ export default class NewestAlbumComponent extends Vue {
   }
 
   goAlbumDetail(id: number) {
-    PageJump.pageJump({
-      that: this,
+    this.pageJump({
       path: '/albumDetail',
       id
     });
   }
+
+  pageJump(config: IPageJumpConfig) {
+    const { id, path } = config;
+    this.$router.push({
+      path: path,
+      query: {
+        id: id!.toString()
+      }
+    });
+  }
 }
 </script>
-<style lang="scss" scoped></style>
+<style lang="less" scoped></style>

@@ -38,8 +38,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { getPersonalizedPlaylist } from '@/api/home.ts';
-import { IPersonalizedPlaylist } from '@/utils/types';
-import PageJump from '@/utils/PageJump.ts';
+import { IPageJumpConfig, IPersonalizedPlaylist } from '@/utils/types';
 @Component({
   components: {}
 })
@@ -54,10 +53,19 @@ export default class RecommendPlaylist extends Vue {
   }
 
   private goPlaylistDetail(item: IPersonalizedPlaylist) {
-    PageJump.pageJump({
-      that: this,
+    this.pageJump({
       id: item.id,
       path: '/playlistDetail'
+    });
+  }
+
+  pageJump(config: IPageJumpConfig) {
+    const { id, path } = config;
+    this.$router.push({
+      path: path,
+      query: {
+        id: id!.toString()
+      }
     });
   }
 }

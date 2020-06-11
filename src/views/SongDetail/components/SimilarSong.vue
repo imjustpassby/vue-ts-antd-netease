@@ -60,13 +60,11 @@
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { getSimilarPlaylist } from '@/api/playlist';
-import { getSimilarSong } from '@/api/song';
-import { getSongDetail } from '@/api/song';
-import { ISimilarPlaylist, ISongFormat } from '@/utils/types';
+import { getSimilarSong, getSongDetail } from '@/api/song';
+import { IPageJumpConfig, ISimilarPlaylist, ISongFormat } from '@/utils/types';
 import { namespace } from 'vuex-class';
 import { transformTracks } from '@/utils/TransformPlaylistFormat';
 import Bus from '@/utils/Bus';
-import PageJump from '@/utils/PageJump';
 const playlistModule = namespace('playlist');
 @Component({
   components: {}
@@ -104,23 +102,31 @@ export default class SimilarSong extends Vue {
     this.SET_CURRENT_MUSIC_ACTION(song).then((result: ISongFormat) => {
       Bus.$emit('play', result);
     });
-    PageJump.pageJump({
-      that: this,
+    this.pageJump({
       path: '/songDetail',
       id: song.id
     });
   }
 
   goPlaylistDetail(id: number) {
-    PageJump.pageJump({
-      that: this,
+    this.pageJump({
       path: '/playlistDetail',
       id
     });
   }
+
+  pageJump(config: IPageJumpConfig) {
+    const { id, path } = config;
+    this.$router.push({
+      path: path,
+      query: {
+        id: id!.toString()
+      }
+    });
+  }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .cover-img {
   width: 46px;
   height: 46px;

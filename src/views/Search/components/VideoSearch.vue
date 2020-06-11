@@ -26,13 +26,13 @@
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import {
+  IPageJumpConfig,
   ISearchVideo,
   ResponseSearch,
   ResponseSearchVideoResult,
   SearchParams
 } from '@/utils/types';
 import { searchByKeywordAndType } from '@/api/search';
-import PageJump from '@/utils/PageJump';
 import Spin from '@/components/Spin/index.vue';
 @Component({
   components: { Spin }
@@ -65,10 +65,19 @@ export default class VideoSearch extends Vue {
     this.loading = false;
   }
   goMvDetail(id: string) {
-    PageJump.pageJump({
-      that: this,
+    this.pageJump({
       path: '/video',
       id: Number(id)
+    });
+  }
+
+  pageJump(config: IPageJumpConfig) {
+    const { id, path } = config;
+    this.$router.push({
+      path: path,
+      query: {
+        id: id!.toString()
+      }
     });
   }
 }

@@ -55,4 +55,4 @@ export default class PlaylistDetailPage extends Vue {
   }
 }
 </script>
-<style lang="scss" scoped></style>
+<style lang="less" scoped></style>

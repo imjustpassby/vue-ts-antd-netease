@@ -83,16 +83,15 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { ISongFormat } from '@/utils/types/index.ts';
+import { IPageJumpConfig, ISongFormat } from '@/utils/types/index.ts';
 import { namespace } from 'vuex-class';
 import Bus from '@/utils/Bus.ts';
-import PageJump from '@/utils/PageJump.ts';
 const playlistModule = namespace('playlist');
 
 @Component({
   components: {}
 })
-export default class extends Vue {
+export default class MyPlaylist extends Vue {
   visible = false;
   locale = { emptyText: '列表空空如也 o(╥﹏╥)o' };
 
@@ -142,14 +141,12 @@ export default class extends Vue {
   }
   goSongDetail(song: ISongFormat) {
     if (song.songType === 'dj') {
-      PageJump.pageJump({
-        that: this,
+      this.pageJump({
         path: '/djDetail',
         id: song.artistId[0]
       });
     } else {
-      PageJump.pageJump({
-        that: this,
+      this.pageJump({
         path: '/songDetail',
         id: song.id
       });
@@ -157,22 +154,29 @@ export default class extends Vue {
   }
   goAlbumDetail(song: ISongFormat) {
     if (song.songType === 'dj') {
-      PageJump.pageJump({
-        that: this,
+      this.pageJump({
         path: '/djDetail',
         id: song.artistId[0]
       });
     } else {
-      PageJump.pageJump({
-        that: this,
+      this.pageJump({
         path: '/albumDetail',
         id: song.albumId
       });
     }
   }
+  pageJump(config: IPageJumpConfig) {
+    const { id, path } = config;
+    this.$router.push({
+      path: path,
+      query: {
+        id: id!.toString()
+      }
+    });
+  }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .player-operation {
   position: fixed;
   left: 110px;

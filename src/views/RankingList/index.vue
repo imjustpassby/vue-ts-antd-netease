@@ -30,8 +30,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { getRankingList } from '@/api/ranking.ts';
-import { IRanking } from '@/utils/types/index.ts';
-import PageJump from '@/utils/PageJump';
+import { IPageJumpConfig, IRanking } from '@/utils/types/index.ts';
 @Component({
   components: {}
 })
@@ -46,15 +45,23 @@ export default class RankingList extends Vue {
   }
 
   private goRankingDetail(id: number) {
-    PageJump.pageJump({
-      that: this,
+    this.pageJump({
       path: '/playlistDetail',
       id: id
     });
   }
+  pageJump(config: IPageJumpConfig) {
+    const { id, path } = config;
+    this.$router.push({
+      path: path,
+      query: {
+        id: id!.toString()
+      }
+    });
+  }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .ranking-list {
   font-size: 16px;
   margin-top: 16px;

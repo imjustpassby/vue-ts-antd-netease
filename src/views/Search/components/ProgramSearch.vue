@@ -28,23 +28,23 @@
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import {
+  IPageJumpConfig,
   ISearchDjProgram,
   ResponseSearch,
   ResponseSearchDjProgramResult,
   SearchParams
 } from '@/utils/types';
 import { searchByKeywordAndType } from '@/api/search';
-import PageJump from '@/utils/PageJump';
 import Spin from '@/components/Spin/index.vue';
 @Component({
   components: { Spin }
 })
-export default class extends Vue {
+export default class ProgramSearch extends Vue {
   @Prop({ default: '' })
   keywords: string | undefined;
 
   exactSearch: ISearchDjProgram[] = [];
-  loading = true;
+  loading = false;
 
   @Watch('keywords')
   async watchKeywords(newVal: string, oldVal: string) {
@@ -67,10 +67,18 @@ export default class extends Vue {
     this.loading = false;
   }
   goDjDetail(id: number) {
-    PageJump.pageJump({
-      that: this,
+    this.pageJump({
       path: '/djDetail',
       id
+    });
+  }
+  pageJump(config: IPageJumpConfig) {
+    const { id, path } = config;
+    this.$router.push({
+      path: path,
+      query: {
+        id: id!.toString()
+      }
     });
   }
 }

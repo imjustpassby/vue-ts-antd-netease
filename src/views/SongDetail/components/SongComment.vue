@@ -75,7 +75,7 @@ export default class SongComment extends Vue {
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .write-comment-container {
   position: relative;
   height: 130px;

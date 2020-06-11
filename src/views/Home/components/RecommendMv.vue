@@ -37,8 +37,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { getPersonalizedMv } from '@/api/home.ts';
-import { IPersonalizedMv } from '@/utils/types';
-import PageJump from '@/utils/PageJump.ts';
+import { IPageJumpConfig, IPersonalizedMv } from '@/utils/types';
 @Component({
   components: {}
 })
@@ -51,10 +50,18 @@ export default class RecommendMv extends Vue {
     this.loading = false;
   }
   private goMvDetail(id: number) {
-    PageJump.pageJump({
-      that: this,
+    this.pageJump({
       id: id,
       path: '/mv'
+    });
+  }
+  pageJump(config: IPageJumpConfig) {
+    const { id, path } = config;
+    this.$router.push({
+      path: path,
+      query: {
+        id: id!.toString()
+      }
     });
   }
 }

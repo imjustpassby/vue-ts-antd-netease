@@ -72,7 +72,7 @@ export default class APlayerComponent extends Vue {
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 #aplayer {
   text-align: left;
 }

@@ -118,7 +118,7 @@ export default class UserPlaylist extends Vue {
   showPlaylist(data: showPlaylistParams) {}
 }
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .user-playlist {
   text-align: left;
   border: 1px solid rgb(232, 232, 232);

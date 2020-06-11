@@ -33,8 +33,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { getBanners } from '@/api/home.ts';
-import { IBanner } from '@/utils/types';
-import PageJump from '@/utils/PageJump.ts';
+import { IBanner, IPageJumpConfig } from '@/utils/types';
 import Spin from '@/components/Spin/index.vue';
 @Component({
   components: { Spin }
@@ -52,39 +51,33 @@ export default class Banner extends Vue {
   private bannerClick(banner: IBanner) {
     switch (banner.targetType) {
       case 1: // song
-        PageJump.pageJump({
-          that: this,
+        this.pageJump({
           id: banner.targetId,
           path: '/songDetail'
         });
         break;
       case 10: // album
-        PageJump.pageJump({
-          that: this,
+        this.pageJump({
           id: banner.targetId,
           path: '/albumDetail'
         });
         break;
       case 100: // artist
-        PageJump.pageJump({
-          that: this,
+        this.pageJump({
           id: banner.targetId,
           path: '/artistDetail'
         });
         break;
       case 1000:
-        PageJump.pageJump({
-          that: this,
+        this.pageJump({
           id: banner.targetId,
           path: '/playlistDetail'
         });
         break;
       case 1004:
-        PageJump.pageJump({
-          that: this,
+        this.pageJump({
           id: banner.targetId,
-          path: '/mv',
-          type: 'mv'
+          path: '/mv'
         });
         break;
       case 3000:
@@ -93,6 +86,15 @@ export default class Banner extends Vue {
       default:
         break;
     }
+  }
+  pageJump(config: IPageJumpConfig) {
+    const { id, path } = config;
+    this.$router.push({
+      path: path,
+      query: {
+        id: id!.toString()
+      }
+    });
   }
 }
 </script>

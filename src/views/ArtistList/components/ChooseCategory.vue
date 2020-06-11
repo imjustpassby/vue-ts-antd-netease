@@ -20,10 +20,9 @@
 </template>
 
 <script lang="ts">
-import { ArtistByCategoryParams } from '@/utils/types';
-import { Component, Emit, Vue } from 'vue-property-decorator';
+import { ArtistByCategoryParams, IPageJumpConfig } from '@/utils/types';
+import { Component, Vue } from 'vue-property-decorator';
 import { getList } from '@/api/artist';
-import PageJump from '@/utils/PageJump';
 type ICategorySubList = {
   name: string;
   cate: number;
@@ -41,17 +40,33 @@ export default class ChooseCategory extends Vue {
     this.categoryList = getList();
   }
 
-  @Emit('queryArtist')
   queryArtist({ cat, limit, offset }: ArtistByCategoryParams) {
-    PageJump.pageJump({
-      that: this,
-      path: '/artist',
-      cate: cat
+    if (cat === Number(this.$route.query.cate)) {
+      return;
+    }
+    if (cat !== 9999) {
+      this.pageJump({
+        path: '/artist/category',
+        cate: cat
+      });
+    } else {
+      this.$router.push({
+        path: '/artist/recommend'
+      });
+    }
+  }
+  pageJump(config: IPageJumpConfig) {
+    const { cate, path } = config;
+    this.$router.push({
+      path: path,
+      query: {
+        cate: cate!.toString()
+      }
     });
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .artist-choose {
   margin-top: 32px;
   background-color: #fafafa;

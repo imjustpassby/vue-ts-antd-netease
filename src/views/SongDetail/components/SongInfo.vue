@@ -71,11 +71,10 @@
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { getLyric, getSongDetail } from '@/api/song';
-import { ISongFormat } from '@/utils/types';
+import { IPageJumpConfig, ISongFormat } from '@/utils/types';
 import { namespace } from 'vuex-class';
 import { TransformTracksSongFormat } from '@/utils/TransformPlaylistFormat';
 import Bus from '@/utils/Bus';
-import PageJump from '@/utils/PageJump.ts';
 const playlistModule = namespace('playlist');
 @Component({
   components: {}
@@ -127,16 +126,14 @@ export default class SongInfo extends Vue {
   }
 
   goArtistDetail(id: number) {
-    PageJump.pageJump({
-      that: this,
+    this.pageJump({
       path: '/artistDetail',
       id
     });
   }
 
   goAlbumDetail() {
-    PageJump.pageJump({
-      that: this,
+    this.pageJump({
       path: '/albumDetail',
       id: this.songInfo.albumId
     });
@@ -162,9 +159,19 @@ export default class SongInfo extends Vue {
       this.expandText = '收起';
     }
   }
+
+  pageJump(config: IPageJumpConfig) {
+    const { id, path } = config;
+    this.$router.push({
+      path: path,
+      query: {
+        id: id!.toString()
+      }
+    });
+  }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .song-detail {
   font-size: 14px;
   text-align: left;

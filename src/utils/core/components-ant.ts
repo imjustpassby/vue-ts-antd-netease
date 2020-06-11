@@ -6,7 +6,7 @@
  * 当需要更多组件依赖时，在该文件加入即可
  */
 import Vue from 'vue';
-import Antd from 'ant-design-vue';
+import antd from 'ant-design-vue';
 let {
   BackTop,
   LocaleProvider,
@@ -40,7 +40,7 @@ let {
   Progress,
   Comment,
   Empty
-} = Antd;
+} = antd;
 
 Vue.use(Empty);
 Vue.use(Comment);

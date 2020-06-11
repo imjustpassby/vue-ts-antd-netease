@@ -29,7 +29,7 @@ import TodayDj from './components/TodayDj.vue';
 })
 export default class DjList extends Vue {}
 </script>
-<style lang="scss">
+<style lang="less">
 .dj-list {
   font-size: 16px;
   margin-top: 16px;

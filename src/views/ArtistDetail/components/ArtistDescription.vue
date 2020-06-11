@@ -28,7 +28,7 @@ export default class ArtistDescription extends Vue {
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 h1 {
   font-size: 16px;
   font-weight: bold;

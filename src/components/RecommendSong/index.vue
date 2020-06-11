@@ -35,7 +35,7 @@
               <p class="common--title" @click="goSongDetail(item)">
                 {{ item.name }}
               </p>
-              <p v-if="item.songType === 'song'">
+              <p v-if="item.songType === 'song'" class="common--title">
                 <span
                   class="common--title"
                   style="line-height:1.5em;cursor:pointer;color:#999"
@@ -57,9 +57,8 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { ISongFormat } from '@/utils/types';
+import { IPageJumpConfig, ISongFormat } from '@/utils/types';
 import { namespace } from 'vuex-class';
-import PageJump from '@/utils/PageJump.ts';
 const playlistModule = namespace('playlist');
 import Bus from '@/utils/Bus';
 @Component({
@@ -83,24 +82,30 @@ export default class RecommendSong extends Vue {
   }
   private goSongDetail(song: ISongFormat) {
     if (song.songType === 'song') {
-      PageJump.pageJump({
-        that: this,
+      this.pageJump({
         id: song.id,
         path: '/songDetail'
       });
     } else if (song.songType === 'dj') {
-      PageJump.pageJump({
-        that: this,
+      this.pageJump({
         id: song.artistId[0],
         path: '/djDetail'
       });
     }
   }
   private goArtistDetail(id: number) {
-    PageJump.pageJump({
-      that: this,
+    this.pageJump({
       id: id,
       path: '/artistDetail'
+    });
+  }
+  pageJump(config: IPageJumpConfig) {
+    const { id, path } = config;
+    this.$router.push({
+      path: path,
+      query: {
+        id: id!.toString()
+      }
     });
   }
 }

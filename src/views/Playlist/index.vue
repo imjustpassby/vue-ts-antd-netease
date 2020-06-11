@@ -60,12 +60,12 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { getPlayList, getPlayListCategoryList } from '@/api/playlist';
 import {
+  IPageJumpConfig,
   IPlaylistCategory,
   IPlaylistCategoryListSub,
   ITopPlaylist,
   TopPlaylistParams
 } from '@/utils/types';
-import PageJump from '@/utils/PageJump';
 import Spin from '@/components/Spin/index.vue';
 type ICategories = {
   name: string;
@@ -132,15 +132,24 @@ export default class Playlist extends Vue {
   }
 
   goPlaylistDetail(id: number) {
-    PageJump.pageJump({
-      that: this,
+    this.pageJump({
       path: '/playlistDetail',
       id
     });
   }
+
+  pageJump(config: IPageJumpConfig) {
+    const { id, path } = config;
+    this.$router.push({
+      path: path,
+      query: {
+        id: id!.toString()
+      }
+    });
+  }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .categories {
   margin-left: -88%;
   font-size: 18px;

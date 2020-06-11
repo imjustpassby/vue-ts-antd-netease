@@ -25,7 +25,7 @@ import Spin from '@/components/Spin/index.vue';
 @Component({
   components: { PlaylistTable, Spin }
 })
-export default class extends Vue {
+export default class SongSearch extends Vue {
   @Prop({ default: '' })
   keywords: string | undefined;
 

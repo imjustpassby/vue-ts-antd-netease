@@ -32,9 +32,9 @@ import { Component, Vue } from 'vue-property-decorator';
 @Component({
   components: {}
 })
-export default class extends Vue {}
+export default class CopyRight extends Vue {}
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .container {
   min-height: 800px;
   padding: 100px;

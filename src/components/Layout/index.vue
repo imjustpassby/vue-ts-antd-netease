@@ -40,14 +40,10 @@
             class="flex--start--center flex--start--center--with--margin"
           >
             <li>
-              <a-avatar
-                icon="user"
-                :src="StateAvatarUrl + '?param=50y50'"
-                @click="goMyMusic"
-              />
+              <a-avatar icon="user" :src="StateAvatarUrl + '?param=50y50'" />
             </li>
             <li>
-              <button class="loginBar_btn" @click="goMyMusic">
+              <button class="loginBar_btn">
                 {{ StateNickname }}
               </button>
             </li>
@@ -95,11 +91,11 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { IPageJumpConfig } from '@/utils/types';
 import { namespace } from 'vuex-class';
 import APlayer from '@/components/APlayer/index.vue';
 import LoginForm from '@/components/Login/index.vue';
 import MyPlaylist from '@/components/MyPlaylist/index.vue';
-import PageJump from '@/utils/PageJump';
 const userModule = namespace('user');
 interface Link {
   span: string;
@@ -225,13 +221,6 @@ export default class Layout extends Vue {
       .catch((err: Error) => {});
   }
 
-  goMyMusic() {
-    PageJump.pageJump({
-      that: this,
-      path: '/my'
-    });
-  }
-
   showLoginForm() {
     this.loginShow = true;
   }
@@ -247,7 +236,7 @@ export default class Layout extends Vue {
   @userModule.Action('LOGOUT') ACTION_LOGOUT!: Function;
 }
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .topbar {
   position: relative;
   z-index: 99;

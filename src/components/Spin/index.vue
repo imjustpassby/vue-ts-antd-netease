@@ -12,7 +12,7 @@ import { Component, Vue } from 'vue-property-decorator';
 })
 export default class Spin extends Vue {}
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .spin {
   height: 100vh;
   border-radius: 4px;

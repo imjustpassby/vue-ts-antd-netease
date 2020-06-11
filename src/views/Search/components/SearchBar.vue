@@ -26,7 +26,7 @@ export default class SearchBar extends Vue {
   getSearchResult(val: string) {}
 }
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .certain-category-search-wrapper {
   margin: 26px 0;
   .certain-category-search {
@@ -56,22 +56,22 @@ export default class SearchBar extends Vue {
 }
 
 .certain-category-search-wrapper
-  >>> .certain-category-search.ant-select-auto-complete
+  .certain-category-search.ant-select-auto-complete
   .ant-input-affix-wrapper
   .ant-input-suffix {
   right: 12px;
 }
-.certain-category-search-wrapper >>> .certain-search-item-count {
+.certain-category-search-wrapper .certain-search-item-count {
   position: absolute;
   color: #999;
   right: 16px;
 }
 .certain-category-search-wrapper
-  >>> .certain-category-search.ant-select-focused
+  .certain-category-search.ant-select-focused
   .certain-category-icon {
   color: #108ee9;
 }
-.certain-category-search-wrapper >>> .certain-category-icon {
+.certain-category-search-wrapper .certain-category-icon {
   color: #6e6e6e;
   transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   font-size: 16px;

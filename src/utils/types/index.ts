@@ -46,6 +46,12 @@ export type IXgPlayerConfig = {
   lang?: 'zh-cn' | 'en' | 'jp';
 };
 
+export interface IPageJumpConfig {
+  id?: number;
+  path: string;
+  cate?: number;
+}
+
 export type IProfile = {
   userId: number;
   nickname: string;

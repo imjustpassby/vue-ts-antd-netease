@@ -93,10 +93,9 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { IPagination, ISongFormat } from '@/utils/types';
+import { IPageJumpConfig, IPagination, ISongFormat } from '@/utils/types';
 import { namespace } from 'vuex-class';
 import Bus from '@/utils/Bus';
-import PageJump from '@/utils/PageJump.ts';
 const playlistModule = namespace('playlist');
 @Component({
   components: {}
@@ -115,8 +114,7 @@ export default class PlaylistTable extends Vue {
   SET_CURRENT_MUSIC_ACTION!: Function;
 
   goSongDetail(id: number) {
-    PageJump.pageJump({
-      that: this,
+    this.pageJump({
       path: '/songDetail',
       id: id
     });
@@ -134,23 +132,31 @@ export default class PlaylistTable extends Vue {
   }
 
   goArtistDetail(id: number) {
-    PageJump.pageJump({
-      that: this,
+    this.pageJump({
       path: '/artistDetail',
       id: id
     });
   }
 
   goAlbumDetail(id: number) {
-    PageJump.pageJump({
-      that: this,
+    this.pageJump({
       path: '/albumDetail',
       id: id
     });
   }
+
+  pageJump(config: IPageJumpConfig) {
+    const { id, path } = config;
+    this.$router.push({
+      path: path,
+      query: {
+        id: id!.toString()
+      }
+    });
+  }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .play-icon {
   font-size: 20px;
   cursor: pointer;

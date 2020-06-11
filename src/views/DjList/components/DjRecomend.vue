@@ -37,8 +37,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { getDjRecommend } from '@/api/dj';
-import { IDjRadios } from '@/utils/types';
-import PageJump from '@/utils/PageJump';
+import { IDjRadios, IPageJumpConfig } from '@/utils/types';
 @Component({
   components: {}
 })
@@ -56,10 +55,18 @@ export default class DjRecommend extends Vue {
     this.djs = res.data.djRadios;
   }
   goDjDetail(id: number) {
-    PageJump.pageJump({
-      that: this,
+    this.pageJump({
       path: '/djDetail',
       id
+    });
+  }
+  pageJump(config: IPageJumpConfig) {
+    const { id, path } = config;
+    this.$router.push({
+      path: path,
+      query: {
+        id: id!.toString()
+      }
     });
   }
 }

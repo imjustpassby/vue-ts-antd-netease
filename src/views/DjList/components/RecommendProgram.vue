@@ -25,4 +25,4 @@ export default class RecommendProgram extends Vue {
   }
 }
 </script>
-<style lang="scss" scoped></style>
+<style lang="less" scoped></style>
