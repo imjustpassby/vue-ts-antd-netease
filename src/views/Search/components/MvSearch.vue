@@ -11,7 +11,7 @@
           style="margin-bottom:16px"
         >
           <img
-            v-lazy="ar.cover"
+            v-lazy="ar.cover + '?params=256y156'"
             width="100%"
             alt="img"
             @click="goMvDetail(ar.id)"
