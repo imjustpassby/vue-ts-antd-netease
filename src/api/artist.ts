@@ -16,10 +16,6 @@ const list = [
       {
         name: '推荐歌手',
         cate: 9999
-      },
-      {
-        name: '入驻歌手',
-        cate: 5001
       }
     ]
   },
@@ -115,12 +111,29 @@ export function getList() {
 }
 
 /* 歌手分类列表 */
+/* 
+    type 取值
+    1:男歌手
+    2:女歌手
+    3:乐队
+
+    area 取值
+    -1:全部
+    7华语
+    96欧美
+    8:日本
+    16韩国
+    0:其他
+
+    initial 取值 a-z/A-Z
+*/
 export const getArtistByCategory = mem(
-  function({ cat, limit = 20, offset = 0 }: ArtistByCategoryParams) {
+  function({ type, area, limit = 20, offset = 0 }: ArtistByCategoryParams) {
     return request<ResponseArtistByCategory>({
       url: '/api/artist/list',
       params: {
-        cat: cat,
+        type,
+        area,
         limit: limit,
         offset: offset
       }

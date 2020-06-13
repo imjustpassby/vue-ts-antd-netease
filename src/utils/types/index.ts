@@ -291,6 +291,8 @@ export type ArtistByCategoryParams = {
   cat?: number;
   limit?: number;
   offset?: number;
+  type?: number;
+  area?: number;
 };
 
 export type IArtistByCategory = {
