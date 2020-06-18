@@ -236,7 +236,7 @@ export default class QueryArtist extends Vue {
   padding: 36px 16px 100px 16px;
   font-size: 16px;
   .artist-list-item {
-    margin: 16px;
+    margin: 0 16px 16px 0;
   }
   & .artist-list-title {
     font-size: 14px;
