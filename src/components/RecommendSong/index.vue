@@ -37,7 +37,6 @@
               </p>
               <p v-if="item.songType === 'song'" class="common--title">
                 <span
-                  class="common--title"
                   style="line-height:1.5em;cursor:pointer;color:#999"
                   v-for="(ar, idx) in item.artists"
                   :key="idx"
