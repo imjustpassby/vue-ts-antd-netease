@@ -200,7 +200,7 @@ module.exports = {
         jsxBracketSameLine: false,
         useTabs: false,
         vueIndentScriptAndStyle: false,
-        endOfLine: crlf',
+        endOfLine: 'crlf',
         htmlWhitespaceSensitivity: 'ignore'
       }
     ]
