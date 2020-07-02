@@ -38,10 +38,15 @@ export default class APlayerComponent extends Vue {
       Bus.$emit('nextSong');
     });
     Bus.$on('play', (song: ISongFormat) => {
-      ap.list.clear();
-      ap.list.add(song);
-      ap.list.switch(0);
-      ap.play();
+      if (song.url) {
+        ap.list.clear();
+        ap.list.add(song);
+        ap.list.switch(0);
+        ap.play();
+      } else {
+        this.$message.warning('会员资源，已自动播放下一首');
+        Bus.$emit('nextSong');
+      }
     });
     Bus.$on('add', (list: ISongFormat[]) => {
       this.ADD_PLAYLIST(list);
@@ -49,20 +54,30 @@ export default class APlayerComponent extends Vue {
     Bus.$on('lastSong', () => {
       this.LAST_SONG()
         .then((song: ISongFormat) => {
-          ap.list.clear();
-          ap.list.add(song);
-          ap.list.switch(0);
-          ap.play();
+          if (song.url) {
+            ap.list.clear();
+            ap.list.add(song);
+            ap.list.switch(0);
+            ap.play();
+          } else {
+            this.$message.warning('会员资源，已自动播放下一首');
+            Bus.$emit('nextSong');
+          }
         })
         .catch();
     });
     Bus.$on('nextSong', () => {
       this.NEXT_SONG()
         .then((song: ISongFormat) => {
-          ap.list.clear();
-          ap.list.add(song);
-          ap.list.switch(0);
-          ap.play();
+          if (song.url) {
+            ap.list.clear();
+            ap.list.add(song);
+            ap.list.switch(0);
+            ap.play();
+          } else {
+            this.$message.warning('会员资源，已自动播放下一首');
+            Bus.$emit('nextSong');
+          }
         })
         .catch();
     });
