@@ -134,7 +134,7 @@ module.exports = {
           // eslint-disable-next-line prettier/prettier
           vendor: {
             chunks: 'all',
-            test: /node_modules/,
+            test: /[\\/]node_modules[\\/]/,
             name: 'vendor',
             minChunks: 1,
             maxInitialRequests: 5,
