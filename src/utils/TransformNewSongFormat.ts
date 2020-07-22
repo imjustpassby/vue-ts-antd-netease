@@ -23,7 +23,11 @@ export function transformSong(item: any): ISongFormat {
     cover: `${item.song.album.blurPicUrl}?param=200y200`,
     albumName: item.song.album.name,
     albumId: item.song.album.id,
-    theme: [255, 255, 255],
+    theme: [
+      Math.floor(Math.random() * 255),
+      Math.floor(Math.random() * 255),
+      Math.floor(Math.random() * 255)
+    ],
     songType: 'song',
     key: item.id,
     pop: 0,
@@ -48,7 +52,11 @@ export function transformDjProgram(item: any): ISongFormat {
     albumName: item.name,
     albumId: item.program.mainSong.id,
     cover: `${item.picUrl}?param=200y200`,
-    theme: [255, 255, 255],
+    theme: [
+      Math.floor(Math.random() * 255),
+      Math.floor(Math.random() * 255),
+      Math.floor(Math.random() * 255)
+    ],
     songType: 'dj',
     key: item.id,
     lrc: '',

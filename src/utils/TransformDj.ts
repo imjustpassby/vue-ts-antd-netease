@@ -1,9 +1,4 @@
-import {
-  IDjInfoFormat,
-  IDjProgram,
-  IProgramFormat,
-  ISongFormat
-} from '@/utils/types';
+import { IDjInfoFormat, IDjProgram, IProgramFormat } from '@/utils/types';
 import CommonMethod from '@/utils/CommonMethod';
 export function transformDjInfo(djRadio: any): IDjInfoFormat {
   return {

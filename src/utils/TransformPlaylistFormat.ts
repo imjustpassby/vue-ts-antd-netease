@@ -60,7 +60,11 @@ export function TransformTracksSongFormat(item: any): ISongFormat {
     cover: `${item.al.picUrl}?param=200y200`,
     albumName: item.al.name,
     albumId: item.al.id,
-    theme: [255, 255, 255],
+    theme: [
+      Math.floor(Math.random() * 255),
+      Math.floor(Math.random() * 255),
+      Math.floor(Math.random() * 255)
+    ],
     songType: 'song',
     key: item.id,
     lrc: '',
