@@ -162,6 +162,12 @@ export default class Layout extends Vue {
     window.sessionStorage.setItem('checkedSubLink', '0');
   }
 
+  async beforeDestroy() {
+    if (this.StateLoginSuccess) {
+      await this.logout();
+    }
+  }
+
   clickTopLink(idx: number) {
     if (idx == 0) {
       window.sessionStorage.setItem('checkedTopLink', `${idx}`);
