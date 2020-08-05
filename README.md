@@ -20,8 +20,8 @@ const compression = require('compression')
 const https = require('https')
 const caConf = {
   // your key and pem location
-  key: fs.readFileSync('./xxx.key'),
-  cert: fs.readFileSync('./xxx.pem')
+  key: fs.readFileSync('xxx.key'),
+  cert: fs.readFileSync('xxx.pem')
 }
 
 ...
