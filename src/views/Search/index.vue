@@ -37,16 +37,17 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import AlbumSearch from './components/AlbumSearch.vue';
-import ArtistSearch from './components/ArtistSearch.vue';
-import MvSearch from './components/MvSearch.vue';
-import PlaylistSearch from './components/PlaylistSearch.vue';
-import ProgramSearch from './components/ProgramSearch.vue';
-import SearchBar from './components/SearchBar.vue';
-import SongSearch from './components/SongSearch.vue';
+import { Component, Vue } from 'vue-property-decorator'
+import AlbumSearch from './components/AlbumSearch.vue'
+import ArtistSearch from './components/ArtistSearch.vue'
+import MvSearch from './components/MvSearch.vue'
+import PlaylistSearch from './components/PlaylistSearch.vue'
+import ProgramSearch from './components/ProgramSearch.vue'
+import SearchBar from './components/SearchBar.vue'
+import SongSearch from './components/SongSearch.vue'
 // import VideoSearch from './components/VideoSearch.vue';
 @Component({
+  name: 'Search',
   components: {
     SearchBar,
     SongSearch,
@@ -58,10 +59,10 @@ import SongSearch from './components/SongSearch.vue';
   }
 })
 export default class Search extends Vue {
-  keywords = '';
+  keywords = ''
 
   search(data: string) {
-    this.keywords = data;
+    this.keywords = data
   }
 }
 </script>
