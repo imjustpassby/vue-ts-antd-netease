@@ -20,7 +20,9 @@
                 @click="clickTopLink(index)"
               >
                 <router-link :to="item.link">
-                  <span>{{ item.span }}</span>
+                  <span style="lineHeight: 70px; display: inline-block">
+                    {{ item.span }}
+                  </span>
                 </router-link>
               </li>
             </ul>
@@ -82,7 +84,7 @@
     </a-row>
 
     <transition name="fade-transform" mode="out-in">
-      <keep-alive include="Search,AlbumDetail">
+      <keep-alive include="Search">
         <router-view />
       </keep-alive>
     </transition>
@@ -90,19 +92,19 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import { IPageJumpConfig } from '@/utils/types';
-import { namespace } from 'vuex-class';
-import APlayer from '@/components/APlayer/index.vue';
-import LoginForm from '@/components/Login/index.vue';
-import MyPlaylist from '@/components/MyPlaylist/index.vue';
-const userModule = namespace('user');
+import { Component, Vue } from 'vue-property-decorator'
+import { IPageJumpConfig } from '@/utils/types'
+import { namespace } from 'vuex-class'
+import APlayer from '@/components/APlayer/index.vue'
+import LoginForm from '@/components/Login/index.vue'
+import MyPlaylist from '@/components/MyPlaylist/index.vue'
+const userModule = namespace('user')
 interface Link {
-  span: string;
-  link: string;
+  span: string
+  link: string
 }
 interface ResponseDataLogout {
-  code: number;
+  code: number
 }
 
 @Component({
@@ -122,7 +124,7 @@ export default class Layout extends Vue {
       span: '搜索',
       link: '/search'
     }
-  ];
+  ]
   subLink: Link[] = [
     {
       span: '推荐',
@@ -148,98 +150,98 @@ export default class Layout extends Vue {
       span: '新碟上架',
       link: '/newestAlbum'
     }
-  ];
-  loginShow = false;
-  checkedTopLink = '0';
-  checkedSubLink = '0';
+  ]
+  loginShow = false
+  checkedTopLink = '0'
+  checkedSubLink = '0'
 
-  @userModule.State('nickname') StateNickname!: string | null;
-  @userModule.State('avatarUrl') StateAvatarUrl!: string | null;
-  @userModule.State('loginSuccess') StateLoginSuccess!: string;
+  @userModule.State('nickname') StateNickname!: string | null
+  @userModule.State('avatarUrl') StateAvatarUrl!: string | null
+  @userModule.State('loginSuccess') StateLoginSuccess!: string
 
   mounted() {
-    window.sessionStorage.setItem('checkedTopLink', '0');
-    window.sessionStorage.setItem('checkedSubLink', '0');
+    window.sessionStorage.setItem('checkedTopLink', '0')
+    window.sessionStorage.setItem('checkedSubLink', '0')
   }
 
   async beforeDestroy() {
     if (this.StateLoginSuccess) {
-      await this.logout();
+      await this.logout()
     }
   }
 
   clickTopLink(idx: number) {
     if (idx == 0) {
-      window.sessionStorage.setItem('checkedTopLink', `${idx}`);
-      window.sessionStorage.setItem('checkedSubLink', '0');
+      window.sessionStorage.setItem('checkedTopLink', `${idx}`)
+      window.sessionStorage.setItem('checkedSubLink', '0')
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      this.checkedTopLink = window.sessionStorage.getItem('checkedTopLink')!;
+      this.checkedTopLink = window.sessionStorage.getItem('checkedTopLink')!
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      this.checkedSubLink = window.sessionStorage.getItem('checkedSubLink')!;
+      this.checkedSubLink = window.sessionStorage.getItem('checkedSubLink')!
     } else if (idx == 1) {
       if (this.StateLoginSuccess === 'true') {
-        window.sessionStorage.setItem('checkedTopLink', `${idx}`);
-        window.sessionStorage.setItem('checkedSubLink', '-1');
+        window.sessionStorage.setItem('checkedTopLink', `${idx}`)
+        window.sessionStorage.setItem('checkedSubLink', '-1')
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        this.checkedTopLink = window.sessionStorage.getItem('checkedTopLink')!;
+        this.checkedTopLink = window.sessionStorage.getItem('checkedTopLink')!
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        this.checkedSubLink = window.sessionStorage.getItem('checkedSubLink')!;
+        this.checkedSubLink = window.sessionStorage.getItem('checkedSubLink')!
       }
     } else if (idx == 2) {
-      window.sessionStorage.setItem('checkedTopLink', `${idx}`);
-      window.sessionStorage.setItem('checkedSubLink', '-1');
+      window.sessionStorage.setItem('checkedTopLink', `${idx}`)
+      window.sessionStorage.setItem('checkedSubLink', '-1')
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      this.checkedTopLink = window.sessionStorage.getItem('checkedTopLink')!;
+      this.checkedTopLink = window.sessionStorage.getItem('checkedTopLink')!
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      this.checkedSubLink = window.sessionStorage.getItem('checkedSubLink')!;
+      this.checkedSubLink = window.sessionStorage.getItem('checkedSubLink')!
     }
   }
 
   clickSubLink(idx: number) {
-    window.sessionStorage.setItem('checkedTopLink', '0');
+    window.sessionStorage.setItem('checkedTopLink', '0')
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    this.checkedTopLink = window.sessionStorage.getItem('checkedTopLink')!;
-    window.sessionStorage.setItem('checkedSubLink', `${idx}`);
+    this.checkedTopLink = window.sessionStorage.getItem('checkedTopLink')!
+    window.sessionStorage.setItem('checkedSubLink', `${idx}`)
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    this.checkedSubLink = window.sessionStorage.getItem('checkedSubLink')!;
+    this.checkedSubLink = window.sessionStorage.getItem('checkedSubLink')!
   }
 
   goHome() {
-    window.sessionStorage.setItem('checkedTopLink', '0');
-    window.sessionStorage.setItem('checkedSubLink', '0');
+    window.sessionStorage.setItem('checkedTopLink', '0')
+    window.sessionStorage.setItem('checkedSubLink', '0')
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    this.checkedTopLink = window.sessionStorage.getItem('checkedTopLink')!;
+    this.checkedTopLink = window.sessionStorage.getItem('checkedTopLink')!
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    this.checkedSubLink = window.sessionStorage.getItem('checkedSubLink')!;
+    this.checkedSubLink = window.sessionStorage.getItem('checkedSubLink')!
     if (this.$route.path !== '/home') {
       this.$router.push({
         path: '/'
-      });
+      })
     }
   }
 
   async logout() {
     await this.ACTION_LOGOUT()
       .then((res: ResponseDataLogout) => {
-        this.$message.success('已退出登录');
-        this.goHome();
+        this.$message.success('已退出登录')
+        this.goHome()
       })
-      .catch((err: Error) => {});
+      .catch((err: Error) => {})
   }
 
   showLoginForm() {
-    this.loginShow = true;
+    this.loginShow = true
   }
 
   cancelLogin() {
-    this.loginShow = false;
+    this.loginShow = false
   }
 
   loginSucceed() {
-    this.loginShow = false;
+    this.loginShow = false
   }
 
-  @userModule.Action('LOGOUT') ACTION_LOGOUT!: Function;
+  @userModule.Action('LOGOUT') ACTION_LOGOUT!: Function
 }
 </script>
 <style lang="less" scoped>

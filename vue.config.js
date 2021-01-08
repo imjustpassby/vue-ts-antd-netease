@@ -1,22 +1,23 @@
-const path = require('path');
-const webpack = require('webpack');
-const isProduction = process.env.NODE_ENV === 'production'; // 是否是生产环境
-const CompressionWebpackPlugin = require('compression-webpack-plugin'); // 开启gzip压缩， 按需引用
+const path = require('path')
+const webpack = require('webpack')
+const isProduction = process.env.NODE_ENV === 'production' // 是否是生产环境
+const CompressionWebpackPlugin = require('compression-webpack-plugin') // 开启gzip压缩， 按需引用
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
 /**
  * 代码压缩工具
  *
  * @dependency terser-webpack-plugin
  */
-const TerserPlugin = require('terser-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin')
 
 /**
  * 打包分析工具
  *
  * @dependency webpack-bundle-analyzer
  */
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
-const port = 9001;
+const port = 9111
 
 /**
  * 普通代理模式
@@ -30,7 +31,7 @@ const devProxy = {
       '^/api': ''
     }
   }
-};
+}
 
 function getExternals() {
   return {
@@ -45,7 +46,7 @@ function getExternals() {
     // eslint-disable-next-line prettier/prettier
     axios: 'axios',
     'vue-lazyload': 'VueLazyload'
-  };
+  }
 }
 
 module.exports = {
@@ -97,6 +98,7 @@ module.exports = {
         threshold: 10240,
         minRatio: 0.8
       }),
+      new HardSourceWebpackPlugin(),
       new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /zh-cn/) // 只引入 moment 的中文包
       // new BundleAnalyzerPlugin({ analyzerPort: 8888 }), // js 依赖打包分析
     ],
@@ -166,4 +168,4 @@ module.exports = {
   },
 
   runtimeCompiler: true
-};
+}
