@@ -192,7 +192,7 @@ module.exports = {
     'prettier/prettier': [
       'warn',
       {
-        semi: true,
+        semi: false,
         singleQuote: true,
         quoteProps: 'consistent',
         trailingComma: 'none',
@@ -213,4 +213,4 @@ module.exports = {
       }
     }
   ]
-};
+}

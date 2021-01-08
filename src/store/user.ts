@@ -1,17 +1,17 @@
-import { ActionTree, MutationTree } from 'vuex';
-import { IProfile } from '@/utils/types';
-import { StateRoot } from '@/store/index';
-import Cookies from 'js-cookie';
-import User from '@/api/user';
+import { ActionTree, MutationTree } from 'vuex'
+import { IProfile } from '@/utils/types'
+import { StateRoot } from '@/store/index'
+import Cookies from 'js-cookie'
+import User from '@/api/user'
 interface IStateUser {
-  uid: string | null;
-  nickname: string | null;
-  avatarUrl: string | null;
-  loginSuccess: 'true' | 'false';
-  cookies: string | null;
+  uid: string | null
+  nickname: string | null
+  avatarUrl: string | null
+  loginSuccess: 'true' | 'false'
+  cookies: string | null
 }
 
-export const namespaced: Boolean = true;
+export const namespaced: Boolean = true
 
 export const state: IStateUser = {
   uid: window.sessionStorage.getItem('uid'),
@@ -21,42 +21,42 @@ export const state: IStateUser = {
     ? 'true'
     : 'false',
   cookies: window.sessionStorage.getItem('cookies')
-};
+}
 
 export const mutations: MutationTree<IStateUser> = {
   SET_UID: (state, uid: string) => {
-    state.uid = uid;
-    window.sessionStorage.setItem('uid', uid);
+    state.uid = uid
+    window.sessionStorage.setItem('uid', uid)
   },
   SET_NICKNAME: (state, nickname: string) => {
-    state.nickname = nickname;
-    window.sessionStorage.setItem('nickname', nickname);
+    state.nickname = nickname
+    window.sessionStorage.setItem('nickname', nickname)
   },
   SET_AVATAR_URL: (state, url: string) => {
-    state.avatarUrl = url;
-    window.sessionStorage.setItem('avatarUrl', url);
+    state.avatarUrl = url
+    window.sessionStorage.setItem('avatarUrl', url)
   },
   SET_LOGIN_SUCCESS: (state, isSuccess: 'true' | 'false') => {
-    state.loginSuccess = isSuccess;
-    window.sessionStorage.setItem('loginSuccess', isSuccess);
+    state.loginSuccess = isSuccess
+    window.sessionStorage.setItem('loginSuccess', isSuccess)
   },
   INIT_STATE: state => {
-    window.sessionStorage.setItem('uid', '');
-    window.sessionStorage.setItem('nickname', '');
-    window.sessionStorage.setItem('avatarUrl', '');
-    window.sessionStorage.setItem('loginSuccess', 'false');
-    window.sessionStorage.setItem('cookie', '');
-    state.uid = '';
-    state.nickname = '';
-    state.avatarUrl = '';
-    state.loginSuccess = 'false';
-    state.cookies = '';
+    window.sessionStorage.setItem('uid', '')
+    window.sessionStorage.setItem('nickname', '')
+    window.sessionStorage.setItem('avatarUrl', '')
+    window.sessionStorage.setItem('loginSuccess', 'false')
+    window.sessionStorage.setItem('cookie', '')
+    state.uid = ''
+    state.nickname = ''
+    state.avatarUrl = ''
+    state.loginSuccess = 'false'
+    state.cookies = ''
   },
   SET_COOKIE: (state, cookies) => {
-    state.cookies = JSON.stringify(cookies);
-    window.sessionStorage.setItem('cookie', JSON.stringify(cookies));
+    state.cookies = JSON.stringify(cookies)
+    window.sessionStorage.setItem('cookie', JSON.stringify(cookies))
   }
-};
+}
 
 export const actions: ActionTree<IStateUser, StateRoot> = {
   LOGIN: ({ commit }, userInfo) => {
@@ -66,31 +66,35 @@ export const actions: ActionTree<IStateUser, StateRoot> = {
         password: userInfo.password
       })
         .then(res => {
-          commit('SET_LOGIN_SUCCESS', 'true');
-          commit('SET_COOKIE', Cookies.get()); //保存登录后返回的cookie到vuex
-          resolve(res.data);
+          if (res.data.code === 502) {
+            reject(new Error(res.data.message))
+            return
+          }
+          commit('SET_LOGIN_SUCCESS', 'true')
+          commit('SET_COOKIE', Cookies.get()) //保存登录后返回的cookie到vuex
+          resolve(res.data)
         })
         .catch(err => {
-          reject(err);
-        });
-    });
+          reject(err)
+        })
+    })
   },
   LOGIN_STATUS: async ({ commit }) => {
-    const res = await User.loginStatus<IProfile>();
-    commit('SET_UID', res.data.profile.userId.toString());
-    commit('SET_NICKNAME', res.data.profile.nickname);
-    commit('SET_AVATAR_URL', res.data.profile.avatarUrl);
+    const res = await User.loginStatus<IProfile>()
+    commit('SET_UID', res.data.profile.userId.toString())
+    commit('SET_NICKNAME', res.data.profile.nickname)
+    commit('SET_AVATAR_URL', res.data.profile.avatarUrl)
   },
   LOGOUT: ({ commit }) => {
     return new Promise((resolve, reject) => {
       User.logout()
         .then(res => {
-          commit('INIT_STATE');
-          resolve(res);
+          commit('INIT_STATE')
+          resolve(res)
         })
         .catch(err => {
-          reject(err);
-        });
-    });
+          reject(err)
+        })
+    })
   }
-};
+}

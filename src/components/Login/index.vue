@@ -64,61 +64,61 @@
 </template>
 
 <script lang="ts">
-import { Component, Emit, Vue } from 'vue-property-decorator';
-import { namespace } from 'vuex-class';
-const userModule = namespace('user');
+import { Component, Emit, Vue } from 'vue-property-decorator'
+import { namespace } from 'vuex-class'
+const userModule = namespace('user')
 interface IUserInfo {
-  phone: string;
-  password: string;
+  phone: string
+  password: string
 }
 interface ResponseDataLogin {
-  loginType: number;
-  code: number;
-  account: any;
-  token: string;
-  profile: any;
+  loginType: number
+  code: number
+  account: any
+  token: string
+  profile: any
 }
 @Component({
   components: {}
 })
 export default class Login extends Vue {
-  form: any = null;
-  modalShow = false;
+  form: any = null
+  modalShow = false
 
   hasErrors = (fieldsError: any) => {
-    return Object.keys(fieldsError).some(field => fieldsError[field]);
-  };
+    return Object.keys(fieldsError).some(field => fieldsError[field])
+  }
 
   private phoneError() {
-    const { getFieldError, isFieldTouched } = this.form;
-    return isFieldTouched('phone') && getFieldError('phone');
+    const { getFieldError, isFieldTouched } = this.form
+    return isFieldTouched('phone') && getFieldError('phone')
   }
 
   private passwordError() {
-    const { getFieldError, isFieldTouched } = this.form;
-    return isFieldTouched('password') && getFieldError('password');
+    const { getFieldError, isFieldTouched } = this.form
+    return isFieldTouched('password') && getFieldError('password')
   }
 
   private created() {
-    this.modalShow = true;
+    this.modalShow = true
     if (!this.form) {
-      this.form = this.$form.createForm(this, {});
-      this.form.validateFields(['phone', 'password'], { force: true });
+      this.form = this.$form.createForm(this, {})
+      this.form.validateFields(['phone', 'password'], { force: true })
     }
   }
 
   private handleSubmit(e: Event) {
-    e.preventDefault();
+    e.preventDefault()
     this.form.validateFields((err: any, values: any) => {
       if (!err) {
-        this.modalShow = false;
+        this.modalShow = false
       }
-    });
+    })
   }
 
   @Emit('cancelLogin')
   private onCancel() {
-    this.modalShow = false;
+    this.modalShow = false
   }
 
   @Emit('loginSucceed')
@@ -132,16 +132,18 @@ export default class Login extends Vue {
         .getFieldValue('password')
         .toString()
         .trim()
-    };
+    }
     await this.ACTION_LOGIN(userInfo)
-      .then((result: ResponseDataLogin) => {
-        this.modalShow = false;
+      .then(async (result: ResponseDataLogin) => {
+        this.modalShow = false
+        await this.ACTION_LOGIN_STATUS()
       })
-      .catch((err: Error) => {});
-    await this.ACTION_LOGIN_STATUS();
+      .catch((err: Error) => {
+        this.$error({ content: err.message })
+      })
   }
 
-  @userModule.Action('LOGIN') ACTION_LOGIN!: Function;
-  @userModule.Action('LOGIN_STATUS') ACTION_LOGIN_STATUS!: Function;
+  @userModule.Action('LOGIN') ACTION_LOGIN!: Function
+  @userModule.Action('LOGIN_STATUS') ACTION_LOGIN_STATUS!: Function
 }
 </script>

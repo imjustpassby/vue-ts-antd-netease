@@ -25,6 +25,74 @@
     />
     <title>ipassbyMusic</title>
   </head>
+  <style>
+    #appLoading {
+      width: 100%;
+      height: 100%;
+    }
+
+    #appLoading span {
+      position: absolute;
+      display: block;
+      font-size: 24px;
+      line-height: 24px;
+      top: 50%;
+      text-align: center;
+      width: 100%;
+      -webkit-animation: slide-top 1s cubic-bezier(0.175, 0.885, 0.32, 1.275)
+        infinite alternate both;
+      animation: slide-top 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite
+        alternate both;
+    }
+
+    .slide-top {
+      height: 100%;
+      width: 100%;
+      background-image: linear-gradient(315deg, #cc6aa5, #3e91cc, #2dcca7);
+      background-size: 600% 600%;
+      background-repeat: repeat;
+      -webkit-animation: slide-top 1s cubic-bezier(0.175, 0.885, 0.32, 1.275)
+        infinite alternate both;
+      animation: slide-top 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite
+        alternate both;
+    }
+
+    @-webkit-keyframes slide-top {
+      0% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+        -moz-transform: translateY(0);
+        -ms-transform: translateY(0);
+        -o-transform: translateY(0);
+      }
+
+      100% {
+        -webkit-transform: translateY(-55px);
+        transform: translateY(-55px);
+        -moz-transform: translateY(-55px);
+        -ms-transform: translateY(-55px);
+        -o-transform: translateY(-55px);
+      }
+    }
+
+    @keyframes slide-top {
+      0% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+        -moz-transform: translateY(0);
+        -ms-transform: translateY(0);
+        -o-transform: translateY(0);
+      }
+
+      100% {
+        -webkit-transform: translateY(-55px);
+        transform: translateY(-55px);
+        -moz-transform: translateY(-55px);
+        -ms-transform: translateY(-55px);
+        -o-transform: translateY(-55px);
+      }
+    }
+  </style>
   <body>
     <div id="appLoading">
       <div class="slide-top"></div>
