@@ -41,11 +41,11 @@ export const mutations: MutationTree<IStateUser> = {
     window.sessionStorage.setItem('loginSuccess', isSuccess)
   },
   INIT_STATE: state => {
-    window.sessionStorage.setItem('uid', '')
-    window.sessionStorage.setItem('nickname', '')
-    window.sessionStorage.setItem('avatarUrl', '')
-    window.sessionStorage.setItem('loginSuccess', 'false')
-    window.sessionStorage.setItem('cookie', '')
+    window.sessionStorage.removeItem('uid')
+    window.sessionStorage.removeItem('nickname')
+    window.sessionStorage.removeItem('avatarUrl')
+    window.sessionStorage.removeItem('loginSuccess')
+    window.sessionStorage.removeItem('cookie')
     state.uid = ''
     state.nickname = ''
     state.avatarUrl = ''
