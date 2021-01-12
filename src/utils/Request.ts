@@ -7,12 +7,7 @@ const request = axios.create({
   //   process.env.NODE_ENV === 'production'
   //     ? 'https://ipassby.cloud'
   //     : 'http://localhost:9111'
-  baseURL: 'https://ipassby.cloud',
-  headers: {
-    post: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
-    put: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
-    patch: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' }
-  }
+  baseURL: 'https://ipassby.cloud'
 })
 
 // object对象存放每次new CancelToken生成的方法
@@ -40,8 +35,10 @@ request.interceptors.request.use(config => {
   // 请求前将api推入requestList
   requestList.push(url!)
 
-  if (config.method === 'post') {
-    config.data = qs.stringify(config.data)
+  if (cfg.method === 'post' || cfg.method === 'put' || cfg.method === 'patch') {
+    cfg.data = qs.stringify(config.data)
+    cfg.headers['Content-Type'] =
+      'application/x-www-form-urlencoded;charset=UTF-8'
   }
 
   config.withCredentials = true
