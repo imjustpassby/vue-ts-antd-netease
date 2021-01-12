@@ -16,7 +16,7 @@
         >
           <a-spin v-if="fetching" slot="notFoundContent" size="small" />
           <a-select-option v-for="suggest in suggestions" :key="suggest.id">
-            {{ suggest.type }} - {{ suggest.label }}
+            {{ suggest.label }}
           </a-select-option>
         </a-select>
       </a-col>
@@ -64,7 +64,7 @@ export default class SearchBar extends Vue {
       const songsSuggest: option[] = songs.map(
         (item: ISearchSuggestionSong) => {
           return {
-            label: item.name,
+            label: '[单曲] ' + item.name,
             value: item.name,
             id: item.id,
             type: '单曲'
@@ -74,7 +74,7 @@ export default class SearchBar extends Vue {
       const artistsSuggest: option[] = artists.map(
         (item: ISearchSuggestionArtist) => {
           return {
-            label: item.name,
+            label: '[歌手] ' + item.name,
             value: item.name,
             id: item.id,
             type: '歌手'
@@ -84,7 +84,7 @@ export default class SearchBar extends Vue {
       const albumsSuggest: option[] = albums.map(
         (item: ISearchSuggestionAlbum) => {
           return {
-            label: item.name,
+            label: '[专辑] ' + item.name,
             value: item.name,
             id: item.id,
             type: '专辑'
@@ -94,20 +94,24 @@ export default class SearchBar extends Vue {
       const playlistsSuggest: option[] = playlists.map(
         (item: ISearchSuggestionPlaylist) => {
           return {
-            label: item.name,
+            label: '[歌单] ' + item.name,
             value: item.name,
             id: item.id,
             type: '歌单'
           }
         }
       )
-      this.suggestions = [
+      const suggestions = [
         ...songsSuggest,
         ...artistsSuggest,
         ...albumsSuggest,
         ...playlistsSuggest
       ]
-
+      const set = new Set()
+      this.suggestions = suggestions.reduce((cur: option[], next: option) => {
+        set.has(next.label) ? '' : set.add(next.label) && cur.push(next)
+        return cur
+      }, [])
       this.fetching = false
     } catch (err) {
       console.log(err)
