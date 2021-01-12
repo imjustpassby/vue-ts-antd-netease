@@ -17,13 +17,15 @@ const source: {
 
 // 每次请求前都会把api放在此数组中，响应成功后清除此请求api
 let requestList: string[] = []
+// 不需要取消请求的白名单
+const whitelist: string[] = ['/api/search']
 
 request.interceptors.request.use(config => {
-  // 取消上一次url相同的请求
+  // 针对get请求，取消上一次url相同的请求
   const url = config.url
-  if (requestList.length && url! in source) {
-    console.log(`ready to cancel${url}`)
+  if (requestList.length && url! in source && !whitelist.includes(url!)) {
     cancelRequest(url!)
+    delete source[url!]
   }
   const cfg = {
     // source对象保存取消方法
@@ -71,25 +73,7 @@ request.interceptors.response.use(
     return Promise.resolve(res)
   },
   (err: AxiosError) => {
-    if (axios.isCancel(err)) {
-      // 根据业务场景确定是否需要清空
-      // 例如：页面跳转前，清空离开页面的请求
-      // requestList.length = 0
-      const fullUrl = err.config.url
-      const frontIndex = fullUrl!.indexOf('/api')
-      const tailIndex =
-        fullUrl!.indexOf('?') > 0 ? fullUrl!.indexOf('?') : fullUrl!.length
-      const url = fullUrl!.substring(frontIndex, tailIndex)
-      delete source[url!]
-      console.log(err.message)
-    }
     return Promise.reject(err)
-
-    /* if (err.response!.status == 504) {
-      Vue.prototype.$message.warning('服务器错误...');
-    } else if (err.response!.status == 301) {
-      Vue.prototype.$message.warning('请登录之后再体验该功能喔...');
-    } */
   }
 )
 

@@ -34,7 +34,6 @@ import {
   ResponseSearchSuggestion
 } from '@/utils/types'
 import { searchSuggest } from '@/api/search'
-import axios from 'axios'
 interface option {
   label: string
   value: string
@@ -111,9 +110,7 @@ export default class SearchBar extends Vue {
 
       this.fetching = false
     } catch (err) {
-      if (axios.isCancel(err)) {
-        console.log(err.message)
-      }
+      console.log(err)
     }
   }
 
@@ -123,7 +120,6 @@ export default class SearchBar extends Vue {
       keywords: selected,
       fetching: false
     })
-    console.log(selected)
     return selected.label.substring(5).trim()
   }
 }

@@ -15,8 +15,7 @@ export const searchByKeywordAndType = mem(
         limit: limit,
         offset: offset,
         type: type
-      },
-      cancelToken: undefined
+      }
     })
   },
   {
