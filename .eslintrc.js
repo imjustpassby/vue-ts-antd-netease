@@ -179,7 +179,7 @@ module.exports = {
       }
     ], // 要求使用 const 声明那些声明后不再被修改的变量
     'prefer-spread': 'error', // 建议使用扩展运算符而非.apply()
-    'prefer-template': 'error', // 建议使用模板而非字符串连接
+    // 'prefer-template': 'off', // 建议使用模板而非字符串连接
     'rest-spread-spacing': ['error', 'never'], // 强制剩余和扩展运算符及其表达式之间有空格
     'sort-imports': 'off', // import 排序
     // 'template-curly-spacing': ['error', 'always'], // 强制模板字符串中空格的使用

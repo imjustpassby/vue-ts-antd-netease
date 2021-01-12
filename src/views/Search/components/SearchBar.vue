@@ -2,28 +2,121 @@
   <div class="">
     <a-row type="flex" justify="space-around" class="search-top">
       <a-col :span="16" class="certain-category-search-wrapper">
-        <a-input-search
-          placeholder="音乐/歌手/专辑/歌单/MV"
-          @search="getSearchResult"
-          enter-button
+        <a-select
+          show-search
+          :show-arrow="false"
+          style="width: 100%"
+          label-in-value
+          placeholder="单曲/歌手/专辑/歌单/MV"
           v-model.trim="keywords"
-        />
+          :filter-option="false"
+          :not-found-content="fetching ? undefined : null"
+          @search="getSearchResult"
+          @change="handleChange"
+        >
+          <a-spin v-if="fetching" slot="notFoundContent" size="small" />
+          <a-select-option v-for="suggest in suggestions" :key="suggest.id">
+            {{ suggest.type }} - {{ suggest.label }}
+          </a-select-option>
+        </a-select>
       </a-col>
     </a-row>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Emit, Vue } from 'vue-property-decorator';
-
+import { Component, Emit, Vue } from 'vue-property-decorator'
+import { debounce } from '@/utils/debounce'
+import {
+  ResponseSearchSuggestion,
+  ISearchSuggestionAlbum,
+  ISearchSuggestionSong
+} from '@/utils/types'
+import { searchSuggest } from '@/api/search'
+import axios from 'axios'
+interface option {
+  label: string
+  value: string
+  id: number
+  type: '专辑' | '单曲' | '歌单' | '歌手'
+}
 @Component({
   components: {}
 })
 export default class SearchBar extends Vue {
-  keywords = '';
+  keywords = ''
+  fetching = false
+  suggestions: Array<option> = []
+
+  async getSearchResult(keywords: string) {
+    this.fetching = true
+    if (keywords.trim() === '') {
+      return
+    }
+    try {
+      const res = await searchSuggest<ResponseSearchSuggestion>(keywords.trim())
+      let {
+        songs = [],
+        artists = [],
+        albums = [],
+        playlists = []
+      } = res.data.result
+      const songsSuggest: option[] = songs.map(item => {
+        return {
+          label: item.name,
+          value: item.name,
+          id: item.id,
+          type: '单曲'
+        }
+      })
+      const artistsSuggest: option[] = artists.map(item => {
+        return {
+          label: item.name,
+          value: item.name,
+          id: item.id,
+          type: '歌手'
+        }
+      })
+      const albumsSuggest: option[] = albums.map(item => {
+        return {
+          label: item.name,
+          value: item.name,
+          id: item.id,
+          type: '专辑'
+        }
+      })
+      const playlistsSuggest: option[] = playlists.map(item => {
+        return {
+          label: item.name,
+          value: item.name,
+          id: item.id,
+          type: '歌单'
+        }
+      })
+      this.suggestions = [
+        ...songsSuggest,
+        ...artistsSuggest,
+        ...albumsSuggest,
+        ...playlistsSuggest
+      ]
+
+      this.fetching = false
+    } catch (err) {
+      if (axios.isCancel(err)) {
+        console.log(err.message)
+      }
+    }
+  }
 
   @Emit('search')
-  getSearchResult(val: string) {}
+  handleChange(selected: { label: string; key: string }) {
+    Object.assign(this, {
+      keywords: selected,
+      fetching: false
+    })
+    console.log(selected)
+    return selected.label.substring(5).trim()
+  }
 }
 </script>
 <style lang="less" scoped>

@@ -27,15 +27,15 @@ request.interceptors.request.use(config => {
   // 取消上一次url相同的请求
   const url = config.url
   if (requestList.length && url! in source) {
-    console.log('cancel get')
-    cancelRequest(url)
+    console.log(`ready to cancel${url}`)
+    cancelRequest(url!)
   }
   const cfg = {
-    ...config,
     // source对象保存取消方法
     cancelToken: new axios.CancelToken(function executor(c) {
       source[url!] = c
-    })
+    }),
+    ...config
   }
   // 请求前将api推入requestList
   requestList.push(url!)
@@ -52,16 +52,17 @@ request.interceptors.request.use(config => {
     Cookies.set('__csrf', cookie.__csrf)
     Cookies.set('__remember_me', cookie.__remember_me)
   }
-  console.log(cfg)
-  console.log(requestList)
-  console.log(source)
   return cfg
 })
 
 request.interceptors.response.use(
   (res: AxiosResponse) => {
     // 请求完成后，将此请求从请求列表中移除
-    const url = res.config.url
+    const fullUrl = res.config.url
+    const frontIndex = fullUrl!.indexOf('/api')
+    const tailIndex =
+      fullUrl!.indexOf('?') > 0 ? fullUrl!.indexOf('?') : fullUrl!.length
+    const url = fullUrl!.substring(frontIndex, tailIndex)
     requestList = requestList.filter(el => el === url)
     delete source[url!]
     if (store.state.user.loginSuccess === 'true') {
@@ -77,6 +78,12 @@ request.interceptors.response.use(
       // 根据业务场景确定是否需要清空
       // 例如：页面跳转前，清空离开页面的请求
       // requestList.length = 0
+      const fullUrl = err.config.url
+      const frontIndex = fullUrl!.indexOf('/api')
+      const tailIndex =
+        fullUrl!.indexOf('?') > 0 ? fullUrl!.indexOf('?') : fullUrl!.length
+      const url = fullUrl!.substring(frontIndex, tailIndex)
+      delete source[url!]
       console.log(err.message)
     }
     return Promise.reject(err)
@@ -89,9 +96,9 @@ request.interceptors.response.use(
   }
 )
 
-export function cancelRequest(api?: string, allCancel?: boolean) {
+export function cancelRequest(api: string, allCancel?: boolean) {
   // 请求列表里存在此api，即发起重复请求，把之前的请求取消掉
-  if (api && requestList.includes(api) && typeof source[api] === 'function') {
+  if (requestList.includes(api) && typeof source[api] === 'function') {
     source[api]('终止请求')
   } else if (!api && allCancel) {
     // allCancel为true则请求列表里的请求全部取消

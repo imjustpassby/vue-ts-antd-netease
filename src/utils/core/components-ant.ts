@@ -5,8 +5,8 @@
  *
  * 当需要更多组件依赖时，在该文件加入即可
  */
-import Vue from 'vue';
-import antd from 'ant-design-vue';
+import Vue from 'vue'
+import antd from 'ant-design-vue'
 let {
   BackTop,
   LocaleProvider,
@@ -39,46 +39,48 @@ let {
   ConfigProvider,
   Progress,
   Comment,
-  Empty
-} = antd;
+  Empty,
+  Select
+} = antd
 
-Vue.use(Empty);
-Vue.use(Comment);
-Vue.use(Progress);
-Vue.use(ConfigProvider);
-Vue.use(BackTop);
-Vue.use(LocaleProvider);
-Vue.use(Pagination);
-Vue.use(Layout);
-Vue.use(Input);
-Vue.use(Button);
-Vue.use(Form);
-Vue.use(Row);
-Vue.use(Col);
-Vue.use(Modal);
-Vue.use(Table);
-Vue.use(Tabs);
-Vue.use(Icon);
-Vue.use(Badge);
-Vue.use(Popover);
-Vue.use(Dropdown);
-Vue.use(List);
-Vue.use(Avatar);
-Vue.use(Spin);
-Vue.use(Menu);
-Vue.use(Drawer);
-Vue.use(Tooltip);
-Vue.use(Alert);
-Vue.use(Tag);
-Vue.use(Divider);
-Vue.use(Skeleton);
-Vue.use(Carousel);
+Vue.use(Empty)
+Vue.use(Comment)
+Vue.use(Progress)
+Vue.use(ConfigProvider)
+Vue.use(BackTop)
+Vue.use(LocaleProvider)
+Vue.use(Pagination)
+Vue.use(Layout)
+Vue.use(Input)
+Vue.use(Button)
+Vue.use(Form)
+Vue.use(Row)
+Vue.use(Col)
+Vue.use(Modal)
+Vue.use(Table)
+Vue.use(Tabs)
+Vue.use(Icon)
+Vue.use(Badge)
+Vue.use(Popover)
+Vue.use(Dropdown)
+Vue.use(List)
+Vue.use(Avatar)
+Vue.use(Spin)
+Vue.use(Menu)
+Vue.use(Drawer)
+Vue.use(Tooltip)
+Vue.use(Alert)
+Vue.use(Tag)
+Vue.use(Divider)
+Vue.use(Skeleton)
+Vue.use(Carousel)
+Vue.use(Select)
 // Vue.use(VueCropper)
 // Vue.use(notification)
 
-Vue.prototype.$confirm = Modal.confirm;
-Vue.prototype.$message = message;
-Vue.prototype.$info = Modal.info;
-Vue.prototype.$success = Modal.success;
-Vue.prototype.$error = Modal.error;
-Vue.prototype.$warning = Modal.warning;
+Vue.prototype.$confirm = Modal.confirm
+Vue.prototype.$message = message
+Vue.prototype.$info = Modal.info
+Vue.prototype.$success = Modal.success
+Vue.prototype.$error = Modal.error
+Vue.prototype.$warning = Modal.warning

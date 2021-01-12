@@ -15,10 +15,18 @@ export const searchByKeywordAndType = mem(
         limit: limit,
         offset: offset,
         type: type
-      }
+      },
+      cancelToken: undefined
     })
   },
   {
     maxAge: 1000 * 60 * 60
   }
 )
+
+export function searchSuggest<T>(keywords: string) {
+  return request<T>({
+    url: '/api/search/suggest',
+    params: { keywords }
+  })
+}

@@ -1,7 +1,7 @@
 <template>
   <a-skeleton active :loading="loading">
     <div>
-      <a-table :data-source="tracks" :pagination="pagination">
+      <a-table :data-source="tracks" :pagination="pagination" :locale="locale">
         <a-table-column title="" align="center" key="action" width="12%">
           <template slot-scope="text, record">
             <span>
@@ -92,67 +92,69 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
-import { IPageJumpConfig, IPagination, ISongFormat } from '@/utils/types';
-import { namespace } from 'vuex-class';
-import Bus from '@/utils/Bus';
-const playlistModule = namespace('playlist');
+import { Component, Prop, Vue } from 'vue-property-decorator'
+import { IPageJumpConfig, IPagination, ISongFormat } from '@/utils/types'
+import { namespace } from 'vuex-class'
+import Bus from '@/utils/Bus'
+const playlistModule = namespace('playlist')
 @Component({
   components: {}
 })
 export default class PlaylistTable extends Vue {
   @Prop({ required: true })
-  tracks: ISongFormat[] | undefined;
+  tracks: ISongFormat[] | undefined
   @Prop({ required: true })
-  loading: boolean | undefined;
+  loading: boolean | undefined
 
   pagination = {
     pageSize: 20
-  };
+  }
+
+  locale = { emptyText: '抱歉，暂无数据' }
 
   @playlistModule.Action('SET_CURRENT_MUSIC_ACTION')
-  SET_CURRENT_MUSIC_ACTION!: Function;
+  SET_CURRENT_MUSIC_ACTION!: Function
 
   goSongDetail(id: number) {
     this.pageJump({
       path: '/songDetail',
       id: id
-    });
+    })
   }
 
   playMusic(song: ISongFormat) {
     this.SET_CURRENT_MUSIC_ACTION(song).then((result: ISongFormat) => {
-      Bus.$emit('play', result);
-    });
+      Bus.$emit('play', result)
+    })
   }
 
   addMusic(song: ISongFormat) {
-    Bus.$emit('add', [song]);
-    this.$message.success('已加入播放列表！');
+    Bus.$emit('add', [song])
+    this.$message.success('已加入播放列表！')
   }
 
   goArtistDetail(id: number) {
     this.pageJump({
       path: '/artistDetail',
       id: id
-    });
+    })
   }
 
   goAlbumDetail(id: number) {
     this.pageJump({
       path: '/albumDetail',
       id: id
-    });
+    })
   }
 
   pageJump(config: IPageJumpConfig) {
-    const { id, path } = config;
+    const { id, path } = config
     this.$router.push({
       path: path,
       query: {
         id: id!.toString()
       }
-    });
+    })
   }
 }
 </script>
