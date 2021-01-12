@@ -1,8 +1,8 @@
-import { ResponseLoginStatus, ResponseUserPlaylist } from '@/utils/types';
-import request from '@/utils/Request';
+import { ResponseLoginStatus, ResponseUserPlaylist } from '@/utils/types'
+import request from '@/utils/Request'
 interface ILoginParams {
-  phone: string;
-  password: string;
+  phone: string
+  password: string
 }
 
 export default class User {
@@ -14,8 +14,8 @@ export default class User {
         phone: loginParams.phone,
         password: loginParams.password
       }
-    });
-    return res;
+    })
+    return res
   }
 
   static async loginStatus<T>() {
@@ -24,8 +24,8 @@ export default class User {
       params: {
         _t: Date.now()
       }
-    });
-    return res;
+    })
+    return res
   }
 
   static async logout() {
@@ -34,8 +34,8 @@ export default class User {
       params: {
         _t: Date.now()
       }
-    });
-    return res;
+    })
+    return res
   }
 }
 
@@ -46,5 +46,5 @@ export const getUserPlaylist = function(id: number) {
     params: {
       uid: id
     }
-  });
-};
+  })
+}

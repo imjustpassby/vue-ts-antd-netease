@@ -1,12 +1,12 @@
-import { ResponsePlaylist } from '@/utils/types/index.ts';
+import { ResponsePlaylist } from '@/utils/types/index.ts'
 import {
   ResponsePlaylistCategoryList,
   ResponseSimilarPlaylist,
   ResponseTopPlaylist,
   TopPlaylistParams
-} from '@/utils/types';
-import mem from 'mem';
-import request from '@/utils/Request';
+} from '@/utils/types'
+import mem from 'mem'
+import request from '@/utils/Request'
 
 export const getPlaylistDetail = mem(
   function(id: number) {
@@ -15,12 +15,12 @@ export const getPlaylistDetail = mem(
       params: {
         id
       }
-    });
+    })
   },
   {
     maxAge: 1000 * 60 * 30
   }
-);
+)
 
 export const getPlayList = mem(
   function({ limit = 20, category = '全部', offset = 20 }: TopPlaylistParams) {
@@ -31,24 +31,24 @@ export const getPlayList = mem(
         cat: category,
         offset: offset
       }
-    });
+    })
   },
   {
     maxAge: 1000 * 60 * 30
   }
-);
+)
 
 /*歌单分类（全部）  */
 export const getPlayListCategoryList = mem(
   function() {
     return request<ResponsePlaylistCategoryList>({
       url: '/api/playlist/catlist'
-    });
+    })
   },
   {
     maxAge: 1000 * 60 * 60
   }
-);
+)
 
 /* 获取相似歌单(包含这首歌的歌单) */
 export const getSimilarPlaylist = mem(
@@ -58,12 +58,12 @@ export const getSimilarPlaylist = mem(
       params: {
         id
       }
-    });
+    })
   },
   {
     maxAge: 1000 * 60 * 60
   }
-);
+)
 
 /* 获取每日推荐歌单(需要登录) */
 export const getRecommendResource = function() {
@@ -72,5 +72,5 @@ export const getRecommendResource = function() {
     params: {
       _t: Date.now()
     }
-  });
-};
+  })
+}

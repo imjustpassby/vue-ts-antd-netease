@@ -1,9 +1,5 @@
-import {
-  ResponseComment,
-  ResponseMvDetail,
-  ResponseMvUrl
-} from '@/utils/types';
-import request from '@/utils/Request';
+import { ResponseComment, ResponseMvDetail, ResponseMvUrl } from '@/utils/types'
+import request from '@/utils/Request'
 /* 获取mv地址 */
 export function getMvUrl(id: number) {
   return request<ResponseMvUrl>({
@@ -11,7 +7,7 @@ export function getMvUrl(id: number) {
     params: {
       id
     }
-  });
+  })
 }
 
 /* 获取MV详情 */
@@ -21,7 +17,7 @@ export function getMvDetail(id: number) {
     params: {
       mvid: id
     }
-  });
+  })
 }
 
 /* 获取mv评论 */
@@ -33,7 +29,7 @@ export function getCommentMv(id: number) {
       limit: 20,
       offset: 0
     }
-  });
+  })
 }
 
 /* 获取视频地址 */
@@ -43,7 +39,7 @@ export function getVideoUrl(id: number) {
     params: {
       id
     }
-  });
+  })
 }
 
 /* 获取视频详情 */
@@ -53,7 +49,7 @@ export function getVideoDetail(id: number) {
     params: {
       id
     }
-  });
+  })
 }
 
 /* 获取视频评论 */
@@ -65,5 +61,5 @@ export function getCommentVideo(id: number) {
       limit: 20,
       offset: 0
     }
-  });
+  })
 }

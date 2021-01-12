@@ -1,6 +1,6 @@
-import { getSongDetail } from '@/api/song.ts';
-import { IPlaylistFormat, ISearchSong, ISongFormat } from './types';
-import CommonMethod from '@/utils/CommonMethod';
+import { getSongDetail } from '@/api/song.ts'
+import { IPlaylistFormat, ISearchSong, ISongFormat } from './types'
+import CommonMethod from '@/utils/CommonMethod'
 export async function transformResponsePlaylist(
   list: any
 ): Promise<IPlaylistFormat> {
@@ -15,13 +15,13 @@ export async function transformResponsePlaylist(
     coverImgUrl = 'https://p2.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg',
     description,
     tags = []
-  } = list;
+  } = list
   trackIds = trackIds.map((item: { id: number }) => {
-    return item.id;
-  });
-  tracks = await transformTracks(trackIds);
-  createTime = CommonMethod.formatTime(createTime, '{y}-{m}-{d}');
-  updateTime = CommonMethod.formatTime(updateTime, '{y}-{m}-{d}');
+    return item.id
+  })
+  tracks = await transformTracks(trackIds)
+  createTime = CommonMethod.formatTime(createTime, '{y}-{m}-{d}')
+  updateTime = CommonMethod.formatTime(updateTime, '{y}-{m}-{d}')
   return {
     id,
     name,
@@ -33,23 +33,23 @@ export async function transformResponsePlaylist(
     cover: `${coverImgUrl}`,
     description,
     tags
-  };
+  }
 }
 
 export async function transformTracks(ids: number[]): Promise<ISongFormat[]> {
-  const res = await getSongDetail(ids.join(','));
+  const res = await getSongDetail(ids.join(','))
   return res.data.songs.map((item: any) => {
-    return TransformTracksSongFormat(item);
-  });
+    return TransformTracksSongFormat(item)
+  })
 }
 
 export function TransformTracksSongFormat(item: any): ISongFormat {
-  const artists = [];
+  const artists = []
   const artistId = item.ar.map((a: { id: any }) => {
-    return a.id;
-  });
+    return a.id
+  })
   for (const ar of item.ar) {
-    artists.push(ar.name);
+    artists.push(ar.name)
   }
   return {
     name: item.name,
@@ -70,12 +70,12 @@ export function TransformTracksSongFormat(item: any): ISongFormat {
     lrc: '',
     pop: item.pop,
     duration: CommonMethod.getDuration(item.dt)
-  };
+  }
 }
 
 export async function transformSearchSongTracks(tracks: ISearchSong[]) {
   const ids = tracks.map((item: ISearchSong) => {
-    return item.id;
-  });
-  return await transformTracks(ids);
+    return item.id
+  })
+  return await transformTracks(ids)
 }

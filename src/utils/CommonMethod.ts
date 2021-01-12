@@ -9,7 +9,7 @@ export default class CommonMethod {
    * @param value
    */
   static isObject(value: any) {
-    return Object.prototype.toString.call(value) === '[object Object]';
+    return Object.prototype.toString.call(value) === '[object Object]'
   }
 
   /**
@@ -19,7 +19,7 @@ export default class CommonMethod {
    */
   static isArray(value: any) {
     // return Object.prototype.toString.call(value) === '[object Array]';
-    return Array.isArray(value);
+    return Array.isArray(value)
   }
 
   /**
@@ -29,7 +29,7 @@ export default class CommonMethod {
    * @param value
    */
   static isNumber(value: any) {
-    return typeof value === 'number' && !Number.isNaN(value);
+    return typeof value === 'number' && !Number.isNaN(value)
   }
 
   /**
@@ -39,37 +39,37 @@ export default class CommonMethod {
    */
   static isNull(value: any) {
     if (value === null || value === undefined || value === '') {
-      return true;
+      return true
     } else if (this.isArray(value) && value.length === 0) {
-      return true;
+      return true
     } else if (this.isObject(value) && Object.keys(value).length === 0) {
-      return true;
+      return true
     }
-    return false;
+    return false
   }
 
   static formatTime(time: number, cFormat: string): string {
     if (`${time}`.length === 10) {
-      time = Number(time) * 1000;
+      time = Number(time) * 1000
     }
 
-    const format = cFormat || '{y}-{m}-{d} {h}:{i}:{s}';
-    let date: Date;
+    const format = cFormat || '{y}-{m}-{d} {h}:{i}:{s}'
+    let date: Date
     if (typeof time === 'object') {
-      date = time;
+      date = time
     } else {
-      date = new Date(time);
+      date = new Date(time)
     }
 
     interface formatObj {
-      y: number;
-      m: number;
-      d: number;
-      h: number;
-      i: number;
-      s: number;
-      a: number;
-      [propName: string]: any;
+      y: number
+      m: number
+      d: number
+      h: number
+      i: number
+      s: number
+      a: number
+      [propName: string]: any
     }
 
     const formatInstance: formatObj = {
@@ -80,37 +80,37 @@ export default class CommonMethod {
       i: date.getMinutes(),
       s: date.getSeconds(),
       a: date.getDay()
-    };
+    }
     const time_str = format.replace(/{(y|m|d|h|i|s|a)+}/g, (result, key) => {
-      let value = formatInstance[key];
+      let value = formatInstance[key]
       if (key === 'a') {
-        return ['一', '二', '三', '四', '五', '六', '日'][value - 1];
+        return ['一', '二', '三', '四', '五', '六', '日'][value - 1]
       }
       if (result.length > 0 && value < 10) {
-        value = `0${value}`;
+        value = `0${value}`
       }
-      return value || 0;
-    });
-    return time_str;
+      return value || 0
+    })
+    return time_str
   }
 
   static getDuration(my_time: number) {
-    const days = my_time / 1000 / 60 / 60 / 24;
-    const daysRound = Math.floor(days);
-    const hours = my_time / 1000 / 60 / 60 - 24 * daysRound;
-    const hoursRound = Math.floor(hours);
-    const minutes = my_time / 1000 / 60 - 24 * 60 * daysRound - 60 * hoursRound;
-    const minutesRound = Math.floor(minutes);
+    const days = my_time / 1000 / 60 / 60 / 24
+    const daysRound = Math.floor(days)
+    const hours = my_time / 1000 / 60 / 60 - 24 * daysRound
+    const hoursRound = Math.floor(hours)
+    const minutes = my_time / 1000 / 60 - 24 * 60 * daysRound - 60 * hoursRound
+    const minutesRound = Math.floor(minutes)
     const seconds =
       my_time / 1000 -
       24 * 60 * 60 * daysRound -
       60 * 60 * hoursRound -
-      60 * minutesRound;
-    const secondsRound = Math.floor(seconds);
+      60 * minutesRound
+    const secondsRound = Math.floor(seconds)
     const time =
       hoursRound === 0
         ? `${minutesRound}:${secondsRound}`
-        : `${hoursRound}:${minutesRound}:${secondsRound}`;
-    return time;
+        : `${hoursRound}:${minutesRound}:${secondsRound}`
+    return time
   }
 }

@@ -1,18 +1,18 @@
-import { IDjProgram, ISongFormat } from './types';
-import CommonMethod from '@/utils/CommonMethod';
+import { ISongFormat } from './types'
+import CommonMethod from '@/utils/CommonMethod'
 // 处理home recommendNewSong格式
 export function transformPlayList(list: []): ISongFormat[] {
   return list.map((item: any) => {
-    return transformSong(item);
-  });
+    return transformSong(item)
+  })
 }
 export function transformSong(item: any): ISongFormat {
-  const artists = [];
+  const artists = []
   const artistId = item.song.artists.map((a: { id: any }) => {
-    return a.id;
-  });
+    return a.id
+  })
   for (const ar of item.song.artists) {
-    artists.push(ar.name);
+    artists.push(ar.name)
   }
   return {
     name: item.name,
@@ -32,14 +32,14 @@ export function transformSong(item: any): ISongFormat {
     key: item.id,
     pop: 0,
     duration: CommonMethod.getDuration(item.dt)
-  };
+  }
 }
 
 // 处理home recommendDj 格式
 export function transformDjProgramList(list: []): ISongFormat[] {
   return list.map(item => {
-    return transformDjProgram(item);
-  });
+    return transformDjProgram(item)
+  })
 }
 
 export function transformDjProgram(item: any): ISongFormat {
@@ -62,13 +62,13 @@ export function transformDjProgram(item: any): ISongFormat {
     lrc: '',
     pop: 0,
     duration: CommonMethod.getDuration(item.dt)
-  };
+  }
 }
 
 export function transformProgramRecommendList(list: any[]): ISongFormat[] {
   return list.map((item: any) => {
-    return transformProgramRecommend(item);
-  });
+    return transformProgramRecommend(item)
+  })
 }
 
 export function transformProgramRecommend(item: any): ISongFormat {
@@ -87,5 +87,5 @@ export function transformProgramRecommend(item: any): ISongFormat {
     lrc: '',
     pop: 0,
     duration: CommonMethod.getDuration(item.duration)
-  };
+  }
 }

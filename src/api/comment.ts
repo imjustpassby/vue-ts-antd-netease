@@ -1,11 +1,11 @@
-import { ResponseComment } from '@/utils/types';
-import request from '@/utils/Request';
+import { ResponseComment } from '@/utils/types'
+import request from '@/utils/Request'
 
 type commentParams = {
-  type: number;
-  id: number;
-  content: string;
-};
+  type: number
+  id: number
+  content: string
+}
 
 /* 歌曲评论 */
 export function getCommentMusic(id: number) {
@@ -15,7 +15,7 @@ export function getCommentMusic(id: number) {
       id,
       limit: 30
     }
-  });
+  })
 }
 
 /* 写评论 
@@ -40,5 +40,5 @@ export function sendComment({ type, id, content = '赞' }: commentParams) {
       id: id,
       content: content
     }
-  });
+  })
 }

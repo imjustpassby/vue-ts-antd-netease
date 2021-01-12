@@ -6,9 +6,9 @@ import {
   ResponseArtistByCategory,
   ResponseArtistDesc,
   ResponseArtistMv
-} from '@/utils/types';
-import mem from 'mem';
-import request from '@/utils/Request';
+} from '@/utils/types'
+import mem from 'mem'
+import request from '@/utils/Request'
 const list = [
   {
     title: '推荐',
@@ -104,10 +104,10 @@ const list = [
       }
     ]
   }
-];
+]
 
 export function getList() {
-  return list;
+  return list
 }
 
 /* 歌手分类列表 */
@@ -137,12 +137,12 @@ export const getArtistByCategory = mem(
         limit: limit,
         offset: offset
       }
-    });
+    })
   },
   {
     maxAge: 1000 * 60 * 30
   }
-);
+)
 
 /* 热门歌手 */
 export const getTopArtists = mem(
@@ -153,12 +153,12 @@ export const getTopArtists = mem(
         limit: limit,
         offset: offset
       }
-    });
+    })
   },
   {
     maxAge: 1000 * 60 * 60
   }
-);
+)
 
 /* 获取歌手单曲,传入歌手 id, 可获得歌手部分信息和热门歌曲  */
 export const getArtist = mem(
@@ -168,12 +168,12 @@ export const getArtist = mem(
       params: {
         id
       }
-    });
+    })
   },
   {
     maxAge: 1000 * 60 * 60
   }
-);
+)
 
 /* 获取歌手描述 */
 export const getArtistDesc = mem(
@@ -183,12 +183,12 @@ export const getArtistDesc = mem(
       params: {
         id
       }
-    });
+    })
   },
   {
     maxAge: 1000 * 60 * 60
   }
-);
+)
 
 /* 获取歌手专辑 */
 export const getArtistAlbum = mem(
@@ -200,12 +200,12 @@ export const getArtistAlbum = mem(
         limit: limit,
         offset: offset
       }
-    });
+    })
   },
   {
     maxAge: 1000 * 60 * 60
   }
-);
+)
 
 /* 获取歌手MV */
 export const getArtistMv = mem(
@@ -215,9 +215,9 @@ export const getArtistMv = mem(
       params: {
         id
       }
-    });
+    })
   },
   {
     maxAge: 1000 * 60 * 60
   }
-);
+)

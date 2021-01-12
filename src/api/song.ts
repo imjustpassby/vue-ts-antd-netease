@@ -5,9 +5,9 @@ import {
   ResponseSimilarSong,
   ResponseSongDetail,
   ResponseSongUrl
-} from '@/utils/types/index.ts';
-import mem from 'mem';
-import request from '@/utils/Request';
+} from '@/utils/types/index.ts'
+import mem from 'mem'
+import request from '@/utils/Request'
 
 export const getSongDetail = mem(
   function(ids: string) {
@@ -16,12 +16,12 @@ export const getSongDetail = mem(
       params: {
         ids: ids
       }
-    });
+    })
   },
   {
     maxAge: 1000 * 60 * 60
   }
-);
+)
 
 export const checkMusic = mem(
   function(id: number) {
@@ -30,12 +30,12 @@ export const checkMusic = mem(
       params: {
         id
       }
-    });
+    })
   },
   {
     maxAge: 1000 * 60 * 60
   }
-);
+)
 
 export async function getSongUrl<T>(id: number) {
   return await request<ResponseSongUrl<T>>({
@@ -43,7 +43,7 @@ export async function getSongUrl<T>(id: number) {
     params: {
       id
     }
-  });
+  })
 }
 
 export const getLyric = mem(
@@ -53,12 +53,12 @@ export const getLyric = mem(
       params: {
         id
       }
-    });
+    })
   },
   {
     maxAge: 1000 * 60 * 60
   }
-);
+)
 
 /* 获取相似歌曲 */
 export const getSimilarSong = mem(
@@ -68,12 +68,12 @@ export const getSimilarSong = mem(
       params: {
         id
       }
-    });
+    })
   },
   {
     maxAge: 1000 * 60 * 60
   }
-);
+)
 
 /* 获取每日推荐歌曲(需要登录) */
 export const getRecommendSongs = mem(
@@ -83,9 +83,9 @@ export const getRecommendSongs = mem(
       params: {
         _t: Date.now()
       }
-    });
+    })
   },
   {
     maxAge: 1000 * 60 * 60
   }
-);
+)

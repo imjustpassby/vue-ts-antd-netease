@@ -2,19 +2,19 @@ import {
   ResponseAlbum,
   ResponseNewestAlbum,
   TopAlbumParams
-} from '@/utils/types';
-import mem from 'mem';
-import request from '@/utils/Request';
+} from '@/utils/types'
+import mem from 'mem'
+import request from '@/utils/Request'
 export const getNewestAlbum = mem(
   function() {
     return request<ResponseNewestAlbum>({
       url: '/api/album/newest'
-    });
+    })
   },
   {
     maxAge: 1000 * 60 * 30
   }
-);
+)
 
 export const getTopAlbum = mem(
   function({ limit = 20, offset }: TopAlbumParams) {
@@ -24,12 +24,12 @@ export const getTopAlbum = mem(
         limit: limit,
         offset: offset
       }
-    });
+    })
   },
   {
     maxAge: 1000 * 60
   }
-);
+)
 
 /* 获取专辑详情 */
 export const getAlbum = mem(
@@ -39,9 +39,9 @@ export const getAlbum = mem(
       params: {
         id
       }
-    });
+    })
   },
   {
     maxAge: 1000 * 60 * 60
   }
-);
+)
