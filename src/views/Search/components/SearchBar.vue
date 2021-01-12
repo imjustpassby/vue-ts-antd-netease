@@ -26,11 +26,12 @@
 
 <script lang="ts">
 import { Component, Emit, Vue } from 'vue-property-decorator'
-import { debounce } from '@/utils/debounce'
 import {
-  ResponseSearchSuggestion,
   ISearchSuggestionAlbum,
-  ISearchSuggestionSong
+  ISearchSuggestionArtist,
+  ISearchSuggestionPlaylist,
+  ISearchSuggestionSong,
+  ResponseSearchSuggestion
 } from '@/utils/types'
 import { searchSuggest } from '@/api/search'
 import axios from 'axios'
@@ -55,44 +56,52 @@ export default class SearchBar extends Vue {
     }
     try {
       const res = await searchSuggest<ResponseSearchSuggestion>(keywords.trim())
-      let {
+      const {
         songs = [],
         artists = [],
         albums = [],
         playlists = []
       } = res.data.result
-      const songsSuggest: option[] = songs.map(item => {
-        return {
-          label: item.name,
-          value: item.name,
-          id: item.id,
-          type: '单曲'
+      const songsSuggest: option[] = songs.map(
+        (item: ISearchSuggestionSong) => {
+          return {
+            label: item.name,
+            value: item.name,
+            id: item.id,
+            type: '单曲'
+          }
         }
-      })
-      const artistsSuggest: option[] = artists.map(item => {
-        return {
-          label: item.name,
-          value: item.name,
-          id: item.id,
-          type: '歌手'
+      )
+      const artistsSuggest: option[] = artists.map(
+        (item: ISearchSuggestionArtist) => {
+          return {
+            label: item.name,
+            value: item.name,
+            id: item.id,
+            type: '歌手'
+          }
         }
-      })
-      const albumsSuggest: option[] = albums.map(item => {
-        return {
-          label: item.name,
-          value: item.name,
-          id: item.id,
-          type: '专辑'
+      )
+      const albumsSuggest: option[] = albums.map(
+        (item: ISearchSuggestionAlbum) => {
+          return {
+            label: item.name,
+            value: item.name,
+            id: item.id,
+            type: '专辑'
+          }
         }
-      })
-      const playlistsSuggest: option[] = playlists.map(item => {
-        return {
-          label: item.name,
-          value: item.name,
-          id: item.id,
-          type: '歌单'
+      )
+      const playlistsSuggest: option[] = playlists.map(
+        (item: ISearchSuggestionPlaylist) => {
+          return {
+            label: item.name,
+            value: item.name,
+            id: item.id,
+            type: '歌单'
+          }
         }
-      })
+      )
       this.suggestions = [
         ...songsSuggest,
         ...artistsSuggest,

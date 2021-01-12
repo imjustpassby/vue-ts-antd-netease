@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosResponse } from 'ts-axios-new'
+import axios, { AxiosError, AxiosResponse } from 'axios'
 import Cookies from 'js-cookie'
 import qs from 'query-string'
 import store from '@/store'
