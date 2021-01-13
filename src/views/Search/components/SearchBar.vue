@@ -38,8 +38,17 @@ interface option {
   label: string
   value: string
   id: number
-  type: '专辑' | '单曲' | '歌单' | '歌手'
+  type: suggestionsType
 }
+
+type suggestionsResult =
+  | ISearchSuggestionAlbum
+  | ISearchSuggestionArtist
+  | ISearchSuggestionPlaylist
+  | ISearchSuggestionSong
+
+type suggestionsType = '专辑' | '单曲' | '歌单' | '歌手'
+
 @Component({
   components: {}
 })
@@ -61,61 +70,59 @@ export default class SearchBar extends Vue {
         albums = [],
         playlists = []
       } = res.data.result
-      const songsSuggest: option[] = songs.map(
-        (item: ISearchSuggestionSong) => {
-          return {
-            label: '[单曲] ' + item.name,
-            value: item.name,
-            id: item.id,
-            type: '单曲'
-          }
-        }
+
+      const songsSuggest: option[] = this.transformSearchSuggestions(
+        songs,
+        '单曲'
       )
-      const artistsSuggest: option[] = artists.map(
-        (item: ISearchSuggestionArtist) => {
-          return {
-            label: '[歌手] ' + item.name,
-            value: item.name,
-            id: item.id,
-            type: '歌手'
-          }
-        }
+      const artistsSuggest: option[] = this.transformSearchSuggestions(
+        artists,
+        '歌手'
       )
-      const albumsSuggest: option[] = albums.map(
-        (item: ISearchSuggestionAlbum) => {
-          return {
-            label: '[专辑] ' + item.name,
-            value: item.name,
-            id: item.id,
-            type: '专辑'
-          }
-        }
+      const albumsSuggest: option[] = this.transformSearchSuggestions(
+        albums,
+        '专辑'
       )
-      const playlistsSuggest: option[] = playlists.map(
-        (item: ISearchSuggestionPlaylist) => {
-          return {
-            label: '[歌单] ' + item.name,
-            value: item.name,
-            id: item.id,
-            type: '歌单'
-          }
-        }
+      const playlistsSuggest: option[] = this.transformSearchSuggestions(
+        playlists,
+        '歌单'
       )
+
       const suggestions = [
         ...songsSuggest,
         ...artistsSuggest,
         ...albumsSuggest,
         ...playlistsSuggest
       ]
-      const set = new Set()
-      this.suggestions = suggestions.reduce((cur: option[], next: option) => {
-        set.has(next.label) ? '' : set.add(next.label) && cur.push(next)
-        return cur
-      }, [])
+
+      this.suggestions = this.reduceSearchSuggestions(suggestions)
       this.fetching = false
     } catch (err) {
       console.log(err)
     }
+  }
+
+  transformSearchSuggestions(
+    suggestions: suggestionsResult[],
+    type: suggestionsType
+  ): option[] {
+    const sug = suggestions.map((item: suggestionsResult) => {
+      return {
+        label: `[${type}] ${item.name}`,
+        value: item.name,
+        id: item.id,
+        type
+      }
+    })
+    return sug
+  }
+
+  reduceSearchSuggestions(suggestions: option[]) {
+    const set = new Set()
+    return suggestions.reduce((cur: option[], next: option) => {
+      set.has(next.label) ? '' : set.add(next.label) && cur.push(next)
+      return cur
+    }, [])
   }
 
   @Emit('search')
