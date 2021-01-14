@@ -67,7 +67,6 @@ export default class Search extends Vue {
   activeKey = '单曲'
 
   search(data: receiveData) {
-    console.log('data: ', data)
     this.keywords = data.keywords
     this.activeKey = data.type
   }

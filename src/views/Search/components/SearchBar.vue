@@ -6,18 +6,28 @@
           show-search
           :show-arrow="false"
           style="width: 100%"
-          label-in-value
           placeholder="单曲/歌手/专辑/歌单/MV"
           v-model.trim="keywords"
+          label-in-value
           :filter-option="false"
           :not-found-content="fetching ? undefined : null"
           @search="getSearchResult"
           @change="handleChange"
         >
           <a-spin v-if="fetching" slot="notFoundContent" size="small" />
-          <a-select-option v-for="suggest in suggestions" :key="suggest.id">
-            {{ suggest.label }}
-          </a-select-option>
+          <a-select-opt-group
+            v-for="suggest in suggestions"
+            :key="suggest.type"
+            :label="suggest.type"
+          >
+            <a-select-option
+              v-for="item in suggest.options"
+              :key="item.id"
+              :value="'[' + item.type + '] ' + item.value"
+            >
+              {{ item.label }}
+            </a-select-option>
+          </a-select-opt-group>
         </a-select>
       </a-col>
     </a-row>
@@ -34,11 +44,16 @@ import {
   ResponseSearchSuggestion
 } from '@/utils/types'
 import { searchSuggest } from '@/api/search'
-interface option {
+interface IOption {
   label: string
   value: string
   id: number
   type: suggestionsType
+}
+
+interface ISuggestions {
+  type: suggestionsType
+  options: IOption[]
 }
 
 type suggestionsResult =
@@ -55,10 +70,11 @@ type suggestionsType = '专辑' | '单曲' | '歌单' | '歌手'
 export default class SearchBar extends Vue {
   keywords = ''
   fetching = false
-  suggestions: Array<option> = []
+  suggestions: Array<ISuggestions> = []
 
   async getSearchResult(keywords: string) {
     this.fetching = true
+    this.suggestions = []
     if (keywords.trim() === '') {
       return
     }
@@ -71,33 +87,33 @@ export default class SearchBar extends Vue {
         playlists = []
       } = res.data.result
 
-      const songsSuggest: option[] = this.transformSearchSuggestions(
-        songs,
-        '单曲'
-      )
-      const artistsSuggest: option[] = this.transformSearchSuggestions(
-        artists,
-        '歌手'
-      )
-      const albumsSuggest: option[] = this.transformSearchSuggestions(
-        albums,
-        '专辑'
-      )
-      const playlistsSuggest: option[] = this.transformSearchSuggestions(
-        playlists,
-        '歌单'
-      )
-
+      const songsSuggest: ISuggestions = {
+        type: '单曲',
+        options: this.transformSearchSuggestions(songs, '单曲')
+      }
+      const artistsSuggest: ISuggestions = {
+        type: '歌手',
+        options: this.transformSearchSuggestions(artists, '歌手')
+      }
+      const albumsSuggest: ISuggestions = {
+        type: '专辑',
+        options: this.transformSearchSuggestions(albums, '专辑')
+      }
+      const playlistsSuggest: ISuggestions = {
+        type: '歌单',
+        options: this.transformSearchSuggestions(playlists, '歌单')
+      }
       const suggestions = [
-        ...songsSuggest,
-        ...artistsSuggest,
-        ...albumsSuggest,
-        ...playlistsSuggest
+        songsSuggest,
+        artistsSuggest,
+        albumsSuggest,
+        playlistsSuggest
       ]
 
-      this.suggestions = this.reduceSearchSuggestions(suggestions)
+      this.suggestions = suggestions.filter(item => item.options.length)
       this.fetching = false
     } catch (err) {
+      this.suggestions = []
       console.log(err)
     }
   }
@@ -105,21 +121,24 @@ export default class SearchBar extends Vue {
   transformSearchSuggestions(
     suggestions: suggestionsResult[],
     type: suggestionsType
-  ): option[] {
+  ): IOption[] {
+    if (suggestions.length === 0) {
+      return []
+    }
     const sug = suggestions.map((item: suggestionsResult) => {
       return {
-        label: `[${type}] ${item.name}`,
+        label: item.name,
         value: item.name,
         id: item.id,
         type
       }
     })
-    return sug
+    return this.reduceSearchSuggestions(sug)
   }
 
-  reduceSearchSuggestions(suggestions: option[]) {
+  reduceSearchSuggestions(suggestions: IOption[]): IOption[] {
     const set = new Set()
-    return suggestions.reduce((cur: option[], next: option) => {
+    return suggestions.reduce((cur: IOption[], next: IOption) => {
       set.has(next.label) ? '' : set.add(next.label) && cur.push(next)
       return cur
     }, [])
@@ -131,8 +150,8 @@ export default class SearchBar extends Vue {
       keywords: selected,
       fetching: false
     })
-    const keywords = selected.label.substring(5).trim()
-    const type = selected.label.substring(2, 4)
+    const keywords = selected.label.trim()
+    const type = selected.key.substring(1, 3).trim()
     return { keywords, type }
   }
 }
