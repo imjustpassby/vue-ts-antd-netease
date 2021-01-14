@@ -5,28 +5,28 @@
         <search-bar @search="search"></search-bar>
       </a-col>
       <a-col :span="14" :offset="5">
-        <a-tabs default-active-key="1">
-          <a-tab-pane key="1">
+        <a-tabs default-active-key="单曲" v-model="activeKey">
+          <a-tab-pane key="单曲">
             <span slot="tab">单曲</span>
             <song-search :keywords="keywords"></song-search>
           </a-tab-pane>
-          <a-tab-pane key="2">
+          <a-tab-pane key="歌手">
             <span slot="tab">歌手</span>
             <artist-search :keywords="keywords"></artist-search>
           </a-tab-pane>
-          <a-tab-pane key="3">
+          <a-tab-pane key="歌单">
             <span slot="tab">歌单</span>
             <playlist-search :keywords="keywords"></playlist-search>
           </a-tab-pane>
-          <a-tab-pane key="4">
+          <a-tab-pane key="专辑">
             <span slot="tab">专辑</span>
             <album-search :keywords="keywords"></album-search>
           </a-tab-pane>
-          <a-tab-pane key="5">
+          <a-tab-pane key="MV">
             <span slot="tab">MV</span>
             <mv-search :keywords="keywords"></mv-search>
           </a-tab-pane>
-          <a-tab-pane key="6">
+          <a-tab-pane key="电台">
             <span slot="tab">电台</span>
             <program-search :keywords="keywords"></program-search>
           </a-tab-pane>
@@ -46,6 +46,10 @@ import ProgramSearch from './components/ProgramSearch.vue'
 import SearchBar from './components/SearchBar.vue'
 import SongSearch from './components/SongSearch.vue'
 // import VideoSearch from './components/VideoSearch.vue';
+interface receiveData {
+  keywords: string
+  type: string
+}
 @Component({
   name: 'Search',
   components: {
@@ -60,9 +64,12 @@ import SongSearch from './components/SongSearch.vue'
 })
 export default class Search extends Vue {
   keywords = ''
+  activeKey = '单曲'
 
-  search(data: string) {
-    this.keywords = data
+  search(data: receiveData) {
+    console.log('data: ', data)
+    this.keywords = data.keywords
+    this.activeKey = data.type
   }
 }
 </script>

@@ -131,7 +131,9 @@ export default class SearchBar extends Vue {
       keywords: selected,
       fetching: false
     })
-    return selected.label.substring(5).trim()
+    const keywords = selected.label.substring(5).trim()
+    const type = selected.label.substring(2, 4)
+    return { keywords, type }
   }
 }
 </script>
