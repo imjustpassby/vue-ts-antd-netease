@@ -2,40 +2,47 @@
   <div class="">
     <a-row type="flex" justify="space-around" class="search-top">
       <a-col :span="16" class="certain-category-search-wrapper">
-        <a-select
-          show-search
-          :show-arrow="false"
+        <a-auto-complete
+          ref="searchbar"
           style="width: 100%"
           placeholder="单曲/歌手/专辑/歌单/MV"
           v-model.trim="keywords"
-          label-in-value
-          :filter-option="false"
-          :not-found-content="fetching ? undefined : null"
+          :dropdown-match-select-width="false"
+          :dropdown-style="{ width: '300px' }"
           @search="getSearchResult"
-          @change="handleChange"
+          @select="handleSelect"
         >
-          <a-spin v-if="fetching" slot="notFoundContent" size="small" />
-          <a-select-opt-group
-            v-for="suggest in suggestions"
-            :key="suggest.type"
-            :label="suggest.type"
-          >
-            <a-select-option
-              v-for="item in suggest.options"
-              :key="item.id"
-              :value="'[' + item.type + '] ' + item.value"
+          <template slot="dataSource">
+            <a-select-opt-group
+              v-for="suggest in dataSource"
+              :key="suggest.type"
             >
-              {{ item.label }}
-            </a-select-option>
-          </a-select-opt-group>
-        </a-select>
+              <span slot="label">{{ suggest.type }}</span>
+              <a-select-option
+                v-for="item in suggest.options"
+                :key="item.id"
+                :value="'[' + item.type + '] ' + item.value"
+              >
+                {{ item.label }}
+              </a-select-option>
+            </a-select-opt-group>
+          </template>
+          <a-input>
+            <a-icon
+              slot="suffix"
+              type="search"
+              @click="search"
+              class="certain-category-icon"
+            />
+          </a-input>
+        </a-auto-complete>
       </a-col>
     </a-row>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Emit, Vue } from 'vue-property-decorator'
+import { Component, Emit, Prop, Vue } from 'vue-property-decorator'
 import {
   ISearchSuggestionAlbum,
   ISearchSuggestionArtist,
@@ -68,13 +75,19 @@ type suggestionsType = '专辑' | '单曲' | '歌单' | '歌手'
   components: {}
 })
 export default class SearchBar extends Vue {
+  @Prop({ default: '单曲' })
+  activeKey: string | undefined
+
   keywords = ''
   fetching = false
-  suggestions: Array<ISuggestions> = []
+  dataSource: Array<ISuggestions> = []
+  // $refs!: {
+  //   searchbar: HTMLFormElement
+  // }
 
   async getSearchResult(keywords: string) {
     this.fetching = true
-    this.suggestions = []
+    this.dataSource = []
     if (keywords.trim() === '') {
       return
     }
@@ -110,10 +123,10 @@ export default class SearchBar extends Vue {
         playlistsSuggest
       ]
 
-      this.suggestions = suggestions.filter(item => item.options.length)
+      this.dataSource = suggestions.filter(item => item.options.length)
       this.fetching = false
     } catch (err) {
-      this.suggestions = []
+      this.dataSource = []
       console.log(err)
     }
   }
@@ -145,14 +158,37 @@ export default class SearchBar extends Vue {
   }
 
   @Emit('search')
-  handleChange(selected: { label: string; key: string }) {
-    Object.assign(this, {
-      keywords: selected,
-      fetching: false
-    })
-    const keywords = selected.label.trim()
-    const type = selected.key.substring(1, 3).trim()
+  handleSelect(selected: string) {
+    const keywords = this.getKeywords(selected.trim())
+    console.log('keywords: ', keywords)
+    const type = this.getType(selected.trim())
+
+    console.log('type: ', type)
     return { keywords, type }
+  }
+
+  @Emit('search')
+  search() {
+    return {
+      keywords: this.getKeywords(this.keywords.trim()),
+      type: this.getType(this.keywords.trim())
+    }
+  }
+
+  getKeywords(str: string) {
+    const idx = str.indexOf(']')
+    if (idx < 0) {
+      return str
+    }
+    return str.substring(idx + 1).trim()
+  }
+
+  getType(str: string) {
+    const idx = str.indexOf('[')
+    if (idx < 0) {
+      return this.activeKey
+    }
+    return str.substring(idx + 1, idx + 3)
   }
 }
 </script>

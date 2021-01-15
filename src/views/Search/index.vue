@@ -2,7 +2,7 @@
   <div>
     <a-row class="search-container">
       <a-col :span="14" :offset="5">
-        <search-bar @search="search"></search-bar>
+        <search-bar @search="search" :active-key="activeKey"></search-bar>
       </a-col>
       <a-col :span="14" :offset="5">
         <a-tabs default-active-key="单曲" v-model="activeKey">
@@ -66,9 +66,9 @@ export default class Search extends Vue {
   keywords = ''
   activeKey = '单曲'
 
-  search(data: receiveData) {
-    this.keywords = data.keywords
-    this.activeKey = data.type
+  search({ keywords, type }: receiveData) {
+    this.keywords = keywords
+    this.activeKey = type
   }
 }
 </script>

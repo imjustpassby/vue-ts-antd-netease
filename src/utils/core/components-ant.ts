@@ -40,7 +40,8 @@ let {
   Progress,
   Comment,
   Empty,
-  Select
+  Select,
+  AutoComplete
 } = antd
 
 Vue.use(Empty)
@@ -75,6 +76,7 @@ Vue.use(Divider)
 Vue.use(Skeleton)
 Vue.use(Carousel)
 Vue.use(Select)
+Vue.use(AutoComplete)
 // Vue.use(VueCropper)
 // Vue.use(notification)
 

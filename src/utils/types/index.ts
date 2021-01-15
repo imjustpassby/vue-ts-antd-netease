@@ -191,6 +191,7 @@ export interface ISearchPlaylist {
 }
 
 export interface ResponseSearchPlaylistResult {
+  hasMore: boolean
   playlistCount: number
   playlists: ISearchPlaylist[]
 }

@@ -1,6 +1,6 @@
 # vue-typescript 封装 axios 及用例
 
-- 安装依赖 ts-axios-new
+- 安装依赖 axios
 - utils 目录建立 request.ts
 
 ```typescript
