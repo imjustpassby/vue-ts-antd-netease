@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div id="search">
     <a-row type="flex" justify="space-around" class="search-top">
       <a-col :span="16" class="certain-category-search-wrapper">
         <a-auto-complete
@@ -81,9 +81,10 @@ export default class SearchBar extends Vue {
   keywords = ''
   fetching = false
   dataSource: Array<ISuggestions> = []
-  // $refs!: {
-  //   searchbar: HTMLFormElement
-  // }
+  $refs!: {
+    searchbar: HTMLFormElement
+    input: HTMLFormElement
+  }
 
   async getSearchResult(keywords: string) {
     this.fetching = true
@@ -169,6 +170,7 @@ export default class SearchBar extends Vue {
 
   @Emit('search')
   search() {
+    this.$refs['searchbar'].focus()
     return {
       keywords: this.getKeywords(this.keywords.trim()),
       type: this.getType(this.keywords.trim())
