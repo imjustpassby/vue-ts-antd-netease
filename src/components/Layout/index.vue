@@ -17,7 +17,6 @@
                 v-for="(item, index) in topLink"
                 :key="index"
                 :class="checkedTopLink == index ? 'isTopChecked' : ''"
-                @click="clickTopLink(index)"
               >
                 <router-link :to="item.link">
                   <span style="lineHeight: 70px; display: inline-block">
@@ -63,7 +62,6 @@
               v-for="(item, index) in subLink"
               :key="index"
               :class="checkedSubLink == index ? 'isSubChecked' : ''"
-              @click="clickSubLink(index)"
             >
               <router-link :to="item.link">
                 <span>{{ item.span }}</span>
@@ -92,12 +90,19 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Watch } from 'vue-property-decorator'
+import {
+  discoveryPage,
+  personalPage,
+  routePath,
+  searchPage
+} from '@/utils/constants/route'
 import { IPageJumpConfig } from '@/utils/types'
 import { namespace } from 'vuex-class'
 import APlayer from '@/components/APlayer/index.vue'
 import LoginForm from '@/components/Login/index.vue'
 import MyPlaylist from '@/components/MyPlaylist/index.vue'
+import RankingList from '../../views/RankingList/index.vue'
 const userModule = namespace('user')
 interface Link {
   span: string
@@ -159,60 +164,52 @@ export default class Layout extends Vue {
   @userModule.State('avatarUrl') StateAvatarUrl!: string | null
   @userModule.State('loginSuccess') StateLoginSuccess!: string
 
-  mounted() {
-    window.sessionStorage.setItem('checkedTopLink', '0')
-    window.sessionStorage.setItem('checkedSubLink', '0')
+  @Watch('$route', { deep: true })
+  resetActiveMenu() {
+    const currentPath = this.$route.path
+    if (discoveryPage.includes(currentPath)) {
+      this.checkedTopLink = '0'
+    } else if (personalPage.includes(currentPath)) {
+      this.checkedTopLink = '1'
+    } else if (searchPage.includes(currentPath)) {
+      this.checkedTopLink = '2'
+    }
+
+    switch (currentPath) {
+      case routePath.home:
+        this.checkedSubLink = '0'
+        break
+      case routePath.rankingList:
+        this.checkedSubLink = '1'
+        break
+      case routePath.playlist:
+        this.checkedSubLink = '2'
+        break
+      case routePath.dj:
+        this.checkedSubLink = '3'
+        break
+      case routePath.artistRecommend:
+        this.checkedSubLink = '4'
+        break
+      case routePath.artistCategory:
+        this.checkedSubLink = '4'
+        break
+      case routePath.newestAlbum:
+        this.checkedSubLink = '5'
+        break
+      default:
+        this.checkedSubLink = '-1'
+        break
+    }
   }
 
   async beforeDestroy() {
-    if (this.StateLoginSuccess) {
+    if (this.StateLoginSuccess === 'true') {
       await this.logout()
     }
   }
 
-  clickTopLink(idx: number) {
-    if (idx == 0) {
-      window.sessionStorage.setItem('checkedTopLink', `${idx}`)
-      window.sessionStorage.setItem('checkedSubLink', '0')
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      this.checkedTopLink = window.sessionStorage.getItem('checkedTopLink')!
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      this.checkedSubLink = window.sessionStorage.getItem('checkedSubLink')!
-    } else if (idx == 1) {
-      if (this.StateLoginSuccess === 'true') {
-        window.sessionStorage.setItem('checkedTopLink', `${idx}`)
-        window.sessionStorage.setItem('checkedSubLink', '-1')
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        this.checkedTopLink = window.sessionStorage.getItem('checkedTopLink')!
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        this.checkedSubLink = window.sessionStorage.getItem('checkedSubLink')!
-      }
-    } else if (idx == 2) {
-      window.sessionStorage.setItem('checkedTopLink', `${idx}`)
-      window.sessionStorage.setItem('checkedSubLink', '-1')
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      this.checkedTopLink = window.sessionStorage.getItem('checkedTopLink')!
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      this.checkedSubLink = window.sessionStorage.getItem('checkedSubLink')!
-    }
-  }
-
-  clickSubLink(idx: number) {
-    window.sessionStorage.setItem('checkedTopLink', '0')
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    this.checkedTopLink = window.sessionStorage.getItem('checkedTopLink')!
-    window.sessionStorage.setItem('checkedSubLink', `${idx}`)
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    this.checkedSubLink = window.sessionStorage.getItem('checkedSubLink')!
-  }
-
   goHome() {
-    window.sessionStorage.setItem('checkedTopLink', '0')
-    window.sessionStorage.setItem('checkedSubLink', '0')
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    this.checkedTopLink = window.sessionStorage.getItem('checkedTopLink')!
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    this.checkedSubLink = window.sessionStorage.getItem('checkedSubLink')!
     if (this.$route.path !== '/home') {
       this.$router.push({
         path: '/'

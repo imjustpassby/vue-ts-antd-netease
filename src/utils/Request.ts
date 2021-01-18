@@ -2,6 +2,7 @@ import axios, { AxiosError, AxiosResponse } from 'axios'
 import Cookies from 'js-cookie'
 import qs from 'query-string'
 import store from '@/store'
+import Vue from 'vue'
 const request = axios.create({
   // baseURL:
   //   process.env.NODE_ENV === 'production'
@@ -73,6 +74,11 @@ request.interceptors.response.use(
     return Promise.resolve(res)
   },
   (err: AxiosError) => {
+    if (err.response!.status == 504) {
+      Vue.prototype.$message.warning('服务器错误...')
+    } else if (err.response!.status == 301) {
+      Vue.prototype.$message.warning('请登录之后再体验该功能喔...')
+    }
     return Promise.reject(err)
   }
 )
