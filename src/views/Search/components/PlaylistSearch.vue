@@ -41,6 +41,9 @@ export default class PlaylistSearch extends Vue {
   @Prop({ default: '' })
   keywords: string | undefined
 
+  @Prop({ default: '单曲' })
+  activeKey: string | undefined
+
   loading = false
   exactSearch: ISearchPlaylist[] = []
   limit = 20
@@ -68,7 +71,8 @@ export default class PlaylistSearch extends Vue {
       current + this.windowHeight > 0.95 * this.scrollHeight &&
       this.keywords &&
       this.hasMore &&
-      !this.loading
+      !this.loading &&
+      this.activeKey === '歌单'
     ) {
       await this.search({
         keywords: this.keywords!,

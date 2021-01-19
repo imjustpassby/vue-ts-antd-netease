@@ -20,29 +20,29 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import { getRecommendSongs } from '@/api/song';
-import { ISongFormat, ResponseDailyRecommendSong } from '@/utils/types';
-import { transformTracks } from '@/utils/TransformPlaylistFormat';
-import Bus from '@/utils/Bus';
-import PlaylistTable from '@/components/PlaylistTable/index.vue';
-import Spin from '@/components/Spin/index.vue';
+import { Component, Vue } from 'vue-property-decorator'
+import { getRecommendSongs } from '@/api/song'
+import { ISongFormat, ResponseDailyRecommendSong } from '@/utils/types'
+import { transformTracks } from '@/utils/TransformPlaylistFormat'
+import Bus from '@/utils/Bus'
+import PlaylistTable from '@/components/PlaylistTable/index.vue'
+import Spin from '@/components/Spin/index.vue'
 @Component({
   components: { PlaylistTable, Spin }
 })
 export default class DailyRecommend extends Vue {
-  tracks: ISongFormat[] = [];
-  loading = true;
+  tracks: ISongFormat[] = []
+  loading = true
 
   private async mounted() {
-    const res = await getRecommendSongs();
-    const trackIds = res.data.recommend.map(item => item.id);
-    this.tracks = await transformTracks(trackIds);
-    this.loading = false;
+    const res = await getRecommendSongs()
+    const trackIds = res.data.recommend.map(item => item.id)
+    this.tracks = await transformTracks(trackIds)
+    this.loading = false
   }
   addMusicList() {
-    Bus.$emit('add', this.tracks);
-    this.$message.success('已加入播放列表！');
+    Bus.$emit('add', this.tracks)
+    this.$message.success('已加入播放列表！')
   }
 }
 </script>

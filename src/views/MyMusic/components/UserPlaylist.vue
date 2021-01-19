@@ -82,33 +82,33 @@
 </template>
 
 <script lang="ts">
-import { Component, Emit, Vue } from 'vue-property-decorator';
-import { getUserPlaylist } from '@/api/user';
-import { IResponseUserPlaylist, showPlaylistParams } from '@/utils/types';
-import { namespace } from 'vuex-class';
-const userModule = namespace('user');
+import { Component, Emit, Vue } from 'vue-property-decorator'
+import { getUserPlaylist } from '@/api/user'
+import { IResponseUserPlaylist, showPlaylistParams } from '@/utils/types'
+import { namespace } from 'vuex-class'
+const userModule = namespace('user')
 @Component({
   components: {}
 })
 export default class UserPlaylist extends Vue {
-  userPlaylist: IResponseUserPlaylist[] = [];
-  subPlaylist: IResponseUserPlaylist[] = [];
+  userPlaylist: IResponseUserPlaylist[] = []
+  subPlaylist: IResponseUserPlaylist[] = []
 
-  @userModule.State('avatarUrl') StateAvatarUrl!: string | null;
-  @userModule.State('uid') StateUid!: string | null;
+  @userModule.State('avatarUrl') StateAvatarUrl!: string | null
+  @userModule.State('uid') StateUid!: string | null
 
   private async mounted() {
-    await this.getUserPlaylist();
+    await this.getUserPlaylist()
   }
 
   async getUserPlaylist() {
-    const res = await getUserPlaylist(Number(this.StateUid));
+    const res = await getUserPlaylist(Number(this.StateUid))
     this.userPlaylist = res.data.playlist.filter(
       item => item.userId === Number(this.StateUid)
-    );
+    )
     this.subPlaylist = res.data.playlist.filter(
       item => item.userId !== Number(this.StateUid)
-    );
+    )
   }
 
   @Emit('closePlaylist')
@@ -122,7 +122,7 @@ export default class UserPlaylist extends Vue {
 .user-playlist {
   text-align: left;
   border: 1px solid rgb(232, 232, 232);
-  max-height: 200vh;
+  max-height: 120vh;
   overflow: scroll;
   .playlist-title {
     color: #333;

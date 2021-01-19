@@ -16,7 +16,10 @@
           </a-tab-pane>
           <a-tab-pane key="歌单">
             <span slot="tab">歌单</span>
-            <playlist-search :keywords="keywords"></playlist-search>
+            <playlist-search
+              :keywords="keywords"
+              :active-key="activeKey"
+            ></playlist-search>
           </a-tab-pane>
           <a-tab-pane key="专辑">
             <span slot="tab">专辑</span>

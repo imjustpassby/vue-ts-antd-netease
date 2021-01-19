@@ -9,7 +9,8 @@ export default class User {
   static async loginCellphone(loginParams: ILoginParams) {
     const res = await request({
       url: '/api/login/cellphone',
-      params: {
+      method: 'POST',
+      data: {
         _t: Date.now(),
         phone: loginParams.phone,
         password: loginParams.password

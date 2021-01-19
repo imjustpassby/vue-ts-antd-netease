@@ -9,8 +9,11 @@
           v-model.trim="keywords"
           :dropdown-match-select-width="false"
           :dropdown-style="{ width: '300px' }"
+          :open="isOpenSuggestions"
           @search="getSearchResult"
           @select="handleSelect"
+          @focus="isOpenSuggestions = true"
+          @blur="isOpenSuggestions = false"
         >
           <template slot="dataSource">
             <a-select-opt-group
@@ -80,10 +83,10 @@ export default class SearchBar extends Vue {
 
   keywords = ''
   fetching = false
+  isOpenSuggestions = false
   dataSource: Array<ISuggestions> = []
   $refs!: {
     searchbar: HTMLFormElement
-    input: HTMLFormElement
   }
 
   async getSearchResult(keywords: string) {
@@ -128,7 +131,6 @@ export default class SearchBar extends Vue {
       this.fetching = false
     } catch (err) {
       this.dataSource = []
-      console.log(err)
     }
   }
 
@@ -160,17 +162,17 @@ export default class SearchBar extends Vue {
 
   @Emit('search')
   handleSelect(selected: string) {
+    this.isOpenSuggestions = false
     const keywords = this.getKeywords(selected.trim())
-    console.log('keywords: ', keywords)
     const type = this.getType(selected.trim())
-
-    console.log('type: ', type)
     return { keywords, type }
   }
 
   @Emit('search')
   search() {
-    this.$refs['searchbar'].focus()
+    setTimeout(() => {
+      this.isOpenSuggestions = false
+    }, 100)
     return {
       keywords: this.getKeywords(this.keywords.trim()),
       type: this.getType(this.keywords.trim())
