@@ -1,12 +1,12 @@
 <template>
   <div style="padding-bottom:100px;">
-    <a-row type="flex" justify="space-around" style="margin:16px 0">
+    <a-row type="flex" justify="start" style="margin:16px 0">
       <a-col
         :span="4"
         :offset="1"
         v-for="(ar, idx) in exactSearch"
         :key="idx"
-        style="margin: 0 16px 16px 16px"
+        style="margin-bottom:16px"
       >
         <div class="img-box">
           <img
